@@ -1,0 +1,3 @@
+[submodule "hotelOrderFrontend"]
+	path = hotelOrderFrontend
+	url = https://github.com/Habtamu-Dires/hotel-order-front-end.git

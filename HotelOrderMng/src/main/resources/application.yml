@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: HotelOrderMng
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hotelordermng
+    username: hab
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+config:
+  front-end-url: http://localhost:4200
+
+
