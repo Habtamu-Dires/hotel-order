@@ -1,6 +1,8 @@
 package com.hotel.item;
 
+import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequency;
 import com.hotel.category.Category;
+import com.hotel.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +16,7 @@ import java.util.UUID;
 @Getter
 @Entity
 @Table(name = "item")
-public class Item {
+public class Item extends BaseEntity {
     @Id
     private UUID id;
     private String name;
@@ -26,4 +28,7 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToOne(mappedBy = "item")
+    private OrderedItemsFrequency frequency;
 }

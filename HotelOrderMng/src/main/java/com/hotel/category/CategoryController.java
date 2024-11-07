@@ -1,60 +1,61 @@
 package com.hotel.category;
 
-import com.hotel.api_response.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/categories")
+@RequestMapping("/categories")
+@Tag(name = "categories")
 @RequiredArgsConstructor
 public class CategoryController {
 
-    private final CategoryService categoryService;
+    private final CategoryService service;
 
-    @GetMapping
-    public ApiResponse<List<CategoryDTO>> getAllCategory(){
-        List<CategoryDTO> res = categoryService.getAllCategory();
-        return ApiResponse.<List<CategoryDTO>>builder()
-                .success(true)
-                .data(res)
-                .message("List of Categories")
-                .build();
-    }
-
-    @GetMapping("/main")
-    public ApiResponse<List<CategoryDTO>> getMainCategories(){
-        List<CategoryDTO> res = categoryService.getMainCategories();
-        return ApiResponse.<List<CategoryDTO>>builder()
-                .success(true)
-                .data(res)
-                .message("List of Categories")
-                .build();
-    }
-
+    //save category
     @PostMapping
-    public ApiResponse<?> createCategory(
-            @RequestBody CategoryDTO categoryDTO
+    public ResponseEntity<String> saveCategory(
+            @RequestBody @Valid CategoryRequest request
     ){
-        categoryService.createCategory(categoryDTO);
-        return ApiResponse.builder()
-                .success(true)
-                .data(null)
-                .message(String.format("Category %s created", categoryDTO.name()))
-                .build();
+        return ResponseEntity.ok(service.saveCategory(request));
     }
 
-    //add-subCategory
-    @PostMapping("/sub-category")
-    public ApiResponse<?> addSubCategory(
-            @RequestBody SubCategoryDTO subCategoryDTO
-    ){
-        categoryService.addSubCategory(subCategoryDTO);
-        return ApiResponse.builder()
-                .success(true)
-                .data(null)
-                .message("SubCategory Created")
-                .build();
+    // get all categories
+    @GetMapping
+    public ResponseEntity<List<CategoryResponse>> getAllCategory(){
+       return ResponseEntity.ok(service.getAllCategory());
     }
+
+    // get main categories
+    @GetMapping("/main")
+    public ResponseEntity<List<CategoryResponse>> getMainCategories(){
+        return ResponseEntity.ok(service.getMainCategories());
+    }
+
+
+    //upload cover image
+    @PostMapping(value = "/cover-picture/{category-id}", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadCoverPicture(
+            @PathVariable("category-id") String categoryId,
+            @RequestPart MultipartFile file
+            )
+    {
+        service.uploadCoverPicture(categoryId, file);
+        return ResponseEntity.accepted().build();
+    }
+
+    //delete category
+    @DeleteMapping("/{category-id}")
+    public ResponseEntity<?> deleteCategory(
+            @PathVariable("category-id") String  categoryId
+    ) {
+        service.deleteCategory(categoryId);
+        return ResponseEntity.accepted().build();
+    }
+
 }

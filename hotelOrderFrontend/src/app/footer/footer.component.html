@@ -1,0 +1,36 @@
+<div class="flex flex-col w-full h-full">
+    <div class="flex justify-between p-4 bg-black cursor-pointer"
+        [ngClass]="{'animate-bounce transition':shouldBounce,
+            'rounded-t-2xl': !isExpanded
+        }"
+        (click)="toggleFooter()">
+        <div class="flex">
+            <button class="text-white">
+                Order
+            </button>
+            @if(order && totalItems !== 0){
+                <div class="ms-2 text-white">
+                    <span>{{totalItems}}</span>
+                    <span class="ms-2">for {{order.totalPrice.toFixed(2)}} Birr</span>
+                </div>
+            }
+        </div>
+        <div *ngIf="isExpanded">
+            <p class="text-lg text-white mx-2">X</p>
+        </div>
+    </div>
+    @if (isExpanded) {
+        @if(order && totalItems !== 0){
+            <div class="h-full overflow-y-auto border-2 bg-white z-40">
+                <app-order></app-order>
+            </div>
+        } @else {
+            <div class="flex flex-col h-full items-center justify-center gap-2 bg-white">
+                <img  class="w-56 h-56  rounded-2xl mb-1"
+                    src="https://img.freepik.com/free-vector/shopping-cart-realistic_1284-6011.jpg?t=st=1727682162~exp=1727685762~hmac=c41f332939bfa5b4df3bca4c53b0d2f76403a303cb29c83c766a61730b460c03&w=740"
+                />
+                <p class="font-semibold">Nothing to Order</p>
+            </div>
+        }
+    }    
+</div>

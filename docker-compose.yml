@@ -1,0 +1,24 @@
+services:
+  postgres:
+    container_name: postgres-hotel-order
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: hab
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: hotel_order_db
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - hotel-order
+
+
+volumes:
+  postgres:
+    driver: local
+
+networks:
+  hotel-order:
+    driver: bridge

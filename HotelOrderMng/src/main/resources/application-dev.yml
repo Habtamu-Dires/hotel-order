@@ -1,0 +1,33 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: HotelOrderMng
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hotel_order_db
+    username: hab
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+
+application:
+  server:
+    url: http://localhost:8088/api/v1
+  cors:
+    origins: http://localhost:4200
+  security:
+    jwt:
+      secret-key: 9xCv/yYKM/xwcy5H5oQbKAy7ZEyJE/XW0AVU/HJ0Vqd3mjZlspG3+HrukQMBfgnF
+      expiration: 28800000 # 8 hours
+  file:
+    upload:
+      picture-output-path: ./uploads

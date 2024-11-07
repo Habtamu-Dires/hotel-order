@@ -1,10 +1,13 @@
 package com.hotel.order_detail;
 
-import com.hotel.exception.ResourceNotFoundException;
+import com.hotel.exception.OperationNotPermittedException;
 import com.hotel.item.Item;
 import com.hotel.item.ItemService;
 import com.hotel.order.ItemOrder;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -18,23 +21,35 @@ public class OrderDetailService {
     private final ItemService itemService;
 
     //create order detail , without saving to the database
-    public OrderDetail createOrderDetail(OrderDetailDTO orderDetailDTO, ItemOrder order) {
+    public OrderDetail createOrderDetail(OrderDetailRequest request, ItemOrder order) {
         //check if the item exist.
-        Item item = itemService
-            .findItemById(UUID.fromString(orderDetailDTO.itemId()))
-            .orElseThrow(() -> new ResourceNotFoundException("Item not Found"));
+        Item item = itemService.findItemById(request.itemId());
         //check if item is available
-        if(!itemService.isItemAvailable(item, orderDetailDTO.quantity())){
-            throw new ResourceNotFoundException("Item not available now");
+        if(!itemService.isItemAvailable(item, request.quantity())){
+            throw new OperationNotPermittedException("Not enough item available now");
         }
 
-        OrderDetail orderDetail = mapper.toOrderDetail(orderDetailDTO);
+       return OrderDetail.builder()
+                .id(UUID.randomUUID())
+                .item(item)
+                .order(order)
+                .quantity(request.quantity())
+                .status(request.status())
+                .build();
+    }
 
-        orderDetail.setStatus(DetailStatus.PENDING);
-        orderDetail.setId(UUID.randomUUID());
-        orderDetail.setItem(item);
-        orderDetail.setOrder(order);
-        // just return order detail
-      return orderDetail;
+    @Secured({"ROLE_ADMIN", "ROLE_CHEF", "ROLE_BARISTA"})
+    public String updateOrderDetailStatus(String detailId,
+                                                          DetailStatus status) {
+        OrderDetail orderDetail = this.findById(detailId);
+        orderDetail.setStatus(status);
+        return repository.save(orderDetail).getId().toString();
+    }
+
+    //find by id
+    public OrderDetail findById(String id){
+        return repository.findById(UUID.fromString(id))
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("OrderDetail with id:: %s not found", id)));
     }
 }

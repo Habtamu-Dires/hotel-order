@@ -11,8 +11,8 @@ public class CategoryMapper {
     private final ItemMapper itemMapper;
 
     // category DTO
-    public CategoryDTO toCategoryDTO(Category category) {
-        return CategoryDTO.builder()
+    public CategoryResponse toCategoryDTO(Category category) {
+        return CategoryResponse.builder()
                 .id(category.getId().toString())
                 .name(category.getName())
                 .imageUrl(category.getImageUrl())
