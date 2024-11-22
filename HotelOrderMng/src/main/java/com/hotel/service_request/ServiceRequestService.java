@@ -1,5 +1,6 @@
 package com.hotel.service_request;
 
+import com.hotel.common.MessageResponse;
 import com.hotel.location.OrderLocation;
 import com.hotel.location.OrderLocationService;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,34 +21,46 @@ public class ServiceRequestService {
     private final OrderLocationService locationService;
     private final ServiceRequestMapper mapper;
 
-    public String createRequest(ServiceRequestDTO request) {
-    OrderLocation orderLocation = locationService.findOrderLocationById(request.locationId());
-    // avoid multiple similar request from the same location
-      Optional<ServiceRequest> res = repository.findServiceRequestByLocationId(
+    public MessageResponse createRequest(ServiceRequestRequest request) {
+        ServiceType serviceType = changeToServiceType(request.serviceType());
+        OrderLocation orderLocation = locationService.findOrderLocationById(request.locationId());
+        // avoid multiple similar request from the same location, with in small time frame
+        Optional<ServiceRequest> res =
+                repository.findPotentialDuplicatedRequest(
                 UUID.fromString(request.locationId()),
-                request.serviceType()
-        );
+                serviceType,LocalDateTime.now().minusMinutes(5));
 
       if(res.isPresent()){
-          return  "Request already made";
+          return  new MessageResponse("Request already made");
       } else {
           repository.save(
                   ServiceRequest.builder()
                           .id(UUID.randomUUID())
                           .orderLocation(orderLocation)
-                          .serviceType(request.serviceType())
-                          .serviceStatus(request.serviceStatus())
+                          .serviceType(serviceType)
+                          .serviceStatus(ServiceStatus.PENDING)
                           .createdDate(LocalDateTime.now())
                           .build()
           );
-          return String.format("%s request successfully send", request.serviceType());
       }
+      return new MessageResponse(request.serviceType() + " successfully made");
+    }
+
+    // change string to service request type
+    private ServiceType changeToServiceType(String type){
+        ServiceType serviceType = null;
+        try {
+            serviceType = ServiceType.valueOf(type);
+        } catch (Exception e){
+            throw new IllegalArgumentException("unknown service type");
+        }
+        return  serviceType;
     }
 
 
     // get all service request DTO
     @Secured({"ROLE_ADMIN", "ROLE_WAITER"})
-    public List<ServiceRequestDTO> getAllServiceRequests() {
+    public List<ServiceRequestResponse> getAllServiceRequests() {
         return  repository.findAll().stream()
                 .map(mapper::toServiceRequestDTO)
                 .toList();
@@ -55,7 +68,7 @@ public class ServiceRequestService {
 
     // get pending service requests
     @Secured({"ROLE_ADMIN","ROLE_WAITER"})
-    public List<ServiceRequestDTO> getPendingServiceRequests() {
+    public List<ServiceRequestResponse> getPendingServiceRequests() {
         return repository.getPendingServiceRequests()
                 .stream()
                 .map(mapper::toServiceRequestDTO)

@@ -1,9 +1,14 @@
 package com.hotel.item;
 
+import com.hotel.category.CategoryMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ItemMapper {
+
+    private final CategoryMapper categoryMapper;
 
     public ItemResponse toItemResponse(Item item) {
         return ItemResponse.builder()
@@ -11,9 +16,14 @@ public class ItemMapper {
                 .name(item.getName())
                 .price(item.getPrice())
                 .imageUrl(item.getImageUrl())
-                .categoryId(item.getCategory().getId().toString())
+                .category(
+                        categoryMapper
+                        .toCategoryResponse(item.getCategory()))
                 .description(item.getDescription())
                 .isAvailable(item.isAvailable())
+                .stockQuantity(item.getStockQuantity())
+                .lastModifiedBy(item.getLastModifiedBy())
+                .lastModifiedDate(item.getLastModifiedDate())
                 .build();
     }
 }

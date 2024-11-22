@@ -46,18 +46,18 @@ public class BeanConfig {
         return new BCryptPasswordEncoder();
     }
 
-
     @Bean
-    public CorsFilter corsFilter(){
+    public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(origins);
         config.setAllowCredentials(true);
-        config.setAllowedHeaders(List.of("*"));
-        config.setAllowedMethods(List.of("*"));
-        source.registerCorsConfiguration("/**",config);
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "*"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+
 
     @Bean
     public AuditorAware<String> auditorAware(){

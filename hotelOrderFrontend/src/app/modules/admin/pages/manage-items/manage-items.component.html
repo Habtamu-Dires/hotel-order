@@ -1,0 +1,87 @@
+<div class="h-full flex justify-center mt-6">
+    <div class="manage-form">
+        <div *ngIf="errMsgs" class="flex-col items-center">
+            <p *ngFor="let msg of errMsgs" class="text-red-500">
+                {{msg}}
+            </p>
+        </div>
+
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Name<span class="text-red-400">*</span></label>
+            <input [(ngModel)] ="itemRequest.name" class="form-input" type="text" placeholder="name"/>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Category<span class="text-red-400">*</span></label>
+            <div class="relative w-full col-span-12 md:col-span-10">
+                <input [formControl]="searchControl" class="form-input"  type="text" placeholder="search category" />
+                <div *ngIf="showCategories" 
+                    class="absolute w-full flex flex-col items-center ">
+                    <div *ngFor="let category of categories; let idx=index" 
+                        class="w-2/3 flex bg-white shadow-md hover:bg-gray-400" 
+                        [ngClass]="{'rounded-t-md' : idx==0, 
+                            'rounded-b-md' : idx == (categories.length - 1)
+                        }"
+                        >
+                        <p (click)="onCategorySelected(category)" 
+                            class="cursor-pointer p-2 w-full ">
+                            {{category.name}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Price<span class="text-red-400">*</span></label>
+            <input [(ngModel)] ="itemRequest.price" class="form-input" type="number" placeholder="price"/>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="col-span-12 md:col-span-2 flex">Description<span class="text-red-400">*</span></label>
+            <textarea [(ngModel)] ="itemRequest.description"  class="form-input" type="text" placeholder="description"></textarea>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Stok Quantity</label>
+            <input [(ngModel)] ="itemRequest.stockQuantity"  class="form-input" type="number" placeholder="stockQuantity"/>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Is Available<span class="text-red-400">*</span></label>
+            <div class="w-full col-span-12 md:col-span-10 flex justify-start gap-5">
+                <div class="text-lg">
+                    <input [(ngModel)]="itemRequest.isAvailable"  type="radio" [value]="true"
+                        class="w-5 h-5"/>
+                    Yes
+                </div>
+                <div class="text-lg">
+                    <input [(ngModel)]="itemRequest.isAvailable" type="radio" [value]="false"
+                    class="w-5 h-5"/>
+                    No
+                </div>
+            </div>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Cover Picture</label>
+            <div class="col-span-12 md:col-span-10 flex gap-2 w-full items-center">
+                <input 
+                    type="file" class="form-input"
+                    (change)="onFileSelected($event)"
+                    accept="image/*"
+                />
+            </div>
+        </div>
+        <div class="flex gap-4 justify-center w-36 h-36" *ngIf="selectedPicture">
+            <img class="rounded-lg" [src]="selectedPicture" alt="no cover image" />
+            <button (click)="cancelSelectedPicture()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="red" stroke-dasharray="12" stroke-dashoffset="12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12l7 7M12 12l-7 -7M12 12l-7 7M12 12l7 -7"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="12;0"/></path></svg>
+            </button>
+        </div>
+
+        <div class="w-full flex justify-between">
+            <button class="form-button bg-green-700" (click)="onSave()">
+                <p class="text-xl">save</p>
+            </button>
+            <button class="form-button bg-blue-500" (click)="onCancel()">
+                <p class="text-xl">cancel</p>
+            </button>
+        </div>
+    </div>
+</div>
+

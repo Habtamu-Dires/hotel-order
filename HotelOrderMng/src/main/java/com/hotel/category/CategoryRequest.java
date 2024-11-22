@@ -8,5 +8,7 @@ public record CategoryRequest(
         String id,
         @NotBlank(message = "Name is Mandatory")
         String name,
-        String parentCategoryId
+        String description,
+        String parentCategoryId,
+        String imageUrl
 ) {}

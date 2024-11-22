@@ -1,14 +1,14 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { OrderedItemComponent } from "../ordered-item/ordered-item.component";
-import { MenuComponent } from "../../menu/menu.component";
+import { MenuComponent } from "../../old-page-components/menu/menu.component";
 import { TableComponent } from "../table/table.component";
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-waiter',
   standalone: true,
-  imports: [CommonModule, OrderedItemComponent, MenuComponent, TableComponent],
+  imports: [CommonModule,, TableComponent],
   providers:[DatePipe],
   templateUrl: './waiter.component.html',
   styleUrl: './waiter.component.scss'

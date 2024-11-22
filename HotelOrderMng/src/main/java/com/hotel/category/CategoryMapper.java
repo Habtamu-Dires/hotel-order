@@ -1,31 +1,36 @@
 package com.hotel.category;
 
-import com.hotel.item.ItemMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class CategoryMapper {
 
-    private final ItemMapper itemMapper;
-
     // category DTO
-    public CategoryResponse toCategoryDTO(Category category) {
+    public CategoryResponse toCategoryResponse(Category category) {
         return CategoryResponse.builder()
                 .id(category.getId().toString())
                 .name(category.getName())
+                .description(category.getDescription())
                 .imageUrl(category.getImageUrl())
-                .parentCategoryId(
+                .parentCategory(
                         category.getParentCategory() != null
-                            ?  category.getParentCategory().getId().toString()
+                            ? this.toCatResponse(category.getParentCategory())
                             : null
                 )
                 .subCategories(
                         category.getSubCategories().stream()
-                        .map(this::toCategoryDTO)
+                        .map(this::toCatResponse)
                         .toList()
                 )
+                .build();
+    }
+
+    private CategoryResponse toCatResponse(Category category){
+        return CategoryResponse.builder()
+                .id(category.getId().toString())
+                .name(category.getName())
+                .description(category.getDescription())
+                .imageUrl(category.getImageUrl())
                 .build();
     }
 }

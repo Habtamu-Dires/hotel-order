@@ -1,0 +1,109 @@
+<div class="h-full flex justify-center">
+    <div class="manage-form p-4">
+        <div *ngIf="errMsgs" class="flex-col items-center">
+            <p *ngFor="let msg of errMsgs" class="text-red-500">
+                {{msg}}
+            </p>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">FirstName<span class="text-red-400">*</span></label>
+            <input [(ngModel)] ="userRequest.firstName"  class="form-input" type="text" placeholder="firstName"/>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">LastName<span class="text-red-400">*</span></label>
+            <input [(ngModel)] ="userRequest.lastName" class="form-input" type="text" placeholder="lastName"/>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">PhoneNumber<span class="text-red-400">*</span></label>
+            <input [(ngModel)] ="userRequest.phoneNumber"  class="form-input" type="text" placeholder="phoneNumber"/>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Email</label>
+            <input [(ngModel)] ="userRequest.email" class="form-input" type="text" placeholder="email"/>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Username<span class="text-red-400">*</span></label>
+            <input [(ngModel)] ="userRequest.username" class="form-input" type="text" placeholder="username"/>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Password<span class="text-red-400">*</span></label>
+            <input [formControl]="passwordControl" class="form-input" type="password" placeholder="password"/>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <p *ngIf="showPassConfError" class="text-sm text-red-500 w-full col-start-3 col-end-12">
+                password didn't match
+            </p>
+        </div> 
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Confirm Password</label>
+            <input [formControl]="confirmPassword" class="form-input" type="password" placeholder="confirm password"/>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Roles<span class="text-red-400">*</span></label>
+            <div class="relative col-span-12 md:col-span-10">
+                <input  class="donthide form-input"  type="text" placeholder="add or select role" 
+                    (focus)="showRoles = true" />
+                <div *ngIf="showRoles"
+                    class="absolute w-full flex flex-col items-center ">
+                    <div *ngFor="let role of roleList; let idx=index" 
+                        class="donthide w-2/3 flex bg-white shadow-md hover:bg-gray-400" 
+                        [ngClass]="{'rounded-t-md' : idx==0, 
+                            'rounded-b-md' : idx == (roleList.length - 1)
+                        }"
+                        >
+                        <div class="flex gap-1 p-2 w-full donthide">
+                            <input type="checkbox" 
+                                (click)="onRoleSelected(role)" 
+                                class="cursor-pointer donthide" 
+                                [value]="role"
+                                [checked]="userRequest.roles.includes(role)"
+                            />
+                            <label>{{role}}</label>
+                        </div>           
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <div class="mt-2 col-start-3 col-end-12">
+                <span *ngFor="let role of userRequest.roles" 
+                    class="inline-flex items-center mr-2 p-1 bg-gray-200 rounded"
+                >
+                  {{ role }}
+                  <button (click)="removeRole(role)" class="ml-1 cursor-pointer text-red-600">
+                    &times;
+                  </button>
+                </span>
+            </div>
+        </div>      
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">
+                <p>Profile Picture</p>
+            </label>
+            <div class="w-full flex items-center col-span-12 md:col-span-10 ">
+                <input 
+                class="w-full p-2 rounded-lg text-lg outline-none"
+                type="file" 
+                (change)="onFileSelected($event)"
+                accept="image/*"
+            />
+            </div>
+        </div>
+        <div class="flex gap-4 justify-center w-28 h-28" *ngIf="selectedPictureString">
+            <img class="rounded-lg" [src]="selectedPictureString" alt="no cover image" />
+            <button (click)="cancelSelectedPicture()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="red" stroke-dasharray="12" stroke-dashoffset="12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12l7 7M12 12l-7 -7M12 12l-7 7M12 12l7 -7"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="12;0"/></path></svg>
+            </button>
+        </div>
+
+        <div class="w-full flex justify-between">
+            <button class="form-button bg-green-700" (click)="onSave()">
+                <p class="text-xl">save</p>
+            </button>
+            <button class="form-button bg-blue-500" (click)="onCancel()">
+                <p class="text-xl">cancel</p>
+            </button>
+        </div>
+    </div>
+</div>
+

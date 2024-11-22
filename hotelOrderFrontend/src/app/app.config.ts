@@ -1,22 +1,39 @@
 import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
 import { provideRouter, RouteReuseStrategy, withInMemoryScrolling, withRouterConfig } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
-import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
-import { DatePipe } from '@angular/common';
+import {provideToastr} from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { httpTokenInterceptor } from './services/interceptor/http-token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(
-      routes,
-      withInMemoryScrolling({
-        scrollPositionRestoration: 'enabled'
-      }),
-      withRouterConfig({ onSameUrlNavigation: 'reload'})
+    provideRouter(routes),
+    provideHttpClient(
+      withInterceptors([httpTokenInterceptor])
     ),
-    { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy },
-    provideHttpClient(),
-    DatePipe
+    provideAnimations(),
+    provideToastr({
+      progressBar:true, 
+      closeButton: true,
+      newestOnTop: true,
+      tapToDismiss: true,
+      positionClass: 'toast-top-center',
+      timeOut: 2000
+    }), provideAnimationsAsync()
+
+    
   ]
 };
+
+// provideRouter(
+    //   routes,
+    //   withInMemoryScrolling({
+    //     scrollPositionRestoration: 'enabled'
+    //   }),
+    //   withRouterConfig({ onSameUrlNavigation: 'reload'})
+    // ),
+    // { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy },
+    // DatePipe

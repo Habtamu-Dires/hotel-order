@@ -14,13 +14,16 @@ import java.util.UUID;
 @Setter
 @Getter
 @Entity
-@Table(name = "category")
+@Table(name = "category",
+        indexes = { @Index(name = "idx_category_name", columnList = "name")}
+)
 public class Category  extends BaseEntity {
 
     @Id
     private UUID id;
     @Column(unique = true)
     private String name;
+    private String description;
     private String imageUrl;
 
     @OneToMany(mappedBy = "category")

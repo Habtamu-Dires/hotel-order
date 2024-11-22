@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ServiceRequest } from '../../services/models/serviceRequest';
+import { ServiceRequest } from '../../services/old-services/models/serviceRequest';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { SharedService } from '../../services/shared/shared.service';
-import { ApiResponse } from '../../services/models/api_response';
+import { SharedService } from '../../modules/customer/services/shared/shared.service';
+import { ApiResponse } from '../../services/old-services/models/api_response';
 import { Observable } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
 import { formatDistanceToNow } from 'date-fns';

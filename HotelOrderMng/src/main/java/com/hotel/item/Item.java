@@ -15,7 +15,9 @@ import java.util.UUID;
 @Setter
 @Getter
 @Entity
-@Table(name = "item")
+@Table(name = "item",
+        indexes = {@Index(name = "idx_item_name", columnList = "name")}
+)
 public class Item extends BaseEntity {
     @Id
     private UUID id;
@@ -25,6 +27,7 @@ public class Item extends BaseEntity {
     private BigDecimal price;
     private Integer stockQuantity;
     private boolean isAvailable = true;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

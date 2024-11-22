@@ -1,12 +1,19 @@
 package com.hotel.item;
 
 import com.hotel.category.Category;
+import com.hotel.category.CategoryResponse;
 import com.hotel.category.CategoryService;
+import com.hotel.common.IdResponse;
+import com.hotel.common.PageResponse;
 import com.hotel.file.FileStorageService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -28,7 +35,7 @@ public class ItemService {
 
     //save item
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String saveItem(@Valid ItemRequest request) {
+    public IdResponse saveItem(@Valid ItemRequest request) {
        Category category = categoryService.findCategoryById(request.categoryId());
 
        Item item = Item.builder()
@@ -38,28 +45,77 @@ public class ItemService {
                 .description(request.description())
                 .isAvailable(request.isAvailable())
                 .stockQuantity(request.stockQuantity())
+                .imageUrl(request.imageUrl())
                 .build();
 
-       if(request.id() == null){
-            item.setId(UUID.randomUUID());
-       } else {
+       if(request.id() != null && !request.id().isBlank()){
            item.setId(UUID.fromString(request.id()));
+       } else {
+           item.setId(UUID.randomUUID());
        }
 
-       return repository.save(item).getId().toString();
+        String id = repository.save(item).getId().toString();
+       return new IdResponse(id);
     }
-
-
 
     // find item by id
     public Item findItemById(String itemId){
         return repository.findById(UUID.fromString(itemId))
                 .orElseThrow(() -> new EntityNotFoundException("Item with id: " +itemId+ " not found"));
     }
+
     //find all items
     public List<ItemResponse> getAllItems() {
         return repository.findAll().stream()
                 .map(mapper::toItemResponse).toList();
+    }
+
+    // get page of items
+    public PageResponse<ItemResponse> getPageOfItems(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Item> res = repository.findAll(pageable);
+        List<ItemResponse> itemResponseList = res
+                .map(mapper::toItemResponse)
+                .toList();
+
+        return PageResponse.<ItemResponse>builder()
+                .content(itemResponseList)
+                .totalElements(res.getTotalElements())
+                .numberOfElements(res.getNumberOfElements())
+                .totalPages(res.getTotalPages())
+                .size(res.getSize())
+                .number(res.getNumber())
+                .first(res.isFirst())
+                .last(res.isLast())
+                .empty(res.isEmpty())
+                .build();
+    }
+
+    // get page of items by category
+    public PageResponse<ItemResponse> getPageOfItemsByCategory(String categoryId, int page, int size) {
+        Category category = categoryService.findCategoryById(categoryId);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Item> res = repository.findPageOfItemByCategoryId(category.getId(),pageable);
+        List<ItemResponse> itemResponseList = res
+                .map(mapper::toItemResponse)
+                .toList();
+
+        return PageResponse.<ItemResponse>builder()
+                .content(itemResponseList)
+                .totalElements(res.getTotalElements())
+                .numberOfElements(res.getNumberOfElements())
+                .totalPages(res.getTotalPages())
+                .size(res.getSize())
+                .number(res.getNumber())
+                .first(res.isFirst())
+                .last(res.isLast())
+                .empty(res.isEmpty())
+                .build();
+    }
+
+    // get item by id
+    public ItemResponse getItemById(String itemId) {
+        return mapper.toItemResponse(this.findItemById(itemId));
     }
 
 
@@ -127,4 +183,14 @@ public class ItemService {
         repository.delete(item);
     }
 
+    // search
+    public List<ItemResponse> searchItemByName(String itemName, String categoryId) {
+        Specification<Item> searchSpec = ItemSpecification
+                .searchItem(itemName,categoryId);
+
+        return repository.findAll(searchSpec)
+                .stream()
+                .map(mapper::toItemResponse)
+                .toList();
+    }
 }

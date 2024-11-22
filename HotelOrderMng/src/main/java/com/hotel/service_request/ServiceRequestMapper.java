@@ -11,8 +11,8 @@ public class ServiceRequestMapper {
 
     private final OrderLocationMapper locationMapper;
 
-    public ServiceRequestDTO toServiceRequestDTO(ServiceRequest request) {
-        return   ServiceRequestDTO.builder()
+    public ServiceRequestResponse toServiceRequestDTO(ServiceRequest request) {
+        return   ServiceRequestResponse.builder()
                 .id(request.getId().toString())
                 .locationId(request.getOrderLocation().getId().toString())
                 .location(locationMapper.toOrderLocationResponse(request.orderLocation))

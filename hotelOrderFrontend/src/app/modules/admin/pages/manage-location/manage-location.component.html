@@ -1,0 +1,72 @@
+<div class="h-full flex justify-center mt-6">
+    <div class="manage-form">
+        <div *ngIf="errMsgs" class="flex-col items-center">
+            <p *ngFor="let msg of errMsgs" class="text-red-500">
+                {{msg}}
+            </p>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Type<span class="text-red-400">*</span></label>
+            <div class="relative w-full col-span-12 md:col-span-10">
+                <input [(ngModel)]="locationRequest.type" class="form-input"  type="text" placeholder="select type"
+                    (focus)="setShowTypeList()" />
+                <div *ngIf="showTypeList" 
+                    class="absolute w-full flex flex-col items-center ">
+                    <div *ngFor="let type of locationTypes; let idx=index" 
+                        class="w-2/3 flex bg-white shadow-md hover:bg-gray-400" 
+                        [ngClass]="{'rounded-t-md' : idx==0, 
+                            'rounded-b-md' : idx == (locationTypes.length - 1)
+                        }"
+                        >
+                        <p (click)="onTypeSelected(type)" 
+                            class="cursor-pointer p-2 w-full ">
+                            {{type}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Number<span class="text-red-400">*</span></label>
+            <input [(ngModel)] ="locationRequest.number"  class="form-input" type="number" placeholder="number"/>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Address<span class="text-red-400">*</span></label>
+            <input [(ngModel)] ="locationRequest.address" class="form-input" type="text" placeholder="address"/>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Description</label>
+            <textarea [(ngModel)] ="locationRequest.description" class="form-input" type="text" placeholder="description"></textarea>
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Status<span class="text-red-400">*</span></label>
+            <div class="relative w-full col-span-12 md:col-span-10">
+                <input [(ngModel)]="locationRequest.status" class="form-input"  type="text" placeholder="select status" 
+                   (focus)="showStatusList = true"/>
+                <div *ngIf="showStatusList" 
+                    class="absolute w-full flex flex-col items-center ">
+                    <div *ngFor="let status of locationStatus; let idx=index" 
+                        class="w-2/3 flex bg-white shadow-md hover:bg-gray-400" 
+                        [ngClass]="{'rounded-t-md' : idx==0, 
+                            'rounded-b-md' : idx == (locationStatus.length - 1)
+                        }"
+                        >
+                        <p (click)="onStatusSelected(status)" 
+                            class="cursor-pointer p-2 w-full ">
+                            {{status}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full flex justify-between">
+            <button class="form-button bg-green-700" (click)="onSave()">
+                <p class="text-xl">save</p>
+            </button>
+            <button class="form-button bg-blue-500" (click)="onCancel()">
+                <p class="text-xl">cancel</p>
+            </button>
+        </div>
+    </div>
+</div>

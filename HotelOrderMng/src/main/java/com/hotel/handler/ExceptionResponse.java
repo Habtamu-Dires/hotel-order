@@ -13,5 +13,5 @@ public record ExceptionResponse(
         String businessErrorDescription,
         String error,
         Set<String> validationErrors,
-        Map<String, String> errors
+        Map<String,String> errors
 ) { }

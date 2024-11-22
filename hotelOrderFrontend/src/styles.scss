@@ -2,17 +2,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "ngx-toastr/toastr";
 
-
-@layer{
-  
+html, body {
+   height: 100%; 
 }
+body { 
+  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
 .home-button{
-  @apply  my-3 py-2 px-4 bg-gray-200 rounded-lg hover:bg-orange-100;
+  @apply  w-40 my-3 py-2 px-4 bg-gray-200 rounded-lg hover:bg-orange-100;
 } 
 
 body{
   @apply bg-gry
 }
+.form-input{
+  @apply w-full p-2 rounded-lg text-lg outline-none col-span-12 md:col-span-10;
+}
+.form-label{
+  @apply col-span-12 md:col-span-2 flex items-center;
+}
+.form-button{
+  @apply p-2 rounded-lg flex justify-center w-1/4 text-white;
+}
 
+.table-head{
+  @apply p-4 text-left font-semibold text-gray-700;
+}
+
+.table-data{
+  @apply p-4 text-gray-600;
+}
+
+.manage-form{
+  @apply flex flex-col gap-4 w-full md:w-3/5 lg:w-1/2   items-center shadow-xl p-10 rounded-xl bg-white;
+}
   

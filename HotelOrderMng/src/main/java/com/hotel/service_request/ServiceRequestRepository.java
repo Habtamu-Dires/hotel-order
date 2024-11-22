@@ -17,14 +17,18 @@ public interface ServiceRequestRepository extends JpaRepository<ServiceRequest, 
     @Query("SELECT sr FROM ServiceRequest sr WHERE sr.serviceStatus = 'PENDING'")
     List<ServiceRequest> getPendingServiceRequests();
 
+    
     @Query("""
             SELECT sr FROM ServiceRequest sr
             WHERE sr.orderLocation.id = :location_id 
             AND sr.serviceType = :type
+            AND sr.createdDate > :dateTime
+            AND sr.serviceStatus = 'PENDING'
             """)
-    Optional<ServiceRequest> findServiceRequestByLocationId(
-            UUID location_id, ServiceType type
-    );
+    Optional<ServiceRequest> findPotentialDuplicatedRequest(UUID location_id,
+                                                            ServiceType type,
+                                                            LocalDateTime dateTime);
+
 
     @Modifying
     @Transactional
@@ -34,4 +38,5 @@ public interface ServiceRequestRepository extends JpaRepository<ServiceRequest, 
     @Query("SELECT sr FROM ServiceRequest sr Where sr.createdDate < :dateTime")
     Page<ServiceRequest> getOldServiceRequests(@Param("dateTime") LocalDateTime dateTime,
                                                Pageable pageable);
+
 }

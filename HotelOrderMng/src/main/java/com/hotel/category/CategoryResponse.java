@@ -8,7 +8,8 @@ import java.util.List;
 public record CategoryResponse(
         String id,
         String name,
+        String description,
         String imageUrl,
-        String parentCategoryId,
+        CategoryResponse parentCategory,
         List<CategoryResponse> subCategories
 ) {}

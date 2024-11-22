@@ -1,7 +1,8 @@
 package com.hotel.service_request;
 
+import com.hotel.common.MessageResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.Getter;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,21 +19,21 @@ public class ServiceRequestController {
 
     //create new service request
     @PostMapping
-    public ResponseEntity<String> createServiceRequest(
-            @RequestBody ServiceRequestDTO requestDTO
+    public ResponseEntity<MessageResponse> createServiceRequest(
+            @RequestBody @Valid ServiceRequestRequest request
     ){
-       return ResponseEntity.ok(service.createRequest(requestDTO));
+        return ResponseEntity.ok(service.createRequest(request));
     }
 
     // get all pending service requests
     @GetMapping("/pending")
-    public ResponseEntity<List<ServiceRequestDTO>> getPendingServiceRequests(){
+    public ResponseEntity<List<ServiceRequestResponse>> getPendingServiceRequests(){
         return  ResponseEntity.ok(service.getPendingServiceRequests());
     }
 
     //get service requests
     @GetMapping
-    public ResponseEntity<List<ServiceRequestDTO>> getAllServiceRequests(){
+    public ResponseEntity<List<ServiceRequestResponse>> getAllServiceRequests(){
        return ResponseEntity.ok(service.getAllServiceRequests());
     }
 

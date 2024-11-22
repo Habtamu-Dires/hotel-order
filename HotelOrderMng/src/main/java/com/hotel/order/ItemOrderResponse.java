@@ -1,7 +1,7 @@
 package com.hotel.order;
 
 import com.hotel.order_detail.OrderDetailResponse;
-import com.hotel.location.OrderLocationResponse;
+import com.hotel.location.LocationResponse;
 import lombok.Builder;
 
 import java.math.BigDecimal;
@@ -14,7 +14,7 @@ public record ItemOrderResponse(
         BigDecimal totalPrice,
         OrderType orderType,
         List<OrderDetailResponse> orderDetails,
-        OrderLocationResponse location,
+        LocationResponse location,
         String locationId,
         String note,
         LocalDateTime createdAt,

@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { OrderedItemService } from '../services/orderedItem/ordered-item.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ApiResponse } from '../../services/models/api_response';
-import { Order } from '../../services/models/order';
+import { ApiResponse } from '../../services/old-services/models/api_response';
+import { Order } from '../../services/old-services/models/order';
 import { OrderedItem } from '../services/model/ordered-item';
-import { ItemService } from '../../services/item/item.service';
-import { Item } from '../../services/models/item';
+import { ItemService } from '../../services/old-services/item/item.service';
+import { Item } from '../../services/old-services/models/item';
 
 @Component({
   selector: 'app-ordered-item',

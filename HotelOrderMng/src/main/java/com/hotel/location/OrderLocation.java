@@ -15,7 +15,9 @@ import java.util.UUID;
 @Getter
 @Entity
 @Table(name = "order_location",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"number", "type"})}
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"number", "type"})},
+        indexes = {@Index(name = "idx_location_number", columnList = "number")}
+
 )
 public class OrderLocation extends BaseEntity {
     @Id

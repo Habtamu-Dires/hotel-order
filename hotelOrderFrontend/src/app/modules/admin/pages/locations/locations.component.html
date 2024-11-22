@@ -1,0 +1,55 @@
+<div>
+    <app-menu
+        componentName="Location"
+        (searchedTextChange)="onSerchedTextChange($event)"
+        (isCreateNewBtnClicked)="onCreateNewBtnClicked()"
+        (filterChanged)="onTypeFilterChange($event)"
+    ></app-menu>
+    <div class="overflow-auto">
+        <table class="min-w-full border-gray-300 bg-white">
+            <thead class="bg-gray-200">
+                <tr>
+                    <td class="table-head"></td>
+                    <td class="table-head">Type</td>
+                    <td class="table-head">Number</td>
+                    <td class="table-head">Description</td>
+                    <td class="table-head">Status</td>
+                    <td class="table-head">Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let location of locationList" class="border-b border-gray-300  hover:bg-gray-100">
+                    <td class="table-data">
+                        <svg *ngIf="location.type === 'ROOM'" 
+                            xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M8 12a3 3 0 0 1 3-3h26a3 3 0 0 1 3 3v11H8zM6 35v4m36-4v4"/><path fill="currentColor" d="M20 18h-6a3 3 0 0 0-3 3v2h12v-2a3 3 0 0 0-3-3m14 0h-6a3 3 0 0 0-3 3v2h12v-2a3 3 0 0 0-3-3"/><path d="M4 26a3 3 0 0 1 3-3h34a3 3 0 0 1 3 3v9H4z"/></g></svg>
+                            <svg *ngIf="location.type === 'TABLE'" 
+                                xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M22 7.5C22 5.57 17.52 4 12 4S2 5.57 2 7.5c0 1.81 3.95 3.31 9 3.48V15H9.35c-.82 0-1.55.5-1.86 1.26l-.99 2.47c-.23.61.21 1.27.87 1.27c.38 0 .72-.23.86-.58L9.2 17h5.6l.97 2.42c.14.35.48.58.86.58c.66 0 1.11-.66.86-1.27l-.99-2.47c-.3-.76-1.04-1.26-1.85-1.26H13v-4.02c5.05-.17 9-1.67 9-3.48"/></svg>
+                      </td>
+                      <td class="table-data">{{ location.type }}</td>
+                      <td class="table-data">{{location.number}}</td>
+                      <td class="table-data">{{ location.description }}</td>
+                      <td class="table-data">{{ location.status }}</td>
+                      <td class="table-data">
+                        <div class="flex gap-2">
+                            <svg (click)="onEdit(location.id)" class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><path d="M5.325 43.5h8.485l31.113-31.113l-8.486-8.485L5.325 35.015z"/><path stroke-linecap="round" d="m27.952 12.387l8.485 8.485"/></g></svg>     
+                            <svg (click)="onDelete(location.id)" class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="red" d="M7.616 20q-.672 0-1.144-.472T6 18.385V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zM17 6H7v12.385q0 .269.173.442t.443.173h8.769q.23 0 .423-.192t.192-.424zM9.808 17h1V8h-1zm3.384 0h1V8h-1zM7 6v13z"/></svg>
+                        </div>
+                      </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <app-page-navigation *ngIf="!isEmptyPage" class="w-full m-5 z-10"
+        [page]="page"
+        [size]="size"
+        [isFirstPage]="isFirstPage"
+        [isLastPage]="isLastPage"
+        [numberOfElements]="numberOfElements"
+        [totalElements]="totalElements"
+        [totalPages]="totalPages"
+        
+        (sizeChanged)="onSizeChanged($event)"
+        (pageChanged)="onPageChanged($event)">
+
+    </app-page-navigation>
+</div>

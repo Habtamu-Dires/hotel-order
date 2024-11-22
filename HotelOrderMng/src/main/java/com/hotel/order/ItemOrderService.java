@@ -12,6 +12,7 @@ import com.hotel.batch.monthly_order_data.MonthlyOrderDataResponse;
 import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequency;
 import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequencyRepository;
 import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequencyResponse;
+import com.hotel.common.IdResponse;
 import com.hotel.common.PageResponse;
 import com.hotel.order_detail.OrderDetail;
 import com.hotel.order_detail.OrderDetailService;
@@ -45,10 +46,10 @@ public class ItemOrderService {
 
     //save order
     @Transactional
-    public String createItemOrder(ItemOrderRequest request) {
+    public IdResponse createItemOrder(ItemOrderRequest request) {
         ItemOrder order = ItemOrder.builder()
                 .totalPrice(request.totalPrice())
-                .orderType(request.orderType())
+                .orderType(toOrderTypeEnum(request.orderType()))
                 .orderStatus(OrderStatus.PENDING)
                 .note(request.note())
                 .build();
@@ -70,7 +71,17 @@ public class ItemOrderService {
         });
 
         order.setOrderDetails(orderDetails);
-        return repository.save(order).getId().toString();
+        String id = repository.save(order).getId().toString();
+        return new IdResponse(id);
+    }
+
+    //convert string to OrderType
+    public OrderType toOrderTypeEnum(String type){
+        try {
+            return OrderType.valueOf(type);
+        } catch (Exception e){
+            throw new IllegalArgumentException("No such order type");
+        }
     }
 
     // find by id

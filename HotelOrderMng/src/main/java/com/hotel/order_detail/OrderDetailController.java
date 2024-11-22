@@ -1,5 +1,6 @@
 package com.hotel.order_detail;
 
+import com.hotel.common.IdResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.Table;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +16,11 @@ public class OrderDetailController {
     private final OrderDetailService service;
 
     @PutMapping("/update-status/{detail-id}")
-    public ResponseEntity<String> updateOrderDetailStatus(
+    public ResponseEntity<IdResponse> updateOrderDetailStatus(
             @PathVariable("detail-id") String detailId,
             @RequestBody DetailStatus status
     ){
         return  ResponseEntity.ok(service.updateOrderDetailStatus(detailId,status));
     }
-
 
 }

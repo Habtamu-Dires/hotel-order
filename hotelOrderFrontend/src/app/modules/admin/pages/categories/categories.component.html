@@ -1,0 +1,52 @@
+<div>
+    <app-menu 
+        componentName="Category" 
+        (searchedTextChange)="onSerchedTextChange($event)"
+        (isCreateNewBtnClicked)="onCreateNewBtnClicked()"
+        (filterChanged)="onFilterChanged($event)">
+    </app-menu>
+    <div class="overflow-x-auto">
+        <table class="min-w-full border border-gray-300 bg-white">
+          <thead class="bg-gray-200">
+            <tr>
+              <th class="table-head w-1/6">Image</th>    
+              <th class="table-head w-1/6">Name</th>
+              <th class="table-head w-1/6">Parent Category</th>
+              <th class="table-head w-2/6">Description</th>
+              <th class="table-head w-1/6">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let category of categoryList" class="border-b border-gray-300 hover:bg-gray-100">
+              <td class="table-data">
+                <img class="w-20 h-20 rounded-lg" [src]="category.imageUrl"/>
+              </td>
+              <td class="table-data">{{ category.name }}</td>
+              <td class="table-data">{{ category.parentCategory?.name}}</td>
+              <td class="table-data">{{category.description}}</td>
+              <td class="table-data">
+                <div class="flex gap-4">
+                    <svg (click)="onEdit(category.id)" class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><path d="M5.325 43.5h8.485l31.113-31.113l-8.486-8.485L5.325 35.015z"/><path stroke-linecap="round" d="m27.952 12.387l8.485 8.485"/></g></svg>     
+                    <svg (click)="onDelete(category.id)" class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="red" d="M7.616 20q-.672 0-1.144-.472T6 18.385V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zM17 6H7v12.385q0 .269.173.442t.443.173h8.769q.23 0 .423-.192t.192-.424zM9.808 17h1V8h-1zm3.384 0h1V8h-1zM7 6v13z"/></svg>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+        <app-page-navigation *ngIf="!isEmptyPage" class="w-full m-5 z-10"
+          [page]="page"
+          [size]="size"
+          [isFirstPage]="isFirstPage"
+          [isLastPage]="isLastPage"
+          [numberOfElements]="numberOfElements"
+          [totalElements]="totalElements"
+          [totalPages]="totalPages"
+          
+          (sizeChanged)="onSizeChanged($event)"
+          (pageChanged)="onPageChanged($event)"
+          >
+        </app-page-navigation>
+</div>
+
+

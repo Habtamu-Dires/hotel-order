@@ -6,7 +6,7 @@ spring:
       max-file-size: 50MB
 
 springdoc:
-  default-produce-media-type: application/json
+  default-produces-media-type: application/json
 
 server:
   servlet:

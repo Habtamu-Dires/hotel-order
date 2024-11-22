@@ -1,5 +1,6 @@
 package com.hotel.order_detail;
 
+import com.hotel.common.IdResponse;
 import com.hotel.exception.OperationNotPermittedException;
 import com.hotel.item.Item;
 import com.hotel.item.ItemService;
@@ -28,22 +29,33 @@ public class OrderDetailService {
         if(!itemService.isItemAvailable(item, request.quantity())){
             throw new OperationNotPermittedException("Not enough item available now");
         }
+        //check status
+
 
        return OrderDetail.builder()
                 .id(UUID.randomUUID())
                 .item(item)
                 .order(order)
                 .quantity(request.quantity())
-                .status(request.status())
                 .build();
     }
 
+    //convert status from string to DetailStatus
+    public DetailStatus convertStatus(String status){
+        try{
+            return DetailStatus.valueOf(status);
+        } catch (Exception e){
+            throw new IllegalArgumentException("No such status type found");
+        }
+    }
+
     @Secured({"ROLE_ADMIN", "ROLE_CHEF", "ROLE_BARISTA"})
-    public String updateOrderDetailStatus(String detailId,
-                                                          DetailStatus status) {
+    public IdResponse updateOrderDetailStatus(String detailId,
+                                              DetailStatus status) {
         OrderDetail orderDetail = this.findById(detailId);
         orderDetail.setStatus(status);
-        return repository.save(orderDetail).getId().toString();
+        String id = repository.save(orderDetail).getId().toString();
+        return new IdResponse(id);
     }
 
     //find by id

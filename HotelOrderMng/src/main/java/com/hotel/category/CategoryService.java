@@ -1,11 +1,18 @@
 package com.hotel.category;
 
+import com.hotel.common.IdResponse;
+import com.hotel.common.PageResponse;
 import com.hotel.file.FileStorageService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,35 +32,60 @@ public class CategoryService {
     // save category
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional
-    public String saveCategory(@Valid  CategoryRequest request) {
+    public IdResponse saveCategory(@Valid  CategoryRequest request) {
     Category category = Category.builder()
             .name(request.name())
+            .description(request.description())
+            .imageUrl(request.imageUrl())
             .build();
 
-      if(request.id() == null) {
+      if(request.id() != null && !request.id().isBlank()) {
+          category.setId(UUID.fromString(request.id()));
+      } else{
           repository.findByName(request.name())
-              .ifPresent(c -> {
+                  .ifPresent(c -> {
                       throw new EntityExistsException(String.format("Category with name %s already exists", request.name()));
                   });
           category.setId(UUID.randomUUID());
-      } else{
-          category.setId(UUID.fromString(request.id()));
       }
 
-      if(request.parentCategoryId() != null){
+      if(request.parentCategoryId() != null && !request.parentCategoryId().isBlank()){
          Category parentCategory = this.findCategoryById(request.parentCategoryId());
          parentCategory.addSubCategory(category);
       }
 
-     return repository.save(category).getId().toString();
+     String id = repository.save(category).getId().toString();
+     return  new IdResponse(id);
     }
 
 
     // get all category
     public List<CategoryResponse> getAllCategory() {
         return  repository.findAll().stream()
-                .map(mapper::toCategoryDTO)
+                .map(mapper::toCategoryResponse)
                 .toList();
+    }
+
+    // get pages of category
+    public PageResponse<CategoryResponse> getPagesOfCategories(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Category> res = repository.findAll(pageable);
+
+        List<CategoryResponse> categoryResponseList = res
+                .map(mapper::toCategoryResponse).toList();
+
+
+        return PageResponse.<CategoryResponse>builder()
+                .content(categoryResponseList)
+                .totalElements(res.getTotalElements())
+                .numberOfElements(res.getNumberOfElements())
+                .totalPages(res.getTotalPages())
+                .size(res.getSize())
+                .number(res.getNumber())
+                .first(res.isFirst())
+                .last(res.isLast())
+                .empty(res.isEmpty())
+                .build();
     }
 
     // get category by name
@@ -69,10 +101,56 @@ public class CategoryService {
 
     //get main categories.
     public List<CategoryResponse> getMainCategories() {
-     return  repository.findAll().stream()
-                .filter(category -> category.getParentCategory() == null)
-                .map(mapper::toCategoryDTO)
-                .toList();
+        Page<Category> res = repository.findMainCategory(Pageable.unpaged());
+
+     return  res
+             .map(mapper::toCategoryResponse)
+             .toList();
+    }
+
+    // get pages of main category
+    public PageResponse<CategoryResponse> getPagesOfMainCategory(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Category> res = repository.findMainCategory(pageable);
+
+        List<CategoryResponse> categoryResponseList = res
+                .map(mapper::toCategoryResponse).toList();
+
+
+        return PageResponse.<CategoryResponse>builder()
+                .content(categoryResponseList)
+                .totalElements(res.getTotalElements())
+                .numberOfElements(res.getNumberOfElements())
+                .totalPages(res.getTotalPages())
+                .size(res.getSize())
+                .number(res.getNumber())
+                .first(res.isFirst())
+                .last(res.isLast())
+                .empty(res.isEmpty())
+                .build();
+    }
+
+    // get pages of sub categories
+    public PageResponse<CategoryResponse> getPagesOfSubCategory(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Category> res = repository.findSubCategory(pageable);
+
+        List<CategoryResponse> categoryResponseList = res
+                .map(mapper::toCategoryResponse).toList();
+
+
+        return PageResponse.<CategoryResponse>builder()
+                .content(categoryResponseList)
+                .totalElements(res.getTotalElements())
+                .numberOfElements(res.getNumberOfElements())
+                .totalPages(res.getTotalPages())
+                .size(res.getSize())
+                .number(res.getNumber())
+                .first(res.isFirst())
+                .last(res.isLast())
+                .empty(res.isEmpty())
+                .build();
+
     }
 
     // upload cover picture
@@ -97,4 +175,21 @@ public class CategoryService {
         repository.delete(category);
 
     }
+    // get category by id
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public CategoryResponse getCategoryId(String categoryId) {
+        return mapper.toCategoryResponse(this.findCategoryById(categoryId));
+    }
+
+    // searching
+    public List<CategoryResponse> searchCategoryByName(String name, String filter ){
+        Specification<Category> searchSpec = CategorySpecification
+                .searchCategory(name,filter);
+
+        return repository.findAll(searchSpec)
+                .stream()
+                .map(mapper::toCategoryResponse)
+                .toList();
+    }
 }
+

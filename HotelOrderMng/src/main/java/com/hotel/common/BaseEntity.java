@@ -29,10 +29,10 @@ public class BaseEntity {
 
     @CreatedBy
     @Column(nullable = false, updatable = false)
-    private UUID createdBy;
+    private String createdBy;
     @LastModifiedBy
     @Column(insertable = false)
-    private UUID lastModifiedBy;
+    private String lastModifiedBy;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

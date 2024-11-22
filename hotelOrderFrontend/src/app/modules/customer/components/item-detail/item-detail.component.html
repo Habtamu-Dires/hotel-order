@@ -1,0 +1,61 @@
+<div class="flex flex-col mx-auto">
+    <div class="flex w-full justify-center">
+        <div class="sticky top-0 z-10 w-full md:w-3/4">
+            <div class="flex flex-row justify-between align-middle">
+                <div class="p-2 items-start m-2 cursor-pointer rounded-full shadow-lg bg-gray-200"
+                    (click)="navigateToItems()"> 
+                    <svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="black" d="M10 22L0 12L10 2l1.775 1.775L3.55 12l8.225 8.225z"/></svg>
+                </div>
+                
+                <div class="me-8">
+                    <button class="text-red-500"
+                        (click)="cancelItem()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if(selectedItem){
+        <div class="flex justify-center z-0 mx-4">
+            <div class="my-2">
+                <img 
+                    class="w-52 h-52 md:w-96 md:h-96  rounded-full"
+                    src={{selectedItem.imageUrl}}
+                />
+            </div>
+        </div>
+        <div class="container z-0 mx-auto md:w-3/5 mb-6">
+            <div class="flex flex-row justify-between text-sm mx-4  bg-gray-50 p-2 rounded-lg">
+                <p>{{selectedItem.name}}</p>
+                <p>{{selectedItem.price}} Birr</p>
+            </div>
+    
+            <div class="flex justify-end me-4 my-1">
+                @if(itemCounter === 0){
+                    <div class="rounded-full bg-green-700 p-3"
+                        (click)="increment()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="white" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z"/></svg>
+                    </div>
+                } @else  {
+                    <div class="flex  rounded-full bg-green-600">
+                        <div class="rounded-full bg-green-700 p-3 shadow-2xl"
+                                (click)="decrement()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="white" d="M19 12.998H5v-2h14z"/></svg>
+                        </div>
+                        <p class="p-3 text-2xl text-white items-center justify-center">
+                            {{itemCounter}}
+                        </p>
+                        <div class="rounded-full bg-green-700 p-3 shadow-2xl"
+                            (click)="increment()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="white" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z"/></svg>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="flex mx-4 rounded-lg p-2">
+                <p>{{selectedItem.description}}</p>
+            </div>
+        </div>
+    }
+</div>

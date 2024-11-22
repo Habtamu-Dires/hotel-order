@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
@@ -13,30 +14,32 @@ import io.swagger.v3.oas.annotations.servers.Server;
 @OpenAPIDefinition(
         info = @Info(
                 contact = @Contact(
-                        name="Habte",
+                        name = "Habte",
                         email = "habtadugna@gmail.com"
                 ),
-                description = """
-                        OpenApi Documentation For Hotel Order Management Web App developed
-                        using Spring Boot
-                        """,
-                title = "Hotel Order Management API Documentation",
-                version = "1.0"
+                description = "OpenApi Documentation for Hotel Order Management",
+                title = "OpenApi Specification ",
+                version = "1.0",
+                license = @License(
+                        name = "Licence name ",
+                        url = "http://url licence"
+                ),
+                termsOfService = "term of service"
         ),
         servers = {
                 @Server(
-                        description = "LOCAL ENV",
-                        url = "http:localhost:8088/api/v1"
+                        description = "Local ENV",
+                        url = "http://localhost:8088/api/v1"
                 )
         },
         security = {
                 @SecurityRequirement(
-                        name="Bearer Auth"
+                        name = "bearerAuth"
                 )
         }
 )
 @SecurityScheme(
-        name = "Bearer Auth",
+        name = "bearerAuth",
         description = "JWT auth description",
         scheme = "bearer",
         type = SecuritySchemeType.HTTP,

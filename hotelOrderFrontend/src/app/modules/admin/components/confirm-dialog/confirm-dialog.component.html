@@ -1,0 +1,15 @@
+<div class="fixed inset-0 w-full h-full bg-black/70">
+    <div class="flex  justify-center">
+        <div class="flex flex-col gap-4 mt-20 bg-gray-300 p-4 rounded-lg">
+            <h1 class="text-lg">Are you sure?</h1>
+            <div>
+            <p>You won't be able to revert this action!</p>
+            </div>
+            <div class="w-full flex  justify-between">
+                <button (click)="onCancel()">Cancel</button>
+                <button class="text-red-600" (click)="onConfirm()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+

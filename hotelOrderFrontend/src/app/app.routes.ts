@@ -1,17 +1,18 @@
 import { Routes } from '@angular/router';
-import { MenuComponent } from './menu/menu.component';
-import { ItemDetailComponent } from './item-detail/item-detail.component';
-import { HomeComponent } from './home/home.component';
-import { WaiterComponent } from './waiter/waiter/waiter.component';
+import { LoginComponent } from './pages/login/login.component';
+import { authGuard } from './services/guard/auth.guard';
 
 export const routes: Routes = [
-    {path: 'home',component:HomeComponent},
-    {path: 'menu', component: MenuComponent},
-    {path: '', component:HomeComponent},
-    {path: 'item-detail', component:ItemDetailComponent},
+    {path: 'login', component: LoginComponent},
+    {path: 'admin', 
+        loadChildren: () => import('./modules/admin/admin.module')
+            .then(m => m.AdminModule),
+            canActivate: [authGuard]
+    },
+    {path: 'customer',
+        loadChildren: () => import('./modules/customer/customer.module')
+        .then(m => m.CustomerModule)
+    }
 
-    {path: 'waiter', component:WaiterComponent},
-
-    {path: '**', redirectTo: '/home'},
 
 ];

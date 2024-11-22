@@ -1,5 +1,6 @@
 package com.hotel.file;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +20,7 @@ import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/files")
+@Tag(name = "files")
 public class FileController {
 
     @GetMapping("/get-image")

@@ -1,8 +1,17 @@
 package com.hotel.location;
 
+import com.hotel.common.IdResponse;
+import com.hotel.common.PageResponse;
+import com.hotel.exception.OperationNotPermittedException;
+import com.hotel.item.ItemResponse;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -19,28 +28,67 @@ public class OrderLocationService {
 
     // save location
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String saveLocation(@Valid OrderLocationRequest request) {
+    public IdResponse saveLocation(@Valid LocationRequest request) {
+         LocationType locationType = LocationType.valueOf(request.type());
+         LocationStatus locationStatus = LocationStatus.valueOf(request.status());
+
          OrderLocation orderLocation = OrderLocation.builder()
                             .number(request.number())
-                            .type(request.type())
+                            .type(locationType)
                             .address(request.address())
-                            .status(request.status())
+                            .status(locationStatus)
                             .description(request.description())
                             .build();
 
         if(request.id() != null && !request.id().isBlank()){
             orderLocation.setId(UUID.fromString(request.id()));
-        } else {
+        } else { // new save
+            var oldLocation = this.findLocationByNumberAndType(request.number(), locationType);
+            if(oldLocation != null){
+                throw new EntityExistsException("Location already exists");
+            }
             orderLocation.setId(UUID.randomUUID());  // new
         }
-        return repository.save(orderLocation).getId().toString();
+        String id = repository.save(orderLocation).getId().toString();
+        return new IdResponse(id);
     }
 
-    public List<OrderLocationResponse> getAllOrderLocations() {
+    // find location by id and type
+    public OrderLocation findLocationByNumberAndType(Integer number, LocationType type){
+
+        return repository.findLocationByNumberAndLocationType(number,type)
+                .orElse(null);
+    }
+
+    // get all locations
+    public List<LocationResponse> getAllOrderLocations() {
         return repository.findAll().stream()
                 .map(mapper::toOrderLocationResponse)
                 .toList();
     }
+
+    // get page of locations
+    public PageResponse<LocationResponse> getPageOfLocations(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<OrderLocation> res = repository.findAll(pageable);
+        List<LocationResponse> locationResponseList = res
+                .map(mapper::toOrderLocationResponse)
+                .toList();
+
+        return PageResponse.<LocationResponse>builder()
+                .content(locationResponseList)
+                .totalElements(res.getTotalElements())
+                .numberOfElements(res.getNumberOfElements())
+                .totalPages(res.getTotalPages())
+                .size(res.getSize())
+                .number(res.getNumber())
+                .first(res.isFirst())
+                .last(res.isLast())
+                .empty(res.isEmpty())
+                .build();
+
+    }
+
 
     //find by id
     public OrderLocation findOrderLocationById(String id){
@@ -50,24 +98,40 @@ public class OrderLocationService {
                 );
     }
 
-    //get all rooms
-    public List<OrderLocationResponse> getAllRooms() {
-        return repository.findAllRooms().stream()
-                .map(mapper::toOrderLocationResponse)
-                .toList();
-    }
 
-    //get all tables
-    public List<OrderLocationResponse> getAllTables() {
-        return repository.findAllTables().stream()
+
+    //get pages of location by type
+    @Secured({"ROLE_ADMIN","ROLE_WAITER"})
+    public PageResponse<LocationResponse> getPageOfLocationByType(String type, int page, int size) {
+        LocationType locationType =null;
+        try{
+            locationType = LocationType.valueOf(type);
+        } catch (IllegalArgumentException ignored){}
+        var typeSpec = LocationSpecification.typeIs(locationType);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<OrderLocation> res = repository.findAll(typeSpec, pageable);
+        List<LocationResponse> locationResponseList = res
                 .map(mapper::toOrderLocationResponse)
                 .toList();
+
+        return PageResponse.<LocationResponse>builder()
+                .content(locationResponseList)
+                .totalElements(res.getTotalElements())
+                .numberOfElements(res.getNumberOfElements())
+                .totalPages(res.getTotalPages())
+                .size(res.getSize())
+                .number(res.getNumber())
+                .first(res.isFirst())
+                .last(res.isLast())
+                .empty(res.isEmpty())
+                .build();
+
     }
 
 
     // get available rooms
     @Secured({"ROLE_ADMIN","ROLE_WAITER"})
-    public List<OrderLocationResponse> getAvailableRooms() {
+    public List<LocationResponse> getAvailableRooms() {
         return repository.findReadyRooms().stream()
                 .map(mapper::toOrderLocationResponse)
                 .toList();
@@ -81,5 +145,34 @@ public class OrderLocationService {
         location.setStatus(status);
 
         return repository.save(location).getId().toString();
+    }
+
+    // get location by id
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public LocationResponse getLocationById(String locationId) {
+        return mapper.toOrderLocationResponse(this.findOrderLocationById(locationId));
+    }
+
+    //search
+    public List<LocationResponse> searchLocationByNumber(int number, String type) {
+        LocationType locationType = null ;
+        try{
+           locationType = LocationType.valueOf(type);
+        } catch (IllegalArgumentException ignored){}
+        Specification<OrderLocation> combinedSpec = LocationSpecification
+                .numberStartsWith(number)
+                .and(LocationSpecification.typeIs(locationType));
+
+        return repository.findAll(combinedSpec)
+                .stream()
+                .map(mapper::toOrderLocationResponse)
+                .toList();
+    }
+
+    // delete location
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void deleteLocation(String locationId) {
+        OrderLocation location = this.findOrderLocationById(locationId);
+        repository.delete(location);
     }
 }

@@ -1,0 +1,25 @@
+<div class="h-screen flex justify-center">
+    <div class="h-full w-4/5 md:w-3/5 lg:w-1/4 flex flex-col justify-center gap-6 p-4">
+        <div class="w-full flex-col" *ngIf="ereMsgs.length">
+           <div *ngFor="let message of ereMsgs"
+              class="ms-2 text-lg text-red-500 flex justify-center">
+                <p>{{message}}</p>
+           </div>     
+        </div>
+        <div>
+            <input type="text" placeholder="username"
+            class="w-full p-2 rounded-lg text-lg outline-none"
+            [(ngModel)]="authRequest.username"/>
+            <p *ngIf="errMessage.length" class="ms-2 text-red-500">{{errMessage}}</p>
+        </div>
+        <div>
+            <input type="password" placeholder="password"
+            class="w-full p-2 rounded-lg text-lg outline-none"
+            [(ngModel)]="authRequest.password"/>
+        </div>
+        <button class="p-2 bg-green-700 rounded-lg flex justify-center"
+            (click)="login()">
+            <p class="text-xl">login</p>
+        </button>
+    </div>
+</div>

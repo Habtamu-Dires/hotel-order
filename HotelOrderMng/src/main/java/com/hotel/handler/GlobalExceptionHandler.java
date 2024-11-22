@@ -94,19 +94,30 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ExceptionResponse> handle(MethodArgumentNotValidException exp){
+    public ResponseEntity<ExceptionResponse> handleException(MethodArgumentNotValidException exp) {
         Set<String> errors = new HashSet<>();
         exp.getBindingResult().getAllErrors()
-                .forEach(error ->{
+                .forEach(error -> {
                     var errorMessage = error.getDefaultMessage();
                     errors.add(errorMessage);
-                });
+                } );
         return ResponseEntity
                 .status(BAD_REQUEST)
                 .body(
-                    ExceptionResponse.builder()
-                            .validationErrors(errors)
-                            .build()
+                        ExceptionResponse.builder()
+                                .validationErrors(errors)
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ExceptionResponse> handle(IllegalArgumentException exp){
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(
+                        ExceptionResponse.builder()
+                                .error(exp.getMessage())
+                                .build()
                 );
     }
 

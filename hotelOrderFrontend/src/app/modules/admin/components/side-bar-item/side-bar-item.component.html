@@ -1,0 +1,7 @@
+<div class="flex gap-4 items-center p-2  cursor-pointer"
+    [ngClass]="{'bg-yellow-300 rounded-lg' :  isActiveComponent}">
+    <div class="hidden md:flex">
+         <ng-content></ng-content>   
+    </div>
+    <p>{{component}}</p>
+</div>

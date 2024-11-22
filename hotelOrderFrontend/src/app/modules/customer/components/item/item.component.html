@@ -1,0 +1,23 @@
+<div class="flex justify-center">
+    <div class="grid grid-cols-2 gap-1  md:grid-cols-4 lg:grid-cols-6 mt-2">
+        @for (item of itemList; track item.id; let idx= $index) {
+            <div class="bg-gray-100 rounded-md">
+                <div class="w-40 min-h-32 mx-2 mb-2 cursor-pointer relative"
+                    (click)="showItemDetail(item)">
+                    <span *ngIf="calcualteOrderQuantity(item.id) 
+                        && calcualteOrderQuantity(item.id) !== 0"
+                        class="top-0 left-0 px-2  absolute rounded-b-md bg-green-300">
+                        {{calcualteOrderQuantity(item.id)}}
+                    </span>
+                    <img class="rounded-full "
+                        src={{item.imageUrl}}
+                    />
+                    <div class="flex justify-between text-xs py-2">
+                        <p class="truncate">{{item.name}}</p>
+                        <p>{{item.price}}</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

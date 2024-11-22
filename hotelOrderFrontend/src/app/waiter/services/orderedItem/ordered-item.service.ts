@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ApiResponse } from '../../../services/models/api_response';
-import { Order } from '../../../services/models/order';
-import { SharedService } from '../../../services/shared/shared.service';
+import { ApiResponse } from '../../../services/old-services/models/api_response';
+import { Order } from '../../../services/old-services/models/order';
+import { SharedService } from '../../../modules/customer/services/shared/shared.service';
 import { catchError, count, delay, Observable, retry, throwError } from 'rxjs';
 import { OrderedItem } from '../model/ordered-item';
 import { DatePipe } from '@angular/common';

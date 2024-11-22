@@ -1,10 +1,12 @@
 package com.hotel.auth;
 
+import com.hotel.common.IdResponse;
 import com.hotel.role.Role;
 import com.hotel.role.RoleService;
 import com.hotel.security.JwtService;
 import com.hotel.user.User;
 import com.hotel.user.UserRepository;
+import jakarta.persistence.EntityExistsException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -28,9 +31,14 @@ public class AuthenticationService {
     private final JwtService jwtService;
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void register(@Valid RegistrationRequest request) {
+    public IdResponse register(@Valid RegistrationRequest request) {
 
         List<Role> roles = roleService.findRolesByNames(request.roles());
+        // check username
+        var savedUser = userRepository.findByUsername(request.username());
+        if(savedUser.isPresent()){
+            throw new EntityExistsException("Username" + request.username() + " is already in used");
+        }
 
         User user = User.builder()
                 .id(UUID.randomUUID())
@@ -40,10 +48,12 @@ public class AuthenticationService {
                 .lastName(request.lastName())
                 .phoneNumber(request.phoneNumber())
                 .email(request.email())
-                .roles(roles)
+                .roles(new ArrayList<>(roles))
                 .build();
 
-        userRepository.save(user);
+
+        String id = userRepository.save(user).getId().toString();
+        return  new IdResponse(id);
 
     }
 

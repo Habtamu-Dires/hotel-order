@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Positive;
 import lombok.Builder;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Builder
 public record ItemRequest(
@@ -24,5 +23,6 @@ public record ItemRequest(
          @Positive(message = "Quantity should be Positive")
          Integer stockQuantity,
          @NotNull(message = "Availability Info is Mandatory")
-         boolean isAvailable
+         boolean isAvailable,
+         String imageUrl
 ) {}

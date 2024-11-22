@@ -18,7 +18,9 @@ import java.util.UUID;
 @Setter
 @Getter
 @Entity
-@Table(name = "_user")
+@Table(name = "_user",
+    indexes = @Index(name = "idx_username", columnList = "username")
+)
 public class User implements UserDetails, Principal {
 
     @Id
@@ -32,8 +34,12 @@ public class User implements UserDetails, Principal {
     private String phoneNumber;
     private String email;
     private boolean accountLocked;
+    private String imageUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
     @Override

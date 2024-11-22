@@ -4,6 +4,7 @@ import com.hotel.batch.daily_average_order.DailyAverageOrderResponse;
 import com.hotel.batch.day_of_of_the_week.DayOfTheWeekAnalysisResponse;
 import com.hotel.batch.monthly_order_data.MonthlyOrderDataResponse;
 import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequencyResponse;
+import com.hotel.common.IdResponse;
 import com.hotel.common.PageResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class ItemOrderController {
     //create new order
     @Tag(name = "orders")
     @PostMapping
-    public ResponseEntity<String> createOrder(
+    public ResponseEntity<IdResponse> createOrder(
             @RequestBody  ItemOrderRequest request
     ){
         return ResponseEntity.ok(service.createItemOrder(request));

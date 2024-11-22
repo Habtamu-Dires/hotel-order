@@ -1,4 +1,4 @@
-import { OrderDetail } from "../../../services/models/orderDetail";
+import { OrderDetail } from "../../../services/old-services/models/orderDetail";
 
 export interface OrderedItem {
     id:string,
