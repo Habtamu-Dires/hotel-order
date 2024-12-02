@@ -13,6 +13,6 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
   ],
   providers:[
     provideHttpClient(),
-  ]
+  ],
 })
 export class AdminModule { }

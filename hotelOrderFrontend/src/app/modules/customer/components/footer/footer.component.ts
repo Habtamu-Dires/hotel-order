@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItemOrderRequest } from '../../../../services/models';
 import { CustomerService } from '../../services/customer/customer.service';
 import { OrderComponent } from "../order/order.component";
+import { OrderRequest } from '../../../../services/models';
 
 @Component({
   selector: 'app-footer',
@@ -13,7 +13,7 @@ import { OrderComponent } from "../order/order.component";
 })
 export class FooterComponent implements OnInit{
   
-   orderRequest?:ItemOrderRequest;
+   orderRequest?:OrderRequest;
    shouldBounce:boolean = false;
    totalItems:number = 0;
    previousTotalItems:number = 0;

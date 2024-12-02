@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { CategoryResponse, ItemOrderRequest, OrderDetailRequest } from '../../../../services/models';
+import { CategoryResponse, OrderDetailRequest, OrderRequest } from '../../../../services/models';
 
 @Injectable({
   providedIn: 'root'
@@ -25,13 +25,13 @@ export class CustomerService {
   totalOrderedItems$ = this.totalOrderedItemsSubject.asObservable();
 
   // order request object
-  private orderRequestObj:ItemOrderRequest = {
+  private orderRequestObj:OrderRequest = {
         orderType: '', 
         orderDetails:[],
         totalPrice: 0,
         locationId: ''
   }
-  private orderRequestSubject = new BehaviorSubject<ItemOrderRequest>(this.orderRequestObj);
+  private orderRequestSubject = new BehaviorSubject<OrderRequest>(this.orderRequestObj);
   orderRequest$ = this.orderRequestSubject.asObservable();
 
   //search text
@@ -87,11 +87,11 @@ export class CustomerService {
     this.totalOrderedItemsSubject.next(0);
   }
 
-  updateOrder(orderRequest:ItemOrderRequest){
+  updateOrder(orderRequest:OrderRequest){
     this.orderRequestSubject.next(orderRequest)
   }
     
-  resetOrderRequest(orderRequest:ItemOrderRequest){
+  resetOrderRequest(orderRequest:OrderRequest){
     this.orderRequestObj = orderRequest;
     this.resetTotalOrderedItems();
     this.orderRequestSubject.next(orderRequest);

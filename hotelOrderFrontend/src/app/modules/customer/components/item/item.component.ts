@@ -66,6 +66,9 @@ export class ItemComponent implements OnInit, OnDestroy {
   
   // fetch items by id
   fetchItemByCategory(category:CategoryResponse){
+    if(category){
+
+    }
     this.itemService.getItemsByCategory({
         'category-id' : category.id as string
     }).subscribe({

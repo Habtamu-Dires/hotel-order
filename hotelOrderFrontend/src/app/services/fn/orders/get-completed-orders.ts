@@ -8,13 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { ItemOrderResponse } from '../../models/item-order-response';
+import { OrderResponse } from '../../models/order-response';
 
 export interface GetCompletedOrders$Params {
   'date-time': string;
 }
 
-export function getCompletedOrders(http: HttpClient, rootUrl: string, params: GetCompletedOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ItemOrderResponse>>> {
+export function getCompletedOrders(http: HttpClient, rootUrl: string, params: GetCompletedOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
   const rb = new RequestBuilder(rootUrl, getCompletedOrders.PATH, 'get');
   if (params) {
     rb.query('date-time', params['date-time'], {});
@@ -25,7 +25,7 @@ export function getCompletedOrders(http: HttpClient, rootUrl: string, params: Ge
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<ItemOrderResponse>>;
+      return r as StrictHttpResponse<Array<OrderResponse>>;
     })
   );
 }

@@ -1,7 +1,7 @@
 package com.hotel.batch.daily_average_order;
 
 import com.hotel.order.ItemOrder;
-import com.hotel.order.ItemOrderRepository;
+import com.hotel.order.OrderRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DailyAverageOrderService {
 
-    private final ItemOrderRepository itemOrderRepository;
+    private final OrderRepository orderRepository;
     private final DailyAverageOrderRepository repository;
 
     public void removeDataBefore7Days(){
         LocalDateTime midnight = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT);
-        List<ItemOrder> oldList = itemOrderRepository.getCompletedOrdersBefore(midnight.minusDays(7));
+        List<ItemOrder> oldList = orderRepository.getCompletedOrdersBefore(midnight.minusDays(7));
 
         //total number of orders
         Integer totalOrder = oldList.size();

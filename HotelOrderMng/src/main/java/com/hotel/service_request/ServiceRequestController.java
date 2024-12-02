@@ -25,6 +25,18 @@ public class ServiceRequestController {
         return ResponseEntity.ok(service.createRequest(request));
     }
 
+    // get pending call requests
+    @GetMapping("/pending/call")
+    public ResponseEntity<List<ServiceRequestResponse>> getPendingCallRequest(){
+        return ResponseEntity.ok(service.getPendingCallRequests());
+    }
+
+    // get pending bill requests
+    @GetMapping("/pending/bill")
+    public ResponseEntity<List<ServiceRequestResponse>> getPendingBillRequest(){
+        return ResponseEntity.ok(service.getPendingBillRequests());
+    }
+
     // get all pending service requests
     @GetMapping("/pending")
     public ResponseEntity<List<ServiceRequestResponse>> getPendingServiceRequests(){
@@ -40,8 +52,9 @@ public class ServiceRequestController {
     // update service request status
     @PutMapping("/update-status/{request_id}")
     public ResponseEntity<?> updateServiceRequestStatus(
-            @PathVariable("request_id") String request_id
+            @PathVariable("request_id") String requestId
     ){
-       return ResponseEntity.ok(service.updateServiceRequestStatus(request_id));
+        service.updateServiceRequestStatus(requestId);
+        return ResponseEntity.accepted().build();
     }
 }

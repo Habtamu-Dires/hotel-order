@@ -1,10 +1,10 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../services/services';
 import { AuthenticationRequest, AuthenticationResponse } from '../../services/models';
 import { TokenService } from '../../services/token/token.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,18 +13,24 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
   authRequest:AuthenticationRequest = {username: '', password: ''}
   ereMsgs:string[] = []
   errMessage:string = '';
+  reqdUrl?:string;
 
 
   constructor(
     private authService:AuthenticationService,
     private tokenService:TokenService,
-    private router:Router
+    private router:Router,
+    private activatedRoute:ActivatedRoute
   ){}
+
+  ngOnInit(): void {
+    this.reqdUrl = this.activatedRoute.snapshot.params['url'];
+  }
 
 
   login(){
@@ -35,10 +41,28 @@ export class LoginComponent {
     }).subscribe({
       next:(response:AuthenticationResponse) =>{
         this.tokenService.token = response.token as string;
-        console.log(response.token as string);
-        this.router.navigate(['admin']);
+        const roles = this.tokenService.getUserRole();
+        if(this.reqdUrl){
+          if(this.reqdUrl === 'admin' && roles.includes('ROLE_ADMIN')){
+            this.router.navigate(['admin']);
+          } else if(this.reqdUrl === 'waiter' && roles.includes('ROLE_WAITER')){
+            this.router.navigate(['waiter'])
+          } else if(this.reqdUrl === 'chef' && roles.includes('ROLE_CHEF')){
+            
+          } else if(roles.includes('ROLE_ADMIN')){
+            this.router.navigate([this.reqdUrl]);
+          }
+        } else {
+          if(roles.includes('ROLE_ADMIN')){
+            this.router.navigate(['admin']);
+          } else if(roles.includes('ROLE_WAITER')){
+            this.router.navigate(['waiter'])
+          } else if(roles.includes('ROLE_CHEF')){
+            
+          } 
+        }
       },
-      error: (err =>{
+      error: (err => {
         if(err.error.validationErrors){
           this.ereMsgs = err.error.validationErrors;
         } else{
@@ -46,5 +70,7 @@ export class LoginComponent {
         }
       })
   })
-}
+};
+
+
 }

@@ -49,7 +49,10 @@ export class HeaderComponent {
     )
     .subscribe((text:any)=>{
       const serachedText = text as string;
-      this.customerService.updateSearchedText(serachedText);
+      if(serachedText.length !== 0){
+        this.customerService.updateSearchedText(serachedText);
+      }
+      
     })
   }
 
@@ -73,7 +76,7 @@ export class HeaderComponent {
   }
 
   navigateToHome(){
-    this.router.navigate(['customer', 'home'])
+    this.router.navigate(['customer', 'home']);
   }
   
   navigateToWaiter(){

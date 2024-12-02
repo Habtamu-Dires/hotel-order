@@ -15,6 +15,10 @@ import { createServiceRequest } from '../fn/service-requests/create-service-requ
 import { CreateServiceRequest$Params } from '../fn/service-requests/create-service-request';
 import { getAllServiceRequests } from '../fn/service-requests/get-all-service-requests';
 import { GetAllServiceRequests$Params } from '../fn/service-requests/get-all-service-requests';
+import { getPendingBillRequest } from '../fn/service-requests/get-pending-bill-request';
+import { GetPendingBillRequest$Params } from '../fn/service-requests/get-pending-bill-request';
+import { getPendingCallRequest } from '../fn/service-requests/get-pending-call-request';
+import { GetPendingCallRequest$Params } from '../fn/service-requests/get-pending-call-request';
 import { getPendingServiceRequests } from '../fn/service-requests/get-pending-service-requests';
 import { GetPendingServiceRequests$Params } from '../fn/service-requests/get-pending-service-requests';
 import { MessageResponse } from '../models/message-response';
@@ -128,6 +132,56 @@ export class ServiceRequestsService extends BaseService {
    */
   getPendingServiceRequests(params?: GetPendingServiceRequests$Params, context?: HttpContext): Observable<Array<ServiceRequestResponse>> {
     return this.getPendingServiceRequests$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<ServiceRequestResponse>>): Array<ServiceRequestResponse> => r.body)
+    );
+  }
+
+  /** Path part for operation `getPendingCallRequest()` */
+  static readonly GetPendingCallRequestPath = '/service-requests/pending/call';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getPendingCallRequest()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPendingCallRequest$Response(params?: GetPendingCallRequest$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ServiceRequestResponse>>> {
+    return getPendingCallRequest(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getPendingCallRequest$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPendingCallRequest(params?: GetPendingCallRequest$Params, context?: HttpContext): Observable<Array<ServiceRequestResponse>> {
+    return this.getPendingCallRequest$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<ServiceRequestResponse>>): Array<ServiceRequestResponse> => r.body)
+    );
+  }
+
+  /** Path part for operation `getPendingBillRequest()` */
+  static readonly GetPendingBillRequestPath = '/service-requests/pending/bill';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getPendingBillRequest()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPendingBillRequest$Response(params?: GetPendingBillRequest$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ServiceRequestResponse>>> {
+    return getPendingBillRequest(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getPendingBillRequest$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPendingBillRequest(params?: GetPendingBillRequest$Params, context?: HttpContext): Observable<Array<ServiceRequestResponse>> {
+    return this.getPendingBillRequest$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<ServiceRequestResponse>>): Array<ServiceRequestResponse> => r.body)
     );
   }

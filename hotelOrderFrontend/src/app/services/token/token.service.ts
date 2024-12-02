@@ -37,6 +37,17 @@ export class TokenService {
     return !this.isTokenValid();
   }
 
+  // decode the users role
+  getUserRole():string[]{
+    const token = this.token;
+    if(!token){
+      return [];
+    }
+    const jwtHelper = new JwtHelperService();
+    const decodedToken = jwtHelper.decodeToken(token);
+    return decodedToken.authorities;
+  }
+
   removeToken(){
     localStorage.clear();
   }

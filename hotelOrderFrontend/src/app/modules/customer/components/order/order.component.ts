@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IdResponse, ItemOrderRequest, ItemResponse, LocationResponse, OrderDetailRequest } from '../../../../services/models';
+import { IdResponse, ItemResponse, LocationResponse, OrderDetailRequest, OrderRequest } from '../../../../services/models';
 import { LocationsService,OrdersService } from '../../../../services/services';
 import { CustomerService } from '../../services/customer/customer.service';
 import { ToastrService } from 'ngx-toastr';
@@ -17,7 +17,7 @@ import { debounceTime, Subscription } from 'rxjs';
 export class OrderComponent implements OnInit, OnDestroy {
 
   // order request initial
-  orderRequest:ItemOrderRequest ={
+  orderRequest:OrderRequest ={
     orderType: '', 
     orderDetails:[],
     totalPrice: 0,
@@ -132,7 +132,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
       // create order
     this.orderService.createOrder({
-      body: this.orderRequest as ItemOrderRequest
+      body: this.orderRequest as OrderRequest
     }).subscribe({
       next:(res:IdResponse) =>{
         this.toastrService.success('Order successfully send', 'Done!')

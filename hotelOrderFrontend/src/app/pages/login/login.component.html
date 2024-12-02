@@ -6,20 +6,22 @@
                 <p>{{message}}</p>
            </div>     
         </div>
-        <div>
-            <input type="text" placeholder="username"
-            class="w-full p-2 rounded-lg text-lg outline-none"
-            [(ngModel)]="authRequest.username"/>
-            <p *ngIf="errMessage.length" class="ms-2 text-red-500">{{errMessage}}</p>
-        </div>
-        <div>
-            <input type="password" placeholder="password"
-            class="w-full p-2 rounded-lg text-lg outline-none"
-            [(ngModel)]="authRequest.password"/>
-        </div>
-        <button class="p-2 bg-green-700 rounded-lg flex justify-center"
-            (click)="login()">
-            <p class="text-xl">login</p>
-        </button>
+        <form class="flex flex-col gap-4 p-4">
+            <div>
+                <input type="text" name="username"  placeholder="username" autofocus 
+                class="w-full p-2 rounded-lg text-lg outline-none"
+                [(ngModel)]="authRequest.username"/>
+                <p *ngIf="errMessage.length" class="ms-2 text-red-500">{{errMessage}}</p>
+            </div>
+            <div>
+                <input type="password" name="password" placeholder="password"
+                class="w-full p-2 rounded-lg text-lg outline-none"
+                [(ngModel)]="authRequest.password"/>
+            </div>
+            <button class="p-2 bg-green-700 rounded-lg flex justify-center" 
+                (click)="login()">
+                <p class="text-xl">login</p>
+            </button>    
+        </form>
     </div>
 </div>

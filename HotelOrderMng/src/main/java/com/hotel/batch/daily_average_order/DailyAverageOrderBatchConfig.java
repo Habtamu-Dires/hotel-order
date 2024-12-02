@@ -1,7 +1,7 @@
 package com.hotel.batch.daily_average_order;
 
 import com.hotel.order.ItemOrder;
-import com.hotel.order.ItemOrderRepository;
+import com.hotel.order.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DailyAverageOrderBatchConfig {
 
-    private final ItemOrderRepository itemOrderRepository;
+    private final OrderRepository orderRepository;
     private final DailyAverageOrderRepository repository;
     private final JobRepository jobRepository;
     private final PlatformTransactionManager platformTransactionManager;
@@ -36,7 +36,7 @@ public class DailyAverageOrderBatchConfig {
     //reader
     public RepositoryItemReader<ItemOrder> dailyOrderReader(){
         RepositoryItemReader<ItemOrder> reader = new RepositoryItemReader<>();
-        reader.setRepository(itemOrderRepository);
+        reader.setRepository(orderRepository);
         reader.setMethodName("getPageableCompletedOrdersAfterBefore");
         reader.setArguments(List.of(yesterdayMidnight,todayMidnight));
         reader.setPageSize(100);

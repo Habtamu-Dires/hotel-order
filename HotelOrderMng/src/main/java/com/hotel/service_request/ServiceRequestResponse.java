@@ -12,7 +12,7 @@ public record ServiceRequestResponse(
         LocationResponse location,
         ServiceStatus serviceStatus,
         ServiceType serviceType,
-        LocalDateTime createdAt,
-        LocalDateTime completedAt
+        LocalDateTime createdDate,
+        LocalDateTime completedDate
 ) {
 }

@@ -4,8 +4,8 @@
 
 import { LocationResponse } from '../models/location-response';
 export interface ServiceRequestResponse {
-  completedAt?: string;
-  createdAt?: string;
+  completedDate?: string;
+  createdDate?: string;
   id?: string;
   location?: LocationResponse;
   locationId?: string;

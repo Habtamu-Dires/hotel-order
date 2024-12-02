@@ -39,4 +39,11 @@ public interface ServiceRequestRepository extends JpaRepository<ServiceRequest, 
     Page<ServiceRequest> getOldServiceRequests(@Param("dateTime") LocalDateTime dateTime,
                                                Pageable pageable);
 
+    @Query("""
+            SELECT sr FROM ServiceRequest sr 
+            WHERE sr.serviceType = :serviceType
+            AND sr.serviceStatus = :serviceStatus
+            """)
+    List<ServiceRequest> findRequestByTypeAndStatus(ServiceType serviceType,
+                                                            ServiceStatus serviceStatus);
 }

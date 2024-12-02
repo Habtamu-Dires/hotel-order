@@ -11,15 +11,15 @@ public class ServiceRequestMapper {
 
     private final OrderLocationMapper locationMapper;
 
-    public ServiceRequestResponse toServiceRequestDTO(ServiceRequest request) {
+    public ServiceRequestResponse toServiceRequestReponse(ServiceRequest request) {
         return   ServiceRequestResponse.builder()
                 .id(request.getId().toString())
                 .locationId(request.getOrderLocation().getId().toString())
                 .location(locationMapper.toOrderLocationResponse(request.orderLocation))
                 .serviceType(request.serviceType)
                 .serviceStatus(request.serviceStatus)
-                .createdAt(request.createdDate)
-                .completedAt(request.completedDate)
+                .createdDate(request.createdDate)
+                .completedDate(request.completedDate)
                 .build();
     }
 }

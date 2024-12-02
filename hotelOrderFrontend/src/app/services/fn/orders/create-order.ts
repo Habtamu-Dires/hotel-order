@@ -9,10 +9,10 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { IdResponse } from '../../models/id-response';
-import { ItemOrderRequest } from '../../models/item-order-request';
+import { OrderRequest } from '../../models/order-request';
 
 export interface CreateOrder$Params {
-      body: ItemOrderRequest
+      body: OrderRequest
 }
 
 export function createOrder(http: HttpClient, rootUrl: string, params: CreateOrder$Params, context?: HttpContext): Observable<StrictHttpResponse<IdResponse>> {

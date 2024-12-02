@@ -1,7 +1,7 @@
 package com.hotel.batch.monthly_order_data;
 
 import com.hotel.order.ItemOrder;
-import com.hotel.order.ItemOrderRepository;
+import com.hotel.order.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -23,7 +23,7 @@ import java.util.List;
 public class MonthlyOrderDataBatchConfig {
 
     private final MonthlyOrderDataRepository repository;
-    private final ItemOrderRepository itemOrderRepository;
+    private final OrderRepository orderRepository;
     private final JobRepository jobRepository;
     private final PlatformTransactionManager platformTransactionManager;
     private final TaskExecutor taskExecutor;
@@ -31,7 +31,7 @@ public class MonthlyOrderDataBatchConfig {
     // item reader
     public RepositoryItemReader<ItemOrder> orderReader(){
         RepositoryItemReader<ItemOrder> reader = new RepositoryItemReader<>();
-        reader.setRepository(itemOrderRepository);
+        reader.setRepository(orderRepository);
         reader.setMethodName("getPageableCompletedOrdersAfter");
         reader.setArguments(List.of(LocalDateTime.now().minusDays(1)));
         reader.setPageSize(200);

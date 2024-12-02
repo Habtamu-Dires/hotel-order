@@ -1,0 +1,122 @@
+<div class="mx-2 mt-2 overflow-y-auto">
+    <div class="flex flex-col md:w-1/2 md:mx-auto">
+        <div class="flex justify-evenly cursor-pointer">
+            <p (click)='changeOrderType("DINE_IN")'
+                class="p-2"
+                [ngClass]="{'bg-gray-100 rounded-lg text-green-500': orderType === 'DINE_IN'}">
+                DINE-IN
+            </p>
+            <p (click)='changeOrderType("TAKEAWAY")'
+                class="p-2"
+               [ngClass]="{'bg-gray-100 rounded-lg text-green-500': orderType === 'TAKEAWAY'}">
+                TAKEAWAY
+            </p>
+        </div>
+        <div class="border-b-4 border-dashed my-4"></div>
+
+        @for (orderDetail of orderDetailMap.values(); track $index) {
+            <div class="flex justify-between  items-center text-sm my-1">
+                <div class="flex">
+                    <div class="flex items-center gap-1 mr-2">
+                        <P>{{orderDetail.quantity}}</P>
+                        <p>X</p>
+                    </div>
+                    <p>{{orderDetail.itemName}}</p>
+                </div>
+                <div class="flex gap-3 items-center">
+                    <div class="flex gap-1">
+                        <div class="rounded-full bg-gray-300 p-1 cursor-pointer"
+                        (click)="decrement(orderDetail)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="white" d="M19 12.998H5v-2h14z"/></svg>
+                    </div>
+                    <div class="rounded-full bg-gray-300 p-1 cursor-pointer"
+                        (click)="increment(orderDetail)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="white" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z"/></svg>
+                    </div>
+                    </div>
+                    <p class="w-12">{{calculateTotalPrice(orderDetail.quantity , orderDetail.price)}}</p>
+                </div>
+            </div>
+        }
+        <div class="border-b-4 border-dashed my-4"></div>
+        <div class="flex justify-between">
+            <p>Total: </p>
+            <p>{{orderRequest.totalPrice.toFixed(2)}} Birr</p>
+        </div>
+        <div class="border-b-4 border-dashed my-4"></div>
+        <!--note-->
+        <div class="flex justify-center mt-2">
+            <textarea [(ngModel)] = 'orderNote'
+                class="border rounded-md w-3/4 p-2 bg-gray-100 resize-none outline-none"
+                placeholder="Add note"
+                rows="3" cols="20"
+            ></textarea>
+        </div>
+        <!--Location type selection-->
+        <div class="flex flex-col">
+            <div class="flex justify-evenly mt-4">
+                <div class="flex gap-1">
+                    <input type="radio" id="talbe" [(ngModel)]="tempLocInfoHolder.type" name="table" value="TABLE"
+                        (ngModelChange)="onLocationTypeChange()"
+                        class="w-5 h-5 border rounded-full"/>
+                    <label for="talbe" class="font-semibold">Table</label>
+                </div>
+                <div class="flex gap-1">
+                    <input type="radio" id="room" [(ngModel)]="tempLocInfoHolder.type" name="room" value="ROOM"
+                        (ngModelChange)="onLocationTypeChange()"
+                        class="w-5 h-5 border rounded-full"/>
+                    <label for="room" class="font-semibold">Room</label>
+                </div>            
+            </div>
+            <div class="flex justify-center">
+                <p *ngIf="isOrderBtnClicked && !tempLocInfoHolder.type" class="text-red-500">
+                    Please set location type
+                </p>
+                <p *ngIf="isLocNumFocused && !tempLocInfoHolder.type" class="text-red-500">
+                    Please set location type first
+                </p>
+            </div>            
+        </div> 
+        <!-- Location number input-->    
+        <div class="relative mt-3 flex flex-col items-center justify-center">
+            <input class="w-3/5 p-2 bg-gray-100 rounded-md outline-none"
+                type="number"
+                name="locationNumber"
+                [(ngModel)]="tempLocInfoHolder.number"
+                placeholder="search {{tempLocInfoHolder.type}} number"
+                (focus)="onNumberInputFocus()"   
+                (input)="getFilteredLocations()"
+            />
+            <p *ngIf="isOrderBtnClicked &&  !tempLocInfoHolder.number" class="text-red-500">
+                Please set {{tempLocInfoHolder.type}} number
+            </p>
+            <p *ngIf="isOrderBtnClicked &&  !orderLocation" class="text-red-500">
+                Please select available {{tempLocInfoHolder.type}} number 
+            </p>
+            <p *ngIf="isNumberInputOnFocus && !tempLocInfoHolder.type" class="text-red-500">
+                Please select location type first
+            </p>
+            <!--drop up list-->
+            <div *ngIf="isNumberMenuVisible" 
+                class="absolute bottom-full max-h-72 w-3/5 rounded-md shadow-lg overflow-y-auto">
+                <div *ngFor="let location of filteredLocations"
+                    class="flex w-full justify-center items-center">
+                    <div *ngIf="location.type === tempLocInfoHolder.type" 
+                        (click)="setLocationNumber(location)" 
+                        class="w-full p-1 bg-gray-50 cursor-pointer hover:bg-gray-200">
+                        {{location.number}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Order Button-->
+        <div class="fixed bottom-6 w-full bg-white md:w-1/2 md:mx-auto rounded-xl text-white">
+            <div class="flex justify-center w-full md:w-3/4">
+                <button class="bg-green-600 px-8 py-3 text-lg rounded-3xl hover:bg-green-500 shadow-lg"
+                    (click)="handleOrderClick()">
+                    Order
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

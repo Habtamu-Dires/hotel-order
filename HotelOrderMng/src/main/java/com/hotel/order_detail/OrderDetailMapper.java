@@ -15,6 +15,8 @@ public class OrderDetailMapper {
                 .id(orderDetail.getId().toString())
                 .orderId(orderDetail.getOrder().getId().toString())
                 .itemId(orderDetail.getItem().getId().toString())
+                .itemName(orderDetail.getItem().getName())
+                .price(orderDetail.getItem().getPrice())
                 .quantity(orderDetail.getQuantity())
                 .status(orderDetail.getStatus())
                 .build();

@@ -6,11 +6,13 @@ export const httpTokenInterceptor: HttpInterceptorFn = (req, next) => {
   //list of endpoints that require tokens
   const tokenRequiredEndpoints = [
     {url: '/users', methods:['All']},
+    {url: '/auth/register', methods:['All']},
     {url: '/categories', methods:['DELETE', 'POST', 'PUT']},
     {url: '/items', methods:['DELETE', 'POST', 'PUT']},
     {url: '/locations', methods:['DELETE', 'POST', 'PUT']},
     {url: '/orders', methods:['GET','DELETE', 'PUT']},
-    {url: '/order-details', methods:['All']}
+    {url: '/order-details', methods:['All']},
+    {url: '/service-requests', methods:['GET', 'PUT']}
   ];
   for(const endpoint of tokenRequiredEndpoints){
     const matchesUrl = req.url.includes(endpoint.url);

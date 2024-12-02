@@ -100,26 +100,25 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "newStatus",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "PENDING",
+                                "OnPROCESS",
+                                "READY",
+                                "SERVED",
+                                "COMPLETED",
+                                "CANCELLED",
+                                "BillREADY"
+                            ]
+                        }
                     }
                 ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "string",
-                                "enum": [
-                                    "PENDING",
-                                    "OnPROCESS",
-                                    "READY",
-                                    "COMPLETED",
-                                    "CANCELLED",
-                                    "SERVED"
-                                ]
-                            }
-                        }
-                    },
-                    "required": true
-                },
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -438,7 +437,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/ItemOrderResponse"
+                                        "$ref": "#/components/schemas/OrderResponse"
                                     }
                                 }
                             }
@@ -455,7 +454,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ItemOrderRequest"
+                                "$ref": "#/components/schemas/OrderRequest"
                             }
                         }
                     },
@@ -1041,6 +1040,52 @@
                 }
             }
         },
+        "/service-requests/pending/call": {
+            "get": {
+                "tags": [
+                    "service-requests"
+                ],
+                "operationId": "getPendingCallRequest",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ServiceRequestResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/service-requests/pending/bill": {
+            "get": {
+                "tags": [
+                    "service-requests"
+                ],
+                "operationId": "getPendingBillRequest",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ServiceRequestResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/orders/served": {
             "get": {
                 "tags": [
@@ -1055,7 +1100,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/ItemOrderResponse"
+                                        "$ref": "#/components/schemas/OrderResponse"
                                     }
                                 }
                             }
@@ -1078,7 +1123,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/ItemOrderResponse"
+                                        "$ref": "#/components/schemas/OrderResponse"
                                     }
                                 }
                             }
@@ -1101,7 +1146,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/ItemOrderResponse"
+                                        "$ref": "#/components/schemas/OrderResponse"
                                     }
                                 }
                             }
@@ -1124,7 +1169,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/ItemOrderResponse"
+                                        "$ref": "#/components/schemas/OrderResponse"
                                     }
                                 }
                             }
@@ -1157,7 +1202,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/ItemOrderResponse"
+                                        "$ref": "#/components/schemas/OrderResponse"
                                     }
                                 }
                             }
@@ -1191,7 +1236,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/ItemOrderResponse"
+                                        "$ref": "#/components/schemas/OrderResponse"
                                     }
                                 }
                             }
@@ -1406,6 +1451,29 @@
                 }
             }
         },
+        "/orders/bill-ready": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "getBillReadyOrders",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OrderResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/orders/active": {
             "get": {
                 "tags": [
@@ -1420,7 +1488,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/ItemOrderResponse"
+                                        "$ref": "#/components/schemas/OrderResponse"
                                     }
                                 }
                             }
@@ -2265,7 +2333,37 @@
                     }
                 }
             },
-            "ItemOrderRequest": {
+            "OrderDetailRequest": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "itemId": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "itemName": {
+                        "type": "string"
+                    },
+                    "orderId": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "note": {
+                        "type": "string"
+                    }
+                }
+            },
+            "OrderRequest": {
                 "required": [
                     "locationId",
                     "orderType",
@@ -2291,36 +2389,6 @@
                         }
                     },
                     "locationId": {
-                        "type": "string"
-                    },
-                    "note": {
-                        "type": "string"
-                    }
-                }
-            },
-            "OrderDetailRequest": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "itemId": {
-                        "type": "string"
-                    },
-                    "quantity": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "price": {
-                        "type": "number"
-                    },
-                    "itemName": {
-                        "type": "string"
-                    },
-                    "orderId": {
-                        "type": "string"
-                    },
-                    "type": {
                         "type": "string"
                     },
                     "note": {
@@ -2589,17 +2657,56 @@
                             "BILL"
                         ]
                     },
-                    "createdAt": {
+                    "createdDate": {
                         "type": "string",
                         "format": "date-time"
                     },
-                    "completedAt": {
+                    "completedDate": {
                         "type": "string",
                         "format": "date-time"
                     }
                 }
             },
-            "ItemOrderResponse": {
+            "OrderDetailResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "orderId": {
+                        "type": "string"
+                    },
+                    "itemId": {
+                        "type": "string"
+                    },
+                    "itemName": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "note": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "PENDING",
+                            "READY",
+                            "PROCESSED",
+                            "CANCELLED"
+                        ]
+                    }
+                }
+            },
+            "OrderResponse": {
                 "type": "object",
                 "properties": {
                     "id": {
@@ -2630,7 +2737,7 @@
                     "note": {
                         "type": "string"
                     },
-                    "createdAt": {
+                    "createdDate": {
                         "type": "string",
                         "format": "date-time"
                     },
@@ -2640,42 +2747,10 @@
                             "PENDING",
                             "OnPROCESS",
                             "READY",
+                            "SERVED",
                             "COMPLETED",
                             "CANCELLED",
-                            "SERVED"
-                        ]
-                    }
-                }
-            },
-            "OrderDetailResponse": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "itemId": {
-                        "type": "string"
-                    },
-                    "quantity": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "orderId": {
-                        "type": "string"
-                    },
-                    "type": {
-                        "type": "string"
-                    },
-                    "note": {
-                        "type": "string"
-                    },
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "PENDING",
-                            "READY",
-                            "PROCESSED",
-                            "CANCELLED"
+                            "BillREADY"
                         ]
                     }
                 }

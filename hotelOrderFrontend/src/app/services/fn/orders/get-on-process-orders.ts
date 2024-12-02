@@ -8,12 +8,12 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { ItemOrderResponse } from '../../models/item-order-response';
+import { OrderResponse } from '../../models/order-response';
 
 export interface GetOnProcessOrders$Params {
 }
 
-export function getOnProcessOrders(http: HttpClient, rootUrl: string, params?: GetOnProcessOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ItemOrderResponse>>> {
+export function getOnProcessOrders(http: HttpClient, rootUrl: string, params?: GetOnProcessOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
   const rb = new RequestBuilder(rootUrl, getOnProcessOrders.PATH, 'get');
   if (params) {
   }
@@ -23,7 +23,7 @@ export function getOnProcessOrders(http: HttpClient, rootUrl: string, params?: G
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<ItemOrderResponse>>;
+      return r as StrictHttpResponse<Array<OrderResponse>>;
     })
   );
 }

@@ -1,0 +1,59 @@
+<div class="flex flex-col w-full  min-h-screen relative">
+    @if (!isOnItemDetail) {
+        <div>
+            <div class="sticky top-0 z-30 flex justify-center w-full">
+                <div class=" w-full md:mx-5">
+                    <app-header 
+                        [componentName]="componentName"
+                        [showSearchBar]="showSearchBar"
+                        [prvSearchedText]="prvSearchedText"
+                    ></app-header>
+                </div>
+            </div>
+            <div *ngIf="!hideCategory" class="sticky top-9 w-full z-20">
+                 <app-category [mainCategoryList]="mainCategoryList"></app-category>
+            </div>
+            <div class="mb-12">
+                <app-item 
+                    (onItemSelected)="onItemSelected($event)"
+                    [itemList]="currentItemList"
+                    [fromItemDetail]="fromItemDetail"
+                ></app-item>
+            </div>
+        </div>
+    }
+    @else if(isOnItemDetail){
+         <!--Item detail-->
+        <div>
+            <app-item-detail 
+                class="h-10/12"
+                [selectedItem]="selectedItem"
+                (backToItmes)="onNavigateToItems()"
+            ></app-item-detail>
+        </div>
+    }
+    <!--dark overlay-->
+    <div *ngIf="isFooterExpanded" id="dark-overlay"
+     class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-60 z-40 transition-opacity"
+       (click)="toggleFooter()">
+    </div>    
+
+    <!--footer-->
+    <div class="fixed bottom-0 w-full flex justify-start transition duration-700" 
+        [ngClass]="{'h-5/6 z-50': isFooterExpanded,
+            'translate-y-20':isOnAnimation
+        }">
+        <app-footer class="w-full me-2 md:w-8/12 md:ms-4 lg:w-10/12 lg:ms-8 "
+            [isFooterExpanded]="isFooterExpanded"
+            (footerToggled)="toggleFooter()"
+            (orderCompleted)="onNavigateToItems()"
+        ></app-footer>
+    </div>
+</div>
+
+
+
+
+
+
+

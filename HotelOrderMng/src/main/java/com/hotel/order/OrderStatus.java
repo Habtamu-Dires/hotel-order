@@ -2,9 +2,11 @@ package com.hotel.order;
 
 public enum OrderStatus {
     PENDING,
+    VERIFIED,
     OnPROCESS,
     READY,
+    SERVED,
     COMPLETED,
-    CANCELLED,
-    SERVED
+    CANCELED,
+    BillREADY
 }

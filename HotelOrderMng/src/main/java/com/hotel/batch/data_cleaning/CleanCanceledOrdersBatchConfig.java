@@ -1,7 +1,7 @@
 package com.hotel.batch.data_cleaning;
 
 import com.hotel.order.ItemOrder;
-import com.hotel.order.ItemOrderRepository;
+import com.hotel.order.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -12,7 +12,6 @@ import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -20,7 +19,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @RequiredArgsConstructor
 public class CleanCanceledOrdersBatchConfig {
 
-    private final ItemOrderRepository itemOrderRepository;
+    private final OrderRepository orderRepository;
     private final JobRepository jobRepository;
     private final PlatformTransactionManager platformTransactionManager;
     private final TaskExecutor taskExecutor;
@@ -28,7 +27,7 @@ public class CleanCanceledOrdersBatchConfig {
     // item reader
     public RepositoryItemReader<ItemOrder> orderItemReader(){
         RepositoryItemReader<ItemOrder> reader = new RepositoryItemReader<>();
-        reader.setRepository(itemOrderRepository);
+        reader.setRepository(orderRepository);
         reader.setMethodName("getCanceledOrders");
         reader.setPageSize(100);
         return reader;
@@ -42,7 +41,7 @@ public class CleanCanceledOrdersBatchConfig {
     // writer
     public RepositoryItemWriter<ItemOrder> orderItemWriter(){
         RepositoryItemWriter<ItemOrder> writer = new RepositoryItemWriter<>();
-        writer.setRepository(itemOrderRepository);
+        writer.setRepository(orderRepository);
         writer.setMethodName("delete");
         return writer;
     }

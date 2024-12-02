@@ -1,5 +1,5 @@
 <div class="w-full grid grid-cols-4">
-    <div class="col-start-2 col-span-2 flex justify-center gap-4 items-center">
+    <div class="col-start-1 md:col-start-2 col-span-2 flex justify-center gap-4 items-center">
         <div class="flex gap-2">
             <svg (click)="goToFirstPage()" 
                 [ngClass]="{'cursor-pointer hover:text-sky-500': !isFirstPage,
@@ -25,7 +25,7 @@
         </div>
     
     </div>
-    <div class="col-start-4 flex justify-center gap-6">
+    <div class="col-start-3 col-span-2 md:col-start-4 flex justify-center gap-6">
         <div class="flex gap-2">
             <label> Rows Per Page: </label>
             <select class="ps-2 rounded-lg" [(ngModel)] = "size" (change)="setNoOfRow()">

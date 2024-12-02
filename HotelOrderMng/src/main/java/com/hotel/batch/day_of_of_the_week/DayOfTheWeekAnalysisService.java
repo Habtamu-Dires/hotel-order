@@ -1,7 +1,7 @@
 package com.hotel.batch.day_of_of_the_week;
 
 import com.hotel.order.ItemOrder;
-import com.hotel.order.ItemOrderRepository;
+import com.hotel.order.OrderRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,13 +17,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DayOfTheWeekAnalysisService {
 
-    private final ItemOrderRepository itemOrderRepository;
+    private final OrderRepository orderRepository;
     private final DayOfTheWeekAnalysisRepository repository;
 
     public void removeDataBefore28Days(){
         //get data before 28 day
         var midNight = LocalDateTime.of(LocalDate.now(),LocalTime.MIDNIGHT);
-        List<ItemOrder> oldList = itemOrderRepository.getCompletedOrdersBefore(midNight.minusDays(28));
+        List<ItemOrder> oldList = orderRepository.getCompletedOrdersBefore(midNight.minusDays(28));
         //totalOrders
         Integer totalOrder =  oldList.size();
         //total transaction

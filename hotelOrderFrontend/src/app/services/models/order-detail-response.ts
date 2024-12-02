@@ -5,8 +5,10 @@
 export interface OrderDetailResponse {
   id?: string;
   itemId?: string;
+  itemName?: string;
   note?: string;
   orderId?: string;
+  price?: number;
   quantity?: number;
   status?: 'PENDING' | 'READY' | 'PROCESSED' | 'CANCELLED';
   type?: string;

@@ -1,7 +1,7 @@
 package com.hotel.batch.day_of_of_the_week;
 
 import com.hotel.order.ItemOrder;
-import com.hotel.order.ItemOrderRepository;
+import com.hotel.order.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -25,7 +25,7 @@ import java.util.List;
 public class DayOfTheWeekAnalysisBatchConfig {
 
     private final DayOfTheWeekAnalysisRepository repository;
-    private final ItemOrderRepository itemOrderRepository;
+    private final OrderRepository orderRepository;
     private final JobRepository jobRepository;
     private final PlatformTransactionManager platformTransactionManager;
     private final TaskExecutor taskExecutor;
@@ -35,7 +35,7 @@ public class DayOfTheWeekAnalysisBatchConfig {
     //reader
     public RepositoryItemReader<ItemOrder> orderReader(){
         RepositoryItemReader<ItemOrder> reader = new RepositoryItemReader<>();
-        reader.setRepository(itemOrderRepository);
+        reader.setRepository(orderRepository);
         reader.setMethodName("getPageableCompletedOrdersAfterBefore");
         reader.setArguments(List.of(yesterdayMidnight,todayMidnight));
         reader.setPageSize(200);
