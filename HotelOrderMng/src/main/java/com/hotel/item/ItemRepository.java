@@ -14,8 +14,14 @@ public interface ItemRepository extends JpaRepository<Item, UUID>, JpaSpecificat
     @Query("SELECT i FROM Item i WHERE i.isAvailable = true")
     List<Item> findAvailableItems();
 
-    @Query("SELeCT i FROM Item i WHERE i.category.id = :categoryId")
+    @Query("SELECT i FROM Item i WHERE i.category.id = :categoryId")
     List<Item> findItemByCategoryId(UUID categoryId);
+
+    @Query("""
+            SELECT i FROM Item i WHERE i.category.id = :categoryId
+            AND i.isAvailable = true
+            """)
+    List<Item> findAvailableItemByCategoryId(UUID categoryId);
 
     @Query("SELeCT i FROM Item i WHERE i.category.id = :categoryId")
     Page<Item> findPageOfItemByCategoryId(UUID categoryId, Pageable pageable);

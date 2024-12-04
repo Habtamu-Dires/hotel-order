@@ -11,7 +11,7 @@ export interface OrderResponse {
   locationId?: string;
   note?: string;
   orderDetails?: Array<OrderDetailResponse>;
-  orderStatus?: 'PENDING' | 'OnPROCESS' | 'READY' | 'SERVED' | 'COMPLETED' | 'CANCELLED' | 'BillREADY';
+  orderStatus?: 'PENDING' | 'VERIFIED' | 'OnPROCESS' | 'READY' | 'SERVED' | 'COMPLETED' | 'CANCELED' | 'BillREADY' | 'BillREQUEST';
   orderType?: 'DINE_IN' | 'TAKEAWAY';
   totalPrice?: number;
 }

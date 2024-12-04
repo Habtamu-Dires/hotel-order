@@ -1,5 +1,6 @@
 package com.hotel;
 
+import com.hotel.order_detail.OrderDetailRepository;
 import com.hotel.role.Role;
 import com.hotel.role.RoleRepository;
 import com.hotel.role.RoleType;
@@ -29,7 +30,8 @@ public class HotelOrderMngApplication {
 	@Bean
 	CommandLineRunner runner(RoleRepository roleRepository,
 							 UserRepository userRepository,
-							 PasswordEncoder passwordEncoder){
+							 PasswordEncoder passwordEncoder,
+							 OrderDetailRepository detailRepository){
 		return args -> {
 			if(roleRepository.findByName(RoleType.ADMIN).isEmpty()){
 				roleRepository.save(

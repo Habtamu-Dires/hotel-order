@@ -48,7 +48,9 @@ export class LoginComponent implements OnInit{
           } else if(this.reqdUrl === 'waiter' && roles.includes('ROLE_WAITER')){
             this.router.navigate(['waiter'])
           } else if(this.reqdUrl === 'chef' && roles.includes('ROLE_CHEF')){
-            
+            this.router.navigate(['kds']);
+          } else if(this.reqdUrl === 'chasier' && roles.includes('ROLE_CASHIER')){
+            this.router.navigate(['cashier']);
           } else if(roles.includes('ROLE_ADMIN')){
             this.router.navigate([this.reqdUrl]);
           }
@@ -58,7 +60,9 @@ export class LoginComponent implements OnInit{
           } else if(roles.includes('ROLE_WAITER')){
             this.router.navigate(['waiter'])
           } else if(roles.includes('ROLE_CHEF')){
-            
+            this.router.navigate(['kds'])
+          } else if(roles.includes('ROLE_CASHIER')){
+            this.router.navigate(['cashier']);
           } 
         }
       },

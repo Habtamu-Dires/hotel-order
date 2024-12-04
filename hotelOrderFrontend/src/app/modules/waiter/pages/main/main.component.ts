@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { SideBarItemComponent } from "../../components/side-bar-item/side-bar-item.component";
 import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
 
   activeComponent:string = 'Orders';
   waiterUser:UserResponse | undefined;
@@ -54,62 +54,63 @@ export class MainComponent implements OnInit {
 
   //  notification listener
   onNotification(){
-    const roles = this.tokenService.getUserRole();
-    if(roles.includes("ROLE_WAITER")){
-      let ws = new SockJS('http://localhost:8088/api/v1/ws');
-      this.socketClient = Stomp.over(ws);
-      this.socketClient.connect(
-        {'Authorization:': `Bearer ${this.tokenService.token}`},
-        ()=>{
-          this.orderNotifSub = this.socketClient.subscribe(
-            '/user/waiter/notification',
-            (message:any)=>{
-              const notification = JSON.parse(message.body);
+    // const roles = this.tokenService.getUserRole();
+    let ws = new SockJS('http://localhost:8088/api/v1/ws');
+    this.socketClient = Stomp.over(ws);
+    this.socketClient.connect(
+      {'Authorization:': `Bearer ${this.tokenService.token}`},
+      ()=>{
+        this.orderNotifSub = this.socketClient.subscribe(
+          '/user/waiter/notification',
+          (message:any)=>{
+            const notification = JSON.parse(message.body);
             
-              if('orderDetails' in notification){ // notification is OrderResponse
-                const status = notification.orderStatus;
-                // display message
-                this.displayOrderNotifMsg(status);
-                // update notif cunter for each status
+            // notification is OrderResponse
+            if('orderDetails' in notification){ 
+              const status = notification.orderStatus;
+              console.log("status");
+              // display message
+              this.displayOrderNotifMsg(status);
+              // update notif cunter for each status
+              const stausList = ['READY', 'BillREADY', 'PENDING'];
+              if(stausList.includes(status)){
                 if(this.orderNotifCounterMap.get(status)){
                   const value = Number(this.orderNotifCounterMap.get(status)) + 1;
                   this.waiterService.updateOrderNotifCounterMap(status,value);
                 } else {
                   this.waiterService.updateOrderNotifCounterMap(status, 1);
                 }
-                //update order notification
-                this.waiterService.updateOrderNotification(notification);
-                
-              }  // service request notification
-              else if('serviceType' in notification && 'serviceStatus' in notification){
-                const type = notification.serviceType;
-                // display message
-                this.toastrService.info(`New ${type} Request`);
-                // update notification counter for call and bill
-                if(this.reqNotifCounterMap.get(type)){
-                  const value = Number(this.reqNotifCounterMap.get(type)) + 1;
-                  this.waiterService.updateRequestNotifCounterMap(type,value);
-                } else {
-                  this.waiterService.updateRequestNotifCounterMap(type, 1);
-                }
-                // update request notification
-                this.waiterService.updateRequestNotification(notification);
               }
+              //update order notification
+              this.waiterService.updateOrderNotification(notification);
+              
+            }  // service request notification
+            else if('serviceType' in notification && 'serviceStatus' in notification){
+              const type = notification.serviceType;
+              // display message
+              this.toastrService.info(`New ${type} Request`);
+              // update notification counter for call and bill
+              if(this.reqNotifCounterMap.get(type)){
+                const value = Number(this.reqNotifCounterMap.get(type)) + 1;
+                this.waiterService.updateRequestNotifCounterMap(type,value);
+              } else {
+                this.waiterService.updateRequestNotifCounterMap(type, 1);
+              }
+              // update request notification
+              this.waiterService.updateRequestNotification(notification);
             }
-          )
-        }
-      );
-    }
+          }
+        )
+      }
+    );
   }
 
   // notifCounterMap
   onNotifCounterMapChange(){
     // on order notification counter change
     this.waiterService.orderNotifCounter$.subscribe(map =>{
-      console.log("on order notification change");
       this.orderNotifCounterMap = map;
       const orderNotifCount = this.calulateTotalNotif(map);
-      console.log(orderNotifCount);
       this.mainNotifCounterMap.set('Orders', orderNotifCount);
     });
 
@@ -132,10 +133,10 @@ export class MainComponent implements OnInit {
     if(status && status === 'PENDING'){
       this.toastrService.info('New Order Request');
     } else if(status && status === 'READY') {
-      this.toastrService.info('Order Ready')
+      this.toastrService.info('Order Ready');
     } else if(status && status === 'BillREADY'){
       this.toastrService.info('Bill Ready');
-    }
+    } 
   }
 
   // fetch currrent waiter
@@ -202,5 +203,12 @@ export class MainComponent implements OnInit {
     this.hideSideBar = !this.hideSideBar;
     this.waiterService.updateHideSideBarStatus(this.hideSideBar);
    }
+
+   ngOnDestroy(): void {
+    // disconnect the websocket s
+    if(this.socketClient && this.socketClient.connected){
+      this.socketClient.disconnect();
+    }
+  }
 
 }

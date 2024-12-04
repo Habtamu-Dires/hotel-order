@@ -17,6 +17,8 @@ import { getAllItems } from '../fn/items/get-all-items';
 import { GetAllItems$Params } from '../fn/items/get-all-items';
 import { getAvailableItems } from '../fn/items/get-available-items';
 import { GetAvailableItems$Params } from '../fn/items/get-available-items';
+import { getAvailableItemsByCategory } from '../fn/items/get-available-items-by-category';
+import { GetAvailableItemsByCategory$Params } from '../fn/items/get-available-items-by-category';
 import { getItemById } from '../fn/items/get-item-by-id';
 import { GetItemById$Params } from '../fn/items/get-item-by-id';
 import { getItemsByCategory } from '../fn/items/get-items-by-category';
@@ -322,6 +324,31 @@ export class ItemsService extends BaseService {
    */
   getAvailableItems(params?: GetAvailableItems$Params, context?: HttpContext): Observable<Array<ItemResponse>> {
     return this.getAvailableItems$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<ItemResponse>>): Array<ItemResponse> => r.body)
+    );
+  }
+
+  /** Path part for operation `getAvailableItemsByCategory()` */
+  static readonly GetAvailableItemsByCategoryPath = '/items/available/category/{category-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAvailableItemsByCategory()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAvailableItemsByCategory$Response(params: GetAvailableItemsByCategory$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ItemResponse>>> {
+    return getAvailableItemsByCategory(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAvailableItemsByCategory$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAvailableItemsByCategory(params: GetAvailableItemsByCategory$Params, context?: HttpContext): Observable<Array<ItemResponse>> {
+    return this.getAvailableItemsByCategory$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<ItemResponse>>): Array<ItemResponse> => r.body)
     );
   }

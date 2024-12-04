@@ -31,7 +31,6 @@ public class OrderController {
         return ResponseEntity.ok(service.createItemOrder(request));
     }
 
-
     //get active orders
     @Tag(name = "orders")
     @GetMapping("/active")
@@ -39,39 +38,21 @@ public class OrderController {
         return ResponseEntity.ok(service.getActiveOrders());
     }
 
-    //get pending orders
+    //get orders by status
     @Tag(name = "orders")
-    @GetMapping("/pending")
-    public ResponseEntity<List<OrderResponse>> getPendingOrders(){
-        return ResponseEntity.ok(service.getPendingOrders());
+    @GetMapping("/by-status")
+    public ResponseEntity<List<OrderResponse>> getOrdersByStatus(
+            @RequestParam String status
+    ){
+        return ResponseEntity.ok(service.getOrdersByStatus(status));
     }
 
-    //get Ready orders
-    @Tag(name = "orders")
-    @GetMapping("/ready")
-    public  ResponseEntity<List<OrderResponse>> getReadyOrders(){
-        return ResponseEntity.ok(service.getReadyOrders());
-    }
 
-    // get OnProcess orders
+    // get verified And OnProcess orders
     @Tag(name = "orders")
-    @GetMapping("/on-process")
-    public  ResponseEntity<List<OrderResponse>> getOnProcessOrders(){
-        return ResponseEntity.ok(service.getOnProcessOrders());
-    }
-
-    // get served orders
-    @Tag(name = "orders")
-    @GetMapping("/served")
-    public  ResponseEntity<List<OrderResponse>> getServedOrders(){
-        return ResponseEntity.ok(service.getServedOrders());
-    }
-
-    // get bill ready orders
-    @Tag(name = "orders")
-    @GetMapping("/bill-ready")
-    public  ResponseEntity<List<OrderResponse>> getBillReadyOrders(){
-        return ResponseEntity.ok(service.getBillReadyOrders());
+    @GetMapping("/verified-or-onprocess")
+    public  ResponseEntity<List<OrderResponse>> getVerifiedOrOnProcessOrders(){
+        return ResponseEntity.ok(service.getVerifiedOROnProcessOrders());
     }
 
     // get all item orders
@@ -105,9 +86,9 @@ public class OrderController {
     @PutMapping("/update-status/{order-id}")
     public ResponseEntity<?> updateOrderStatus(
             @PathVariable("order-id") String orderId,
-            @RequestParam OrderStatus newStatus
+            @RequestParam String status
     ){
-        service.updateStatus(orderId,newStatus);
+        service.updateStatus(orderId,status);
         return ResponseEntity.accepted().build();
     }
 

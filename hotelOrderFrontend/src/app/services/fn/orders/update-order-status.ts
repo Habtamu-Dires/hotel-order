@@ -11,7 +11,7 @@ import { RequestBuilder } from '../../request-builder';
 
 export interface UpdateOrderStatus$Params {
   'order-id': string;
-  newStatus: 'PENDING' | 'OnPROCESS' | 'READY' | 'SERVED' | 'COMPLETED' | 'CANCELLED' | 'BillREADY';
+  status: string;
 }
 
 export function updateOrderStatus(http: HttpClient, rootUrl: string, params: UpdateOrderStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<{
@@ -19,7 +19,7 @@ export function updateOrderStatus(http: HttpClient, rootUrl: string, params: Upd
   const rb = new RequestBuilder(rootUrl, updateOrderStatus.PATH, 'put');
   if (params) {
     rb.path('order-id', params['order-id'], {});
-    rb.query('newStatus', params.newStatus, {});
+    rb.query('status', params.status, {});
   }
 
   return http.request(

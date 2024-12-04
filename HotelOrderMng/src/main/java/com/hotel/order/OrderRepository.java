@@ -24,6 +24,13 @@ public interface OrderRepository extends JpaRepository<ItemOrder, UUID> {
     @Query("SELECT io FROM ItemOrder io WHERE io.orderStatus = :status")
     List<ItemOrder> findOrdersByStatus(OrderStatus status);
 
+    @Query("""
+            SELECT io FROM ItemOrder io 
+            WHERE io.orderStatus = :status1
+            OR io.orderStatus = :status2
+            """)
+    List<ItemOrder> findOrdersByStatus(OrderStatus status1, OrderStatus status2);
+
     @Query("SELECT io FROM ItemOrder io WHERE io.orderLocation.id = :locationId")
     List<ItemOrder> findOrdersByLocationId(UUID locationId);
 

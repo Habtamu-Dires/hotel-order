@@ -10,6 +10,6 @@ export interface OrderDetailResponse {
   orderId?: string;
   price?: number;
   quantity?: number;
-  status?: 'PENDING' | 'READY' | 'PROCESSED' | 'CANCELLED';
+  status?: string;
   type?: string;
 }

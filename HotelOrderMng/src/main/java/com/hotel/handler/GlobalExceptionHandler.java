@@ -124,7 +124,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(OperationNotPermittedException.class)
     public ResponseEntity<ExceptionResponse> handle(OperationNotPermittedException exp){
         return ResponseEntity
-                .status(NO_CONTENT)
+                .status(BAD_REQUEST)
                 .body(
                         ExceptionResponse.builder()
                                 .error(exp.getMessage())

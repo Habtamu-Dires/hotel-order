@@ -32,7 +32,6 @@ public class ItemService {
     private final CategoryService categoryService;
     private final FileStorageService fileStorageService;
 
-
     //save item
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public IdResponse saveItem(@Valid ItemRequest request) {
@@ -118,14 +117,23 @@ public class ItemService {
         return mapper.toItemResponse(this.findItemById(itemId));
     }
 
-
     //check if item is available
-    public boolean isItemAvailable(Item item, Integer quantity){
-         if(item.getStockQuantity() !=null && item.getStockQuantity() <= quantity) {
-            item.setAvailable(false);
-            item.setStockQuantity(item.getStockQuantity() - quantity);
-            repository.save(item);
-            return false;
+    public boolean isItemAvailable(Item item, int quantity){
+         if(item.getStockQuantity() !=null) {
+             int stockQuantity = item.getStockQuantity();
+             int newQuantity = stockQuantity - quantity;
+             if(newQuantity > 0) {
+                 item.setStockQuantity(newQuantity);
+                 repository.save(item);
+                 return true;
+             } else if(newQuantity == 0) {
+                 item.setAvailable(false);
+                 item.setStockQuantity(newQuantity);
+                 repository.save(item);
+                 return  true;
+             } else {
+                 return false;
+             }
         }
 
         return item.isAvailable();
@@ -140,6 +148,15 @@ public class ItemService {
                     }
                     return true;
                 })
+                .map(mapper::toItemResponse)
+                .toList();
+    }
+
+    // get available items by category
+    public List<ItemResponse> getAvailableItemByCategory(String categoryId) {
+        Category category = categoryService.findCategoryById(categoryId);
+        return repository.findAvailableItemByCategoryId(category.getId())
+                .stream()
                 .map(mapper::toItemResponse)
                 .toList();
     }
@@ -193,4 +210,5 @@ public class ItemService {
                 .map(mapper::toItemResponse)
                 .toList();
     }
+
 }

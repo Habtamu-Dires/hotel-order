@@ -18,6 +18,16 @@ export const routes: Routes = [
         loadChildren:() => import('./modules/waiter/waiter.module')
         .then(m => m.WaiterModule),
         canActivate:[authGuard]
+    },
+    {path: 'kds',
+        loadChildren:() => import('./modules/kds/kds.module')
+        .then(m => m.KdsModule),
+        canActivate:[authGuard]
+    },
+    {path: 'cashier',
+        loadChildren:()=> import('./modules/cashier/cashier.module')
+        .then(m => m.CashierModule),
+        canActivate:[authGuard]
     }
 
 

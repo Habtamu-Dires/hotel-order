@@ -15,6 +15,7 @@ import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequencyResponse;
 import com.hotel.common.IdResponse;
 import com.hotel.common.PageResponse;
 import com.hotel.order_detail.OrderDetail;
+import com.hotel.order_detail.OrderDetailResponse;
 import com.hotel.order_detail.OrderDetailService;
 import com.hotel.location.OrderLocation;
 import com.hotel.location.OrderLocationService;
@@ -61,7 +62,6 @@ public class OrderService {
         //location
         OrderLocation location = locationService.findOrderLocationById(request.locationId());
         order.setOrderLocation(location);
-
         //order details
         ArrayList<OrderDetail> orderDetails = new ArrayList<>();
         request.orderDetails().forEach(detail -> {
@@ -74,7 +74,6 @@ public class OrderService {
         order.setOrderDetails(orderDetails);
         ItemOrder savedOrder = repository.save(order);
         // send notification
-        System.out.println(savedOrder.getCreatedDate());
         orderNotificationService.sendOrderNotification(
                 "waiter", mapper.toItemOrderResponse(savedOrder)
         );
@@ -98,22 +97,56 @@ public class OrderService {
     }
 
     // update order status
-    @Secured({"ROLE_ADMIN","ROLE_WAITER","ROLE_CHEF","ROLE_BARISTA"})
-    public void updateStatus(String orderId, OrderStatus status) {
+    @Secured({"ROLE_ADMIN","ROLE_WAITER","ROLE_CHEF","ROLE_BARISTA","ROLE_CASHIER"})
+    public void updateStatus(String orderId, String status) {
         ItemOrder order = this.findById(orderId);
-        order.setOrderStatus(status);
+        OrderStatus orderStatus = convertToOrderStatus(status);
+        OrderStatus oldStatus = order.getOrderStatus();
+        order.setOrderStatus(orderStatus);
         repository.save(order);
-        // send update notification
+        // send update notification to a waiter
         orderNotificationService.sendOrderNotification(
                 "waiter",
                 mapper.toItemOrderResponse(order)
         );
+
+//         send update notification to a kds
+        if(orderStatus.equals(OrderStatus.VERIFIED) ||
+                (oldStatus.equals(OrderStatus.VERIFIED) &&
+                        orderStatus.equals(OrderStatus.CANCELED)
+                )
+        ){
+            orderNotificationService.sendOrderNotification(
+                    "chef",
+                    mapper.toItemOrderResponse(order)
+            );
+        }
+
+        // send notification to cashier
+        if(orderStatus.equals(OrderStatus.BillREQUEST)){
+            orderNotificationService.sendOrderNotification(
+                    "cashier",
+                    mapper.toItemOrderResponse(order)
+            );
+        }
+
+
+    }
+
+    //convert string to OrderStatus enum
+    public OrderStatus convertToOrderStatus(String status){
+        try{
+            return OrderStatus.valueOf(status);
+        } catch (Exception e){
+            throw new IllegalArgumentException("No such OrderStatus");
+        }
     }
 
     // get all item orders
     @Secured({"ROLE_ADMIN","ROLE_WAITER","ROLE_CHEF","ROLE_BARISTA"})
     public List<OrderResponse> getAllItemOrders() {
-        return repository.findAll().stream()
+        return repository.findAll()
+                .stream()
                 .map(mapper::toItemOrderResponse)
                 .toList();
     }
@@ -126,44 +159,41 @@ public class OrderService {
                 .toList();
     }
 
-    // get all pending orders
-    @Secured({"ROLE_ADMIN","ROLE_WAITER","ROLE_CHEF","ROLE_BARISTA"})
-    public List<OrderResponse> getPendingOrders() {
-        return repository.findOrdersByStatus(OrderStatus.PENDING)
-                .stream().map(mapper::toItemOrderResponse)
-                .toList();
-
-    }
-
-    // get ready orders
-    @Secured({"ROLE_ADMIN","ROLE_WAITER","ROLE_CHEF","ROLE_BARISTA"})
-    public List<OrderResponse> getReadyOrders() {
-        return repository.findOrdersByStatus(OrderStatus.READY)
-                .stream().map(mapper::toItemOrderResponse)
-                .toList();
-    }
-
-    // get OnProcess orders
-    @Secured({"ROLE_ADMIN","ROLE_WAITER","ROLE_CHEF"})
-    public List<OrderResponse> getOnProcessOrders() {
-        return repository.findOrdersByStatus(OrderStatus.OnPROCESS)
-                .stream().map(mapper::toItemOrderResponse)
-                .toList();
-    }
-
-    //get BillReady orders
-    @Secured({"ROLE_ADMIN","ROLE_WAITER"})
-    public List<OrderResponse> getBillReadyOrders(){
-        return repository.findOrdersByStatus(OrderStatus.BillREADY)
-                .stream().map(mapper::toItemOrderResponse)
-                .toList();
-    }
-
-    // get served orders
-    @Secured({"ROLE_ADMIN","ROLE_WAITER","ROLE_CASHIER"})
-    public List<OrderResponse> getServedOrders() {
-        return repository.findAllServedOrders().stream()
+    // get orders by status
+    @Secured({"ROLE_ADMIN","ROLE_WAITER","ROLE_CHEF","ROLE_BARISTA","ROLE_CASHIER"})
+    public List<OrderResponse> getOrdersByStatus(String status) {
+        OrderStatus orderStatus = convertToOrderStatus(status);
+        return repository.findOrdersByStatus(orderStatus)
+                .stream()
+                .sorted(Comparator.comparing(ItemOrder::getCreatedDate))
                 .map(mapper::toItemOrderResponse)
+                .toList();
+
+    }
+
+    // get verified or onProcess  orders
+    @Secured({"ROLE_ADMIN","ROLE_CHEF"})
+    public List<OrderResponse> getVerifiedOROnProcessOrders() {
+        return repository.findOrdersByStatus(OrderStatus.VERIFIED, OrderStatus.OnPROCESS)
+                .stream()
+                .sorted(Comparator.comparing(ItemOrder::getCreatedDate))
+                .map(order -> {
+                    OrderResponse response = mapper.toItemOrderResponse(order);
+                    List<OrderDetailResponse> sortedDetailResponse = new ArrayList<>(response.orderDetails());
+                    // sort each detail by price
+                    sortedDetailResponse.sort(Comparator.comparing(OrderDetailResponse::price));
+                    return  OrderResponse.builder()
+                            .id(response.id())
+                            .totalPrice(response.totalPrice())
+                            .orderType(response.orderType())
+                            .orderDetails(sortedDetailResponse)
+                            .createdDate(response.createdDate())
+                            .orderStatus(response.orderStatus())
+                            .note(response.note())
+                            .location(response.location())
+                            .locationId(response.locationId())
+                            .build();
+                })
                 .toList();
     }
 

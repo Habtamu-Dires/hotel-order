@@ -14,5 +14,5 @@ public record OrderDetailResponse(
         Integer quantity,
         String type,
         String note,
-        DetailStatus status
+        String status
 ) {}

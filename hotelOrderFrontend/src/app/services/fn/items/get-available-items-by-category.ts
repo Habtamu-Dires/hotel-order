@@ -8,14 +8,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { OrderResponse } from '../../models/order-response';
+import { ItemResponse } from '../../models/item-response';
 
-export interface GetOnProcessOrders$Params {
+export interface GetAvailableItemsByCategory$Params {
+  'category-id': string;
 }
 
-export function getOnProcessOrders(http: HttpClient, rootUrl: string, params?: GetOnProcessOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
-  const rb = new RequestBuilder(rootUrl, getOnProcessOrders.PATH, 'get');
+export function getAvailableItemsByCategory(http: HttpClient, rootUrl: string, params: GetAvailableItemsByCategory$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ItemResponse>>> {
+  const rb = new RequestBuilder(rootUrl, getAvailableItemsByCategory.PATH, 'get');
   if (params) {
+    rb.path('category-id', params['category-id'], {});
   }
 
   return http.request(
@@ -23,9 +25,9 @@ export function getOnProcessOrders(http: HttpClient, rootUrl: string, params?: G
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<OrderResponse>>;
+      return r as StrictHttpResponse<Array<ItemResponse>>;
     })
   );
 }
 
-getOnProcessOrders.PATH = '/orders/on-process';
+getAvailableItemsByCategory.PATH = '/items/available/category/{category-id}';

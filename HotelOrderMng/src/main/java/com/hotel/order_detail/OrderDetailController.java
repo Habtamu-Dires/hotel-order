@@ -18,7 +18,7 @@ public class OrderDetailController {
     @PutMapping("/update-status/{detail-id}")
     public ResponseEntity<IdResponse> updateOrderDetailStatus(
             @PathVariable("detail-id") String detailId,
-            @RequestBody DetailStatus status
+            @RequestParam String status
     ){
         return  ResponseEntity.ok(service.updateOrderDetailStatus(detailId,status));
     }

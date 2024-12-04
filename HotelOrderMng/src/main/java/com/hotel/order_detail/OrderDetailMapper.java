@@ -18,7 +18,7 @@ public class OrderDetailMapper {
                 .itemName(orderDetail.getItem().getName())
                 .price(orderDetail.getItem().getPrice())
                 .quantity(orderDetail.getQuantity())
-                .status(orderDetail.getStatus())
+                .status(orderDetail.getStatus().toString())
                 .build();
     }
 

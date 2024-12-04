@@ -3,7 +3,6 @@ package com.hotel.service_request;
 import com.hotel.common.MessageResponse;
 import com.hotel.location.OrderLocation;
 import com.hotel.location.OrderLocationService;
-import com.hotel.order.OrderResponse;
 import com.hotel.order.OrderService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

@@ -17,20 +17,14 @@ import { getActiveOrders } from '../fn/orders/get-active-orders';
 import { GetActiveOrders$Params } from '../fn/orders/get-active-orders';
 import { getAllItemOrders } from '../fn/orders/get-all-item-orders';
 import { GetAllItemOrders$Params } from '../fn/orders/get-all-item-orders';
-import { getBillReadyOrders } from '../fn/orders/get-bill-ready-orders';
-import { GetBillReadyOrders$Params } from '../fn/orders/get-bill-ready-orders';
 import { getCompletedOrders } from '../fn/orders/get-completed-orders';
 import { GetCompletedOrders$Params } from '../fn/orders/get-completed-orders';
-import { getOnProcessOrders } from '../fn/orders/get-on-process-orders';
-import { GetOnProcessOrders$Params } from '../fn/orders/get-on-process-orders';
 import { getOrdersByLocation } from '../fn/orders/get-orders-by-location';
 import { GetOrdersByLocation$Params } from '../fn/orders/get-orders-by-location';
-import { getPendingOrders } from '../fn/orders/get-pending-orders';
-import { GetPendingOrders$Params } from '../fn/orders/get-pending-orders';
-import { getReadyOrders } from '../fn/orders/get-ready-orders';
-import { GetReadyOrders$Params } from '../fn/orders/get-ready-orders';
-import { getServedOrders } from '../fn/orders/get-served-orders';
-import { GetServedOrders$Params } from '../fn/orders/get-served-orders';
+import { getOrdersByStatus } from '../fn/orders/get-orders-by-status';
+import { GetOrdersByStatus$Params } from '../fn/orders/get-orders-by-status';
+import { getVerifiedOrOnProcessOrders } from '../fn/orders/get-verified-or-on-process-orders';
+import { GetVerifiedOrOnProcessOrders$Params } from '../fn/orders/get-verified-or-on-process-orders';
 import { IdResponse } from '../models/id-response';
 import { OrderResponse } from '../models/order-response';
 import { updateOrderStatus } from '../fn/orders/update-order-status';
@@ -121,102 +115,27 @@ export class OrdersService extends BaseService {
     );
   }
 
-  /** Path part for operation `getServedOrders()` */
-  static readonly GetServedOrdersPath = '/orders/served';
+  /** Path part for operation `getVerifiedOrOnProcessOrders()` */
+  static readonly GetVerifiedOrOnProcessOrdersPath = '/orders/verified-or-onprocess';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getServedOrders()` instead.
+   * To access only the response body, use `getVerifiedOrOnProcessOrders()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getServedOrders$Response(params?: GetServedOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
-    return getServedOrders(this.http, this.rootUrl, params, context);
+  getVerifiedOrOnProcessOrders$Response(params?: GetVerifiedOrOnProcessOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
+    return getVerifiedOrOnProcessOrders(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getServedOrders$Response()` instead.
+   * To access the full response (for headers, for example), `getVerifiedOrOnProcessOrders$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getServedOrders(params?: GetServedOrders$Params, context?: HttpContext): Observable<Array<OrderResponse>> {
-    return this.getServedOrders$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<OrderResponse>>): Array<OrderResponse> => r.body)
-    );
-  }
-
-  /** Path part for operation `getReadyOrders()` */
-  static readonly GetReadyOrdersPath = '/orders/ready';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getReadyOrders()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getReadyOrders$Response(params?: GetReadyOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
-    return getReadyOrders(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getReadyOrders$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getReadyOrders(params?: GetReadyOrders$Params, context?: HttpContext): Observable<Array<OrderResponse>> {
-    return this.getReadyOrders$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<OrderResponse>>): Array<OrderResponse> => r.body)
-    );
-  }
-
-  /** Path part for operation `getPendingOrders()` */
-  static readonly GetPendingOrdersPath = '/orders/pending';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getPendingOrders()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getPendingOrders$Response(params?: GetPendingOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
-    return getPendingOrders(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getPendingOrders$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getPendingOrders(params?: GetPendingOrders$Params, context?: HttpContext): Observable<Array<OrderResponse>> {
-    return this.getPendingOrders$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<OrderResponse>>): Array<OrderResponse> => r.body)
-    );
-  }
-
-  /** Path part for operation `getOnProcessOrders()` */
-  static readonly GetOnProcessOrdersPath = '/orders/on-process';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getOnProcessOrders()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getOnProcessOrders$Response(params?: GetOnProcessOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
-    return getOnProcessOrders(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getOnProcessOrders$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getOnProcessOrders(params?: GetOnProcessOrders$Params, context?: HttpContext): Observable<Array<OrderResponse>> {
-    return this.getOnProcessOrders$Response(params, context).pipe(
+  getVerifiedOrOnProcessOrders(params?: GetVerifiedOrOnProcessOrders$Params, context?: HttpContext): Observable<Array<OrderResponse>> {
+    return this.getVerifiedOrOnProcessOrders$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<OrderResponse>>): Array<OrderResponse> => r.body)
     );
   }
@@ -271,27 +190,27 @@ export class OrdersService extends BaseService {
     );
   }
 
-  /** Path part for operation `getBillReadyOrders()` */
-  static readonly GetBillReadyOrdersPath = '/orders/bill-ready';
+  /** Path part for operation `getOrdersByStatus()` */
+  static readonly GetOrdersByStatusPath = '/orders/by-status';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getBillReadyOrders()` instead.
+   * To access only the response body, use `getOrdersByStatus()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getBillReadyOrders$Response(params?: GetBillReadyOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
-    return getBillReadyOrders(this.http, this.rootUrl, params, context);
+  getOrdersByStatus$Response(params: GetOrdersByStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
+    return getOrdersByStatus(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getBillReadyOrders$Response()` instead.
+   * To access the full response (for headers, for example), `getOrdersByStatus$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getBillReadyOrders(params?: GetBillReadyOrders$Params, context?: HttpContext): Observable<Array<OrderResponse>> {
-    return this.getBillReadyOrders$Response(params, context).pipe(
+  getOrdersByStatus(params: GetOrdersByStatus$Params, context?: HttpContext): Observable<Array<OrderResponse>> {
+    return this.getOrdersByStatus$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<OrderResponse>>): Array<OrderResponse> => r.body)
     );
   }

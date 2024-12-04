@@ -28,7 +28,7 @@ export class OrderDetailsService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `updateOrderDetailStatus()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method doesn't expect any request body.
    */
   updateOrderDetailStatus$Response(params: UpdateOrderDetailStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<IdResponse>> {
     return updateOrderDetailStatus(this.http, this.rootUrl, params, context);
@@ -38,7 +38,7 @@ export class OrderDetailsService extends BaseService {
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `updateOrderDetailStatus$Response()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method doesn't expect any request body.
    */
   updateOrderDetailStatus(params: UpdateOrderDetailStatus$Params, context?: HttpContext): Observable<IdResponse> {
     return this.updateOrderDetailStatus$Response(params, context).pipe(

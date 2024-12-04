@@ -72,6 +72,14 @@ public class ItemController {
         return ResponseEntity.ok(service.getItemByCategory(categoryId));
     }
 
+    // get available items by category
+    @GetMapping("/available/category/{category-id}")
+    public ResponseEntity<List<ItemResponse>> getAvailableItemsByCategory(
+            @PathVariable("category-id") String categoryId
+    ){
+        return ResponseEntity.ok(service.getAvailableItemByCategory(categoryId));
+    }
+
     // get page of items by category id
     @GetMapping("/category/page/{category-id}")
     public ResponseEntity<PageResponse<ItemResponse>> getPageOfItemsByCategory(

@@ -10,11 +10,11 @@ import { RequestBuilder } from '../../request-builder';
 
 import { OrderResponse } from '../../models/order-response';
 
-export interface GetServedOrders$Params {
+export interface GetVerifiedOrOnProcessOrders$Params {
 }
 
-export function getServedOrders(http: HttpClient, rootUrl: string, params?: GetServedOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
-  const rb = new RequestBuilder(rootUrl, getServedOrders.PATH, 'get');
+export function getVerifiedOrOnProcessOrders(http: HttpClient, rootUrl: string, params?: GetVerifiedOrOnProcessOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
+  const rb = new RequestBuilder(rootUrl, getVerifiedOrOnProcessOrders.PATH, 'get');
   if (params) {
   }
 
@@ -28,4 +28,4 @@ export function getServedOrders(http: HttpClient, rootUrl: string, params?: GetS
   );
 }
 
-getServedOrders.PATH = '/orders/served';
+getVerifiedOrOnProcessOrders.PATH = '/orders/verified-or-onprocess';

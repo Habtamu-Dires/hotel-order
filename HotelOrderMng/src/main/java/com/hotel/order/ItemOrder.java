@@ -31,7 +31,7 @@ public class  ItemOrder{
     private OrderStatus orderStatus;
     private String note;
 
-    @OneToMany(mappedBy = "order", cascade = {CascadeType.ALL} , orphanRemoval = true)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = {CascadeType.ALL} , orphanRemoval = true)
     private List<OrderDetail> orderDetails;
     @ManyToOne
     @JoinColumn(name = "order_location")

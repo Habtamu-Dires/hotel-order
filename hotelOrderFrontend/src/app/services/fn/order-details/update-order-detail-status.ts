@@ -12,14 +12,14 @@ import { IdResponse } from '../../models/id-response';
 
 export interface UpdateOrderDetailStatus$Params {
   'detail-id': string;
-      body: 'PENDING' | 'READY' | 'PROCESSED' | 'CANCELLED'
+  status: string;
 }
 
 export function updateOrderDetailStatus(http: HttpClient, rootUrl: string, params: UpdateOrderDetailStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<IdResponse>> {
   const rb = new RequestBuilder(rootUrl, updateOrderDetailStatus.PATH, 'put');
   if (params) {
     rb.path('detail-id', params['detail-id'], {});
-    rb.body(params.body, 'application/json');
+    rb.query('status', params.status, {});
   }
 
   return http.request(

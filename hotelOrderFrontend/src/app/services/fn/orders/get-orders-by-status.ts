@@ -10,12 +10,14 @@ import { RequestBuilder } from '../../request-builder';
 
 import { OrderResponse } from '../../models/order-response';
 
-export interface GetReadyOrders$Params {
+export interface GetOrdersByStatus$Params {
+  status: string;
 }
 
-export function getReadyOrders(http: HttpClient, rootUrl: string, params?: GetReadyOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
-  const rb = new RequestBuilder(rootUrl, getReadyOrders.PATH, 'get');
+export function getOrdersByStatus(http: HttpClient, rootUrl: string, params: GetOrdersByStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderResponse>>> {
+  const rb = new RequestBuilder(rootUrl, getOrdersByStatus.PATH, 'get');
   if (params) {
+    rb.query('status', params.status, {});
   }
 
   return http.request(
@@ -28,4 +30,4 @@ export function getReadyOrders(http: HttpClient, rootUrl: string, params?: GetRe
   );
 }
 
-getReadyOrders.PATH = '/orders/ready';
+getOrdersByStatus.PATH = '/orders/by-status';

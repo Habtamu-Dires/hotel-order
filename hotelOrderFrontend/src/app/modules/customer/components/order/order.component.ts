@@ -31,7 +31,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   orderNote?:string;
   locationList:LocationResponse[] = [];
   orderLocation?:LocationResponse;
-  filteredLocations:LocationResponse[] = []
+  filteredLocations:LocationResponse[] = [];
   isLocNumFocused:boolean = false;
   isNumberInputOnFocus:boolean = false;
   isNumberMenuVisible:boolean = false;
@@ -125,12 +125,14 @@ export class OrderComponent implements OnInit, OnDestroy {
        
       // add order detail 
       this.orderDetailMap.forEach(orderDetail =>{
+        console.log(orderDetail.itemName);
         this.orderRequest.orderDetails?.push(orderDetail);
       });
 
       console.log("The big order ", this.orderRequest);
+      console.log(this.orderRequest.orderDetails?.length);
 
-      // create order
+      // send  create order request
     this.orderService.createOrder({
       body: this.orderRequest as OrderRequest
     }).subscribe({
@@ -147,7 +149,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       },
       error:(err)=>{
         console.log(err);
-        this.toastrService.error('Something went wrong', 'Oops');
+        this.toastrService.error(err.error.error,'Oops');
       }
     })
     } 
