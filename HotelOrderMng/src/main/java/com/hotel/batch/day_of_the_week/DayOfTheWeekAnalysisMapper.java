@@ -1,4 +1,4 @@
-package com.hotel.batch.day_of_of_the_week;
+package com.hotel.batch.day_of_the_week;
 
 public class DayOfTheWeekAnalysisMapper {
 

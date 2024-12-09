@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 public class MonthlyOrderData {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer year;
     private String month;

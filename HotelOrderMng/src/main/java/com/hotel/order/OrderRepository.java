@@ -1,5 +1,6 @@
 package com.hotel.order;
 
+import com.hotel.order_detail.OrderDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -39,22 +40,30 @@ public interface OrderRepository extends JpaRepository<ItemOrder, UUID> {
 
     @Query("""
             SELECT io FROM ItemOrder io
-            WHERE io.createdDate > :dateTime 
+            WHERE io.lastModifiedDate > :dateTime
             AND io.orderStatus = 'COMPLETED'
             """)
     List<ItemOrder> findCompletedOrdersAfter(LocalDateTime dateTime);
 
     @Query("""
             SELECT io FROM ItemOrder io
-            WHERE io.createdDate > :dateTime 
+            WHERE io.lastModifiedDate > :dateTime 
             AND io.orderStatus = 'COMPLETED'
             """)
     Page<ItemOrder> getPageableCompletedOrdersAfter(LocalDateTime dateTime, Pageable pageable);
 
     @Query("""
+            SELECT io.orderDetails FROM ItemOrder io
+            WHERE io.lastModifiedDate > :dateTime 
+            AND io.orderStatus = 'COMPLETED'
+            """)
+    Page<OrderDetail> getPageableCompletedOrderDetailAfter(LocalDateTime dateTime, Pageable pageable);
+
+
+    @Query("""
             SELECT io FROM ItemOrder io
-            WHERE io.createdDate > :afterTime
-            AND io.createdDate < :beforeTime
+            WHERE io.lastModifiedDate > :afterTime
+            AND io.lastModifiedDate < :beforeTime
             AND io.orderStatus = 'COMPLETED'
             """)
     Page<ItemOrder> getPageableCompletedOrdersAfterBefore(LocalDateTime afterTime,
@@ -63,14 +72,14 @@ public interface OrderRepository extends JpaRepository<ItemOrder, UUID> {
 
     @Query("""
             SELECT io FROM ItemOrder io
-            WHERE io.createdDate < :beforeTime
+            WHERE io.lastModifiedDate < :beforeTime
             AND io.orderStatus = 'COMPLETED'
             """)
     List<ItemOrder> getCompletedOrdersBefore(LocalDateTime beforeTime);
 
     @Query("""
             SELECT COUNT(*) FROM ItemOrder io
-            WHERE io.createdDate > :dateTime
+            WHERE io.lastModifiedDate > :dateTime
             AND io.orderStatus = 'COMPLETED'
             """)
     Integer findNumberOfCompletedOrdersAfter(LocalDateTime dateTime);

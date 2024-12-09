@@ -8,13 +8,12 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { OrderedItemsFrequencyResponse } from '../../models/ordered-items-frequency-response';
 
-export interface GetTopOrderedItemsADay$Params {
+export interface GetTotalNumberOfOrdersOfToday$Params {
 }
 
-export function getTopOrderedItemsADay(http: HttpClient, rootUrl: string, params?: GetTopOrderedItemsADay$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderedItemsFrequencyResponse>>> {
-  const rb = new RequestBuilder(rootUrl, getTopOrderedItemsADay.PATH, 'get');
+export function getTotalNumberOfOrdersOfToday(http: HttpClient, rootUrl: string, params?: GetTotalNumberOfOrdersOfToday$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+  const rb = new RequestBuilder(rootUrl, getTotalNumberOfOrdersOfToday.PATH, 'get');
   if (params) {
   }
 
@@ -23,9 +22,9 @@ export function getTopOrderedItemsADay(http: HttpClient, rootUrl: string, params
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<OrderedItemsFrequencyResponse>>;
+      return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
     })
   );
 }
 
-getTopOrderedItemsADay.PATH = '/orders/completed/top-ordered-items-of-today';
+getTotalNumberOfOrdersOfToday.PATH = '/orders/completed/total-orders-of-today';

@@ -8,18 +8,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PageResponseOrderedItemsFrequencyResponse } from '../../models/page-response-ordered-items-frequency-response';
+import { OrderedItemsFrequencyResponse } from '../../models/ordered-items-frequency-response';
 
 export interface GetFrequentlyOrderedItemsOfPast30Days$Params {
-  page?: number;
-  size?: number;
 }
 
-export function getFrequentlyOrderedItemsOfPast30Days(http: HttpClient, rootUrl: string, params?: GetFrequentlyOrderedItemsOfPast30Days$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseOrderedItemsFrequencyResponse>> {
+export function getFrequentlyOrderedItemsOfPast30Days(http: HttpClient, rootUrl: string, params?: GetFrequentlyOrderedItemsOfPast30Days$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderedItemsFrequencyResponse>>> {
   const rb = new RequestBuilder(rootUrl, getFrequentlyOrderedItemsOfPast30Days.PATH, 'get');
   if (params) {
-    rb.query('page', params.page, {});
-    rb.query('size', params.size, {});
   }
 
   return http.request(
@@ -27,7 +23,7 @@ export function getFrequentlyOrderedItemsOfPast30Days(http: HttpClient, rootUrl:
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<PageResponseOrderedItemsFrequencyResponse>;
+      return r as StrictHttpResponse<Array<OrderedItemsFrequencyResponse>>;
     })
   );
 }

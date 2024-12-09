@@ -8,17 +8,21 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
@@ -40,6 +44,10 @@ public class DailyAverageOrderBatchConfig {
         reader.setMethodName("getPageableCompletedOrdersAfterBefore");
         reader.setArguments(List.of(yesterdayMidnight,todayMidnight));
         reader.setPageSize(100);
+        // sort
+        Map<String, Sort.Direction> sort = new HashMap<>();
+        sort.put("lastModifiedDate", Sort.Direction.ASC);
+        reader.setSort(sort);
         return reader;
     }
 
@@ -48,13 +56,9 @@ public class DailyAverageOrderBatchConfig {
         return new DailyAverageOrderProcessor();
     }
 
-    //writer
-    public RepositoryItemWriter<DailyAverageOrder> dailyOrderWriter(){
-        RepositoryItemWriter<DailyAverageOrder> writer = new RepositoryItemWriter<>();
-        writer.setRepository(repository);
-        writer.setMethodName("upsertDailyAverageOrder");
-        return writer;
-    }
+public ItemWriter<DailyAverageOrder> dailyAverageOrderWriter(DailyAverageOrderRepository repository) {
+    return new DailyAverageOrderWriter(repository);
+}
 
     // set
     @Bean
@@ -63,7 +67,7 @@ public class DailyAverageOrderBatchConfig {
                 .<ItemOrder,DailyAverageOrder>chunk(100, platformTransactionManager)
                 .reader(dailyOrderReader())
                 .processor(processor())
-                .writer(dailyOrderWriter())
+                .writer(dailyAverageOrderWriter(repository))
                 .taskExecutor(taskExecutor)
                 .build();
     }

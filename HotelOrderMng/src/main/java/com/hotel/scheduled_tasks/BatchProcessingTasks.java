@@ -1,10 +1,8 @@
 package com.hotel.scheduled_tasks;
 
 import com.hotel.batch.daily_average_order.DailyAverageOrderService;
-import com.hotel.batch.day_of_of_the_week.DayOfTheWeekAnalysisService;
+import com.hotel.batch.day_of_the_week.DayOfTheWeekAnalysisService;
 import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequencyRepository;
-import io.swagger.v3.oas.annotations.servers.Server;
-import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -17,8 +15,9 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
-@Server
+@Service
 public class BatchProcessingTasks {
 
     @Autowired
@@ -45,7 +44,8 @@ public class BatchProcessingTasks {
     @Qualifier("dailyAverageOrderJob")
     private Job dailyAverageOrderJob;
 
-    // ordered item frequency for the last month
+
+    // ordered item frequency for the last 30 days
     @Scheduled(cron = "0 0 2 * * ?")   // every day 2 AM
     public void orderedItemFrequencyJob() {
         //clear the old data
@@ -107,6 +107,7 @@ public class BatchProcessingTasks {
     }
 
     // aggregate monthly order data's
+//    @Scheduled(cron = "0 */2 * * * *")
     @Scheduled(cron = "0 0 3 * * ?")   // every day at 3AM
     public void monthlyOrderDataAggregatorJob() {
         JobParameters jobParameters = new JobParametersBuilder(jobExplorer)

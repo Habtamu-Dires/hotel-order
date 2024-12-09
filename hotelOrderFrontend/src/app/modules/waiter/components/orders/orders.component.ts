@@ -100,11 +100,11 @@ export class OrdersComponent implements OnInit, OnDestroy{
 
     }else if(status === 'PENDING') {
       this.fetchOrdersByStatus('PENDING');
-      this.statusList = ['VERIFIED', 'CANCELED'];
+      this.statusList = ['VERIFIED','COMPLETED','CANCELED'];
 
     }else if(status === 'VERIFIED') {
       this.fetchOrdersByStatus('VERIFIED');
-      this.statusList = ['CANCELED'];
+      this.statusList = ['COMPLETED','CANCELED'];
 
     }else if(status === 'SERVED') {
       this.fetchOrdersByStatus('SERVED');

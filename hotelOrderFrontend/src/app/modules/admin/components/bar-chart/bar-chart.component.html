@@ -1,0 +1,20 @@
+<div class="w-full flex flex-col gap-3">
+    <div class="w-full flex justify-center ">
+        <p class="text-lg font-semibold">{{title}}</p>
+    </div>
+    <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="list"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [showGridLines]="false">
+    </ngx-charts-bar-vertical>
+</div>
+

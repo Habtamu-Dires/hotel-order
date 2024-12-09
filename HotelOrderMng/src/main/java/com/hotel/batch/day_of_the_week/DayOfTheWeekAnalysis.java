@@ -1,4 +1,4 @@
-package com.hotel.batch.day_of_of_the_week;
+package com.hotel.batch.day_of_the_week;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,11 +11,11 @@ import java.math.BigDecimal;
 @Setter
 @Builder
 @Entity
-@Table(name = "day_of_the_week")
+@Table(name = "day_of_the_week_analysis")
 public class DayOfTheWeekAnalysis {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
     @Column(unique = true)
     private String dayOfTheWeek;

@@ -10,15 +10,23 @@ import java.math.BigDecimal;
 public interface DailyAverageOrderRepository extends JpaRepository<DailyAverageOrder, Integer> {
     @Modifying
     @Query(value = """
-            INSERT into daily_average_order  (total_order,total_transaction)
-            VALUES (:id :totalOrder, :totalTransaction)
+            INSERT INTO daily_average_order (id, total_order, total_transaction)
+            VALUES (:id, :totalOrder, :totalTransaction)
             ON CONFLICT (id) DO UPDATE
-            SET total_orders =  daily_average_order.total_order + :totalOrder,
-            total_transaction = daily_average_order.total_transaction + :totalTransaction
+            SET total_order = daily_average_order.total_order + :totalOrder,
+                total_transaction = daily_average_order.total_transaction + :totalTransaction
             """,
             nativeQuery = true)
     void upsertDailyAverageOrder(@Param("id") Integer id,
                                  @Param("totalOrder") Integer totalOrder,
                                  @Param("totalTransaction") BigDecimal totalTransaction);
 
+    @Modifying
+    @Query("UPDATE DailyAverageOrder d " +
+            "SET d.totalOrder = d.totalOrder + :totalOrder, " +
+            "d.totalTransaction = d.totalTransaction + :totalTransaction " +
+            "WHERE d.id = :id")
+    void updateDailyAverageOrder(@Param("id") Integer id,
+                                 @Param("totalOrder") Integer totalOrder,
+                                 @Param("totalTransaction") BigDecimal totalTransaction);
 }

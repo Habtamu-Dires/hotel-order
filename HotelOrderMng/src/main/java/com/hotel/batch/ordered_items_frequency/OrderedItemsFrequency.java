@@ -13,7 +13,7 @@ import lombok.*;
 @Table(name = "ordered_items_frequency")
 public class OrderedItemsFrequency {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer frequency;
     @OneToOne

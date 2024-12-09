@@ -23,7 +23,6 @@ export { OrderResponse } from './models/order-response';
 export { PageResponseCategoryResponse } from './models/page-response-category-response';
 export { PageResponseItemResponse } from './models/page-response-item-response';
 export { PageResponseLocationResponse } from './models/page-response-location-response';
-export { PageResponseOrderedItemsFrequencyResponse } from './models/page-response-ordered-items-frequency-response';
 export { PageResponseUserResponse } from './models/page-response-user-response';
 export { RegistrationRequest } from './models/registration-request';
 export { SelfProfileUpdateRequest } from './models/self-profile-update-request';

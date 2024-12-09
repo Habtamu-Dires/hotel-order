@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 public class DailyAverageOrder {
 
     @Id
-    @GeneratedValue
     private Integer id;
     private Integer totalOrder;
     private BigDecimal totalTransaction;

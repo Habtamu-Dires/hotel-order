@@ -1,0 +1,30 @@
+<div class="bg-white rounded-xl p-2 pt-0">
+    <table class="w-full p-2 border border-gray-300 bg-white rounded-xl ">
+        <caption *ngIf="itemList.length !== 0" class="bg-white p-2">
+            <div class="flex justify-between">
+                <p class="text-left text-lg font-semibold">{{tableTitle}}</p>
+                <button (click)="onViewAll()" class="text-yellow-500" >
+                    view all
+                </button>
+            </div>
+        </caption>
+        <tbody class="rounded-lg">
+            @for (item of itemList; track $index) {
+                <tr class="py-2 bg-white shadow-lg border-2">
+                    <td class="w-3/12 ps-2">
+                        <img  class="w-14 h-14 rounded-full" [src]="item.imageUrl"/>
+                    </td>
+                    <td class="w-6/12">
+                        {{item.itemName}}
+                    </td>
+                    <td class="w-2/12">
+                        {{item.price}} Birr
+                    </td>
+                    <td class="w-1/12">
+                        {{item.frequency}}
+                    </td>
+               </tr>
+            }             
+        </tbody>
+   </table>
+</div>

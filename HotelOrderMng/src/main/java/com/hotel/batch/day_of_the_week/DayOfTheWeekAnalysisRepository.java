@@ -1,4 +1,4 @@
-package com.hotel.batch.day_of_of_the_week;
+package com.hotel.batch.day_of_the_week;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,11 +11,11 @@ import java.util.Optional;
 public interface DayOfTheWeekAnalysisRepository extends JpaRepository<DayOfTheWeekAnalysis,Integer> {
     @Modifying
     @Query(value = """
-            INSERT into day_of_the_week_analysis  (day_of_the_week, total_order,total_transaction)
-            VALUES (:dayOfTheWeek :totalOrder, :totalTransaction)
+            INSERT INTO day_of_the_week_analysis  (day_of_the_week, total_order, total_transaction)
+            VALUES (:dayOfTheWeek, :totalOrder, :totalTransaction)
             ON CONFLICT (day_of_the_week) DO UPDATE
-            SET total_orders =  day_of_the_week_analysis.total_order + :totalOrder,
-            total_transaction = day_of_the_week_analysis.total_transaction + :totalTransaction
+            SET total_order =  day_of_the_week_analysis.total_order + :totalOrder,
+                total_transaction = day_of_the_week_analysis.total_transaction + :totalTransaction
             """,
             nativeQuery = true)
     void upsertDayOfTheWeekData(@Param("dayOfTheWeek") String dayOfTheWeek,

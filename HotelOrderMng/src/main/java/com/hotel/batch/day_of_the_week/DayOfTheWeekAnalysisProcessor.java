@@ -1,4 +1,4 @@
-package com.hotel.batch.day_of_of_the_week;
+package com.hotel.batch.day_of_the_week;
 
 import com.hotel.order.ItemOrder;
 import org.springframework.batch.item.ItemProcessor;
@@ -12,9 +12,9 @@ public class DayOfTheWeekAnalysisProcessor implements ItemProcessor<ItemOrder,Da
 
     @Override
     public DayOfTheWeekAnalysis process(ItemOrder order) throws Exception {
-
+        System.out.println("So day of the week analysis process");
         return DayOfTheWeekAnalysis.builder()
-                .dayOfTheWeek(order.getCreatedDate().getDayOfWeek().toString())
+                .dayOfTheWeek(order.getLastModifiedDate().getDayOfWeek().toString())
                 .totalOrder(1)
                 .totalTransaction(order.getTotalPrice())
                 .build();

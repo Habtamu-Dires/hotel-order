@@ -1,11 +1,13 @@
 package com.hotel.order;
 
+import com.hotel.common.BaseEntity;
 import com.hotel.location.OrderLocation;
 import com.hotel.order_detail.OrderDetail;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
@@ -21,7 +23,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "item_order")
 @EntityListeners(AuditingEntityListener.class)
-public class  ItemOrder{
+public class  ItemOrder {
     @Id
     private UUID id;
     private BigDecimal totalPrice;
@@ -40,6 +42,10 @@ public class  ItemOrder{
     @CreatedDate
     @Column( nullable = false, updatable = false)
     private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    @Column(insertable = false)
+    private LocalDateTime lastModifiedDate;
 
     @LastModifiedBy
     @Column(insertable = false)

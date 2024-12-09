@@ -3,10 +3,7 @@ package com.hotel.batch.monthly_order_data;
 import com.hotel.order.ItemOrder;
 import org.springframework.batch.item.ItemProcessor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MonthlyOrderDataProcessor implements ItemProcessor<ItemOrder,MonthlyOrderData> {
 

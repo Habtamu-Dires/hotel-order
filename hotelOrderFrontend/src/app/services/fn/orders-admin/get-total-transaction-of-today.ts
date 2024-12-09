@@ -9,14 +9,12 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface GetTotalNumberOfOrders$Params {
-  'date-time': string;
+export interface GetTotalTransactionOfToday$Params {
 }
 
-export function getTotalNumberOfOrders(http: HttpClient, rootUrl: string, params: GetTotalNumberOfOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
-  const rb = new RequestBuilder(rootUrl, getTotalNumberOfOrders.PATH, 'get');
+export function getTotalTransactionOfToday(http: HttpClient, rootUrl: string, params?: GetTotalTransactionOfToday$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+  const rb = new RequestBuilder(rootUrl, getTotalTransactionOfToday.PATH, 'get');
   if (params) {
-    rb.query('date-time', params['date-time'], {});
   }
 
   return http.request(
@@ -29,4 +27,4 @@ export function getTotalNumberOfOrders(http: HttpClient, rootUrl: string, params
   );
 }
 
-getTotalNumberOfOrders.PATH = '/orders/completed/number-of-orders-after';
+getTotalTransactionOfToday.PATH = '/orders/completed/total-transaction-of-today';

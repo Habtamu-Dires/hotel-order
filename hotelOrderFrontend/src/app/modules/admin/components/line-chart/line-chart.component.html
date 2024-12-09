@@ -1,0 +1,22 @@
+<div class="w-full flex flex-col gap-3">
+    <div class="w-full flex justify-center ">
+        <p class="text-lg font-semibold">{{title}}</p>
+    </div>
+<ngx-charts-line-chart
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="monthlyTotalData"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [showXAxisLabel]="showXAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  [autoScale]="true"
+  [tooltipDisabled]="false"
+  [showGridLines]="false"> 
+</ngx-charts-line-chart>
+
+</div>

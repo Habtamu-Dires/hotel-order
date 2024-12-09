@@ -4,5 +4,7 @@
 
 export interface OrderedItemsFrequencyResponse {
   frequency?: number;
+  imageUrl?: string;
   itemName?: string;
+  price?: number;
 }

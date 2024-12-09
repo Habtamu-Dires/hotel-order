@@ -21,15 +21,14 @@ import { getFrequentlyOrderedItemsOfPast30Days } from '../fn/orders-admin/get-fr
 import { GetFrequentlyOrderedItemsOfPast30Days$Params } from '../fn/orders-admin/get-frequently-ordered-items-of-past-30-days';
 import { getMonthlyOrderData } from '../fn/orders-admin/get-monthly-order-data';
 import { GetMonthlyOrderData$Params } from '../fn/orders-admin/get-monthly-order-data';
-import { getTopOrderedItemsADay } from '../fn/orders-admin/get-top-ordered-items-a-day';
-import { GetTopOrderedItemsADay$Params } from '../fn/orders-admin/get-top-ordered-items-a-day';
-import { getTotalNumberOfOrders } from '../fn/orders-admin/get-total-number-of-orders';
-import { GetTotalNumberOfOrders$Params } from '../fn/orders-admin/get-total-number-of-orders';
-import { getTotalTransaction } from '../fn/orders-admin/get-total-transaction';
-import { GetTotalTransaction$Params } from '../fn/orders-admin/get-total-transaction';
+import { getTopOrderedItemsOfToday } from '../fn/orders-admin/get-top-ordered-items-of-today';
+import { GetTopOrderedItemsOfToday$Params } from '../fn/orders-admin/get-top-ordered-items-of-today';
+import { getTotalNumberOfOrdersOfToday } from '../fn/orders-admin/get-total-number-of-orders-of-today';
+import { GetTotalNumberOfOrdersOfToday$Params } from '../fn/orders-admin/get-total-number-of-orders-of-today';
+import { getTotalTransactionOfToday } from '../fn/orders-admin/get-total-transaction-of-today';
+import { GetTotalTransactionOfToday$Params } from '../fn/orders-admin/get-total-transaction-of-today';
 import { MonthlyOrderDataResponse } from '../models/monthly-order-data-response';
 import { OrderedItemsFrequencyResponse } from '../models/ordered-items-frequency-response';
-import { PageResponseOrderedItemsFrequencyResponse } from '../models/page-response-ordered-items-frequency-response';
 
 @Injectable({ providedIn: 'root' })
 export class OrdersAdminService extends BaseService {
@@ -37,52 +36,77 @@ export class OrdersAdminService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `getTotalTransaction()` */
-  static readonly GetTotalTransactionPath = '/orders/completed/total-transaction-after';
+  /** Path part for operation `getTotalTransactionOfToday()` */
+  static readonly GetTotalTransactionOfTodayPath = '/orders/completed/total-transaction-of-today';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getTotalTransaction()` instead.
+   * To access only the response body, use `getTotalTransactionOfToday()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getTotalTransaction$Response(params: GetTotalTransaction$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
-    return getTotalTransaction(this.http, this.rootUrl, params, context);
+  getTotalTransactionOfToday$Response(params?: GetTotalTransactionOfToday$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return getTotalTransactionOfToday(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getTotalTransaction$Response()` instead.
+   * To access the full response (for headers, for example), `getTotalTransactionOfToday$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getTotalTransaction(params: GetTotalTransaction$Params, context?: HttpContext): Observable<number> {
-    return this.getTotalTransaction$Response(params, context).pipe(
+  getTotalTransactionOfToday(params?: GetTotalTransactionOfToday$Params, context?: HttpContext): Observable<number> {
+    return this.getTotalTransactionOfToday$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
     );
   }
 
-  /** Path part for operation `getTopOrderedItemsADay()` */
-  static readonly GetTopOrderedItemsADayPath = '/orders/completed/top-ordered-items-of-today';
+  /** Path part for operation `getTotalNumberOfOrdersOfToday()` */
+  static readonly GetTotalNumberOfOrdersOfTodayPath = '/orders/completed/total-orders-of-today';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getTopOrderedItemsADay()` instead.
+   * To access only the response body, use `getTotalNumberOfOrdersOfToday()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getTopOrderedItemsADay$Response(params?: GetTopOrderedItemsADay$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderedItemsFrequencyResponse>>> {
-    return getTopOrderedItemsADay(this.http, this.rootUrl, params, context);
+  getTotalNumberOfOrdersOfToday$Response(params?: GetTotalNumberOfOrdersOfToday$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return getTotalNumberOfOrdersOfToday(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getTopOrderedItemsADay$Response()` instead.
+   * To access the full response (for headers, for example), `getTotalNumberOfOrdersOfToday$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getTopOrderedItemsADay(params?: GetTopOrderedItemsADay$Params, context?: HttpContext): Observable<Array<OrderedItemsFrequencyResponse>> {
-    return this.getTopOrderedItemsADay$Response(params, context).pipe(
+  getTotalNumberOfOrdersOfToday(params?: GetTotalNumberOfOrdersOfToday$Params, context?: HttpContext): Observable<number> {
+    return this.getTotalNumberOfOrdersOfToday$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `getTopOrderedItemsOfToday()` */
+  static readonly GetTopOrderedItemsOfTodayPath = '/orders/completed/top-ordered-items-of-today';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getTopOrderedItemsOfToday()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getTopOrderedItemsOfToday$Response(params?: GetTopOrderedItemsOfToday$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderedItemsFrequencyResponse>>> {
+    return getTopOrderedItemsOfToday(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getTopOrderedItemsOfToday$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getTopOrderedItemsOfToday(params?: GetTopOrderedItemsOfToday$Params, context?: HttpContext): Observable<Array<OrderedItemsFrequencyResponse>> {
+    return this.getTopOrderedItemsOfToday$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<OrderedItemsFrequencyResponse>>): Array<OrderedItemsFrequencyResponse> => r.body)
     );
   }
@@ -96,7 +120,7 @@ export class OrdersAdminService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getFrequentlyOrderedItemsOfPast30Days$Response(params?: GetFrequentlyOrderedItemsOfPast30Days$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseOrderedItemsFrequencyResponse>> {
+  getFrequentlyOrderedItemsOfPast30Days$Response(params?: GetFrequentlyOrderedItemsOfPast30Days$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderedItemsFrequencyResponse>>> {
     return getFrequentlyOrderedItemsOfPast30Days(this.http, this.rootUrl, params, context);
   }
 
@@ -106,34 +130,9 @@ export class OrdersAdminService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getFrequentlyOrderedItemsOfPast30Days(params?: GetFrequentlyOrderedItemsOfPast30Days$Params, context?: HttpContext): Observable<PageResponseOrderedItemsFrequencyResponse> {
+  getFrequentlyOrderedItemsOfPast30Days(params?: GetFrequentlyOrderedItemsOfPast30Days$Params, context?: HttpContext): Observable<Array<OrderedItemsFrequencyResponse>> {
     return this.getFrequentlyOrderedItemsOfPast30Days$Response(params, context).pipe(
-      map((r: StrictHttpResponse<PageResponseOrderedItemsFrequencyResponse>): PageResponseOrderedItemsFrequencyResponse => r.body)
-    );
-  }
-
-  /** Path part for operation `getTotalNumberOfOrders()` */
-  static readonly GetTotalNumberOfOrdersPath = '/orders/completed/number-of-orders-after';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getTotalNumberOfOrders()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getTotalNumberOfOrders$Response(params: GetTotalNumberOfOrders$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
-    return getTotalNumberOfOrders(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getTotalNumberOfOrders$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getTotalNumberOfOrders(params: GetTotalNumberOfOrders$Params, context?: HttpContext): Observable<number> {
-    return this.getTotalNumberOfOrders$Response(params, context).pipe(
-      map((r: StrictHttpResponse<number>): number => r.body)
+      map((r: StrictHttpResponse<Array<OrderedItemsFrequencyResponse>>): Array<OrderedItemsFrequencyResponse> => r.body)
     );
   }
 

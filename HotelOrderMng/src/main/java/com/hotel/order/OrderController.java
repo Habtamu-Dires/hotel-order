@@ -1,11 +1,10 @@
 package com.hotel.order;
 
 import com.hotel.batch.daily_average_order.DailyAverageOrderResponse;
-import com.hotel.batch.day_of_of_the_week.DayOfTheWeekAnalysisResponse;
+import com.hotel.batch.day_of_the_week.DayOfTheWeekAnalysisResponse;
 import com.hotel.batch.monthly_order_data.MonthlyOrderDataResponse;
 import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequencyResponse;
 import com.hotel.common.IdResponse;
-import com.hotel.common.PageResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -96,42 +95,36 @@ public class OrderController {
 
     // get total number of completed orders after specific date-time
      @Tag(name = "orders-admin")
-     @GetMapping("/completed/number-of-orders-after")
-     public ResponseEntity<Integer> getTotalNumberOfOrders(
-             @RequestParam("date-time") LocalDateTime dateTime
+     @GetMapping("/completed/total-orders-of-today")
+     public ResponseEntity<Integer> getTotalNumberOfOrdersOfToday(
+
      ){
-        return ResponseEntity.ok(service.getTotalNumberOfCompletedOrdersAfter(dateTime));
+        return ResponseEntity.ok(service.getTotalNumberOfCompletedOrdersOfToday());
      }
 
     // get total transaction after specific date
     @Tag(name = "orders-admin")
-    @GetMapping("/completed/total-transaction-after")
-    public ResponseEntity<BigDecimal> getTotalTransaction(
-            @RequestParam("date-time") LocalDateTime dateTime
-    ){
-        return ResponseEntity.ok(service.getTotalTransactionAfter(dateTime));
+    @GetMapping("/completed/total-transaction-of-today")
+    public ResponseEntity<BigDecimal> getTotalTransactionOfToday(){
+        return ResponseEntity.ok(service.getTotalTransactionOfToday());
     }
 
 
-    // top ordered product of the
+    // top ordered product of the day
     @Tag(name = "orders-admin")
     @GetMapping("/completed/top-ordered-items-of-today")
-    public ResponseEntity<List<OrderedItemsFrequencyResponse>> getTopOrderedItemsADay() {
-        return ResponseEntity.ok(service.getTopOrderedItemsOfTheDay());
+    public ResponseEntity<List<OrderedItemsFrequencyResponse>> getTopOrderedItemsOfToday() {
+        return ResponseEntity.ok(service.getTopOrderedItemsOfToDay());
     }
 
     // top ordered product of the past 30 days
     @Tag(name = "orders-admin")
     @GetMapping("/completed/top-ordered-items-of-past-30days")
-    public ResponseEntity<PageResponse<OrderedItemsFrequencyResponse>> getFrequentlyOrderedItemsOfPast30Days(
-            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(value = "size",defaultValue = "10", required = false) int size
-    ) {
-        return ResponseEntity.ok(service.getTopOrderedItemsOfPst30Days(page,size));
+    public ResponseEntity<List<OrderedItemsFrequencyResponse>> getFrequentlyOrderedItemsOfPast30Days() {
+        return ResponseEntity.ok(service.getTopOrderedItemsOfPst30Days());
     }
 
-
-    // average number of orders and transaction for the past 7 d
+    // average number of orders and transaction for the past 7 days
     @Tag(name = "orders-admin")
     @GetMapping("/completed/daily-average-order-data-for-past-7days")
     public ResponseEntity<DailyAverageOrderResponse> getDailyAverageOrders(){
@@ -145,7 +138,6 @@ public class OrderController {
     public ResponseEntity<List<DayOfTheWeekAnalysisResponse>> getDayOfTheWeekAverages(){
         return ResponseEntity.ok(service.getDayOfTheWeekAnalysisAverages());
     }
-
 
     // monthly number of orders for years
     @Tag(name = "orders-admin")

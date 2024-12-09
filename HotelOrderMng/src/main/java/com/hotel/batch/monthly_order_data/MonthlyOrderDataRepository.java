@@ -12,16 +12,16 @@ public interface MonthlyOrderDataRepository extends JpaRepository<MonthlyOrderDa
 
     @Modifying
     @Query(value = """
-            INSERT into monthly_order_data  (year, month, total_order,total_transaction)
+            INSERT INTO monthly_order_data  (year, month, total_order, total_transaction)
             VALUES (:year, :month, :totalOrder, :totalTransaction) 
             ON CONFLICT (year, month) DO UPDATE
             SET total_order =  monthly_order_data.total_order + :totalOrder,
-            total_transaction = monthly_order_data.total_transaction + :totalTransaction
+               total_transaction = monthly_order_data.total_transaction + :totalTransaction
             """,
             nativeQuery = true)
     void upsertMonthlyData(@Param("year") int year,
                            @Param("month") String month,
-                           @Param("totalOrder") Long totalOrder,
+                           @Param("totalOrder") int totalOrder,
                            @Param("totalTransaction")BigDecimal totalTransaction);
 
 

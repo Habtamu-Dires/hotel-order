@@ -1,1 +1,82 @@
-<p>dashbord works!</p>
+<div class="p-2 w-full min-h-screen">
+     <div class="grid grid-cols-1 md:grid-cols-3">
+          <div class="col-span-2">
+               <div class="flex flex-wrap justify-center gap-5">
+                    <app-metric 
+                         metricName="Total No of Order"
+                         description="today"
+                         [metricValue]="totalOrdersOfToday">
+                    </app-metric>
+                    <app-metric 
+                         metricName="Total Income"
+                         description="today"
+                         [isCurrency]="true"
+                         [metricValue]="totalTransactionOfToday">
+                    </app-metric>
+                    <app-metric 
+                         metricName="Daily Average Order"
+                         description="past 7 days"
+                         [metricValue]="dailyAverageOrder.averageOrder?.toFixed(2)">
+                    </app-metric>
+                    <app-metric 
+                         metricName="Daily Average Income"
+                         description="past 7 days"
+                         [metricValue]="dailyAverageOrder.averageTransaction?.toFixed(2)">
+                    </app-metric>
+               </div>
+               <!--Weekly Data Bar Chart-->
+               <div class="mt-4 w-full flex flex-wrap gap-2 justify-center">
+                  <app-bar-chart
+                    [list]="dayOfTheWeekAvgOrder"
+                    xAxisLabel="Day OF The Week"
+                    yAxisLabel="Average Orders"
+                    title="Day Of The Wee Average Order"
+                  ></app-bar-chart>
+                  <app-bar-chart
+                    [list]="dayOfTheWeekAvgIncome"
+                    xAxisLabel="Day OF The Week"
+                    yAxisLabel="Average Income"
+                    title="Day of The Week Average Income"
+                  ></app-bar-chart>
+               </div>
+               <!--Monthly Data Line Chart-->
+               <div>
+                    <app-line-chart
+                    [monthlyTotalData]="monthlyTotalData"
+                    title="Monlty Total Order and Total Inocme (Income Scaled down by 100)"
+                    >
+                    </app-line-chart>
+               </div>
+          </div>
+          <div class="col-span-1 flex flex-col gap-6">
+               <!--Top Selling Dish of The day--> 
+               <div class="flex flex-col gap-2 w-full">
+                    <app-frequency-table 
+                         tableTitle="Today's Top Items"
+                         [itemList]="itemsOrderFrqyOfToday.slice(0,3)"
+                         (onViewClicked)="toggleViewAll()"
+                    >
+                    </app-frequency-table>
+               </div>
+               <!--Top Selling Items of the pas 30 day-->
+               <div class="flex flex-col gap-2 w-full">
+                    <app-frequency-table
+                         tableTitle="Top Items of the Past 30 Days"
+                         [itemList]="itemsOrderFrqyOf30Days.slice(0,8)"
+                         (onViewClicked)="toggleViewAll()"
+                    >
+                    </app-frequency-table>
+               </div>
+          </div>
+     </div>
+     @if (onViewAll) {
+          <div class="fixed inset-0 w-full h-full z-20">
+               <app-view-all-freq
+                 [itemList]="itemsOrderFrqyOfToday"
+                 tableTitle="Today's Top Ordered Items"
+                 (onHideViewAll)="toggleViewAll()"
+               >
+               </app-view-all-freq>
+          </div>
+     }     
+</div>

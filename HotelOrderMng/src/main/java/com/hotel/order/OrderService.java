@@ -4,16 +4,15 @@ import com.hotel.batch.daily_average_order.DailyAverageOrder;
 import com.hotel.batch.daily_average_order.DailyAverageOrderMapper;
 import com.hotel.batch.daily_average_order.DailyAverageOrderRepository;
 import com.hotel.batch.daily_average_order.DailyAverageOrderResponse;
-import com.hotel.batch.day_of_of_the_week.DayOfTheWeekAnalysisMapper;
-import com.hotel.batch.day_of_of_the_week.DayOfTheWeekAnalysisRepository;
-import com.hotel.batch.day_of_of_the_week.DayOfTheWeekAnalysisResponse;
+import com.hotel.batch.day_of_the_week.DayOfTheWeekAnalysisMapper;
+import com.hotel.batch.day_of_the_week.DayOfTheWeekAnalysisRepository;
+import com.hotel.batch.day_of_the_week.DayOfTheWeekAnalysisResponse;
 import com.hotel.batch.monthly_order_data.MonthlyOrderDataRepository;
 import com.hotel.batch.monthly_order_data.MonthlyOrderDataResponse;
 import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequency;
 import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequencyRepository;
 import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequencyResponse;
 import com.hotel.common.IdResponse;
-import com.hotel.common.PageResponse;
 import com.hotel.order_detail.OrderDetail;
 import com.hotel.order_detail.OrderDetailResponse;
 import com.hotel.order_detail.OrderDetailService;
@@ -22,13 +21,14 @@ import com.hotel.location.OrderLocationService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -220,72 +220,68 @@ public class OrderService {
                 .map(mapper::toItemOrderResponse).toList();
     }
 
-    // total number of completed orders after a date-time
+    // total number of completed orders of today
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Integer getTotalNumberOfCompletedOrdersAfter(LocalDateTime dateTime) {
-        return repository.findNumberOfCompletedOrdersAfter(dateTime);
+    public Integer getTotalNumberOfCompletedOrdersOfToday() {
+        LocalDateTime mindNight = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT);
+        return repository.findNumberOfCompletedOrdersAfter(mindNight);
     }
 
-    // total transaction after a date-time.
+    // total transaction of today
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public BigDecimal getTotalTransactionAfter(LocalDateTime dateTime) {
-       return repository.findCompletedOrdersAfter(dateTime).stream()
-                 .map(ItemOrder::getTotalPrice)
-                 .reduce(BigDecimal.ZERO,BigDecimal::add);
+    public BigDecimal getTotalTransactionOfToday() {
+        LocalDateTime mindNight = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT);
+        return repository.findCompletedOrdersAfter(mindNight)
+                .stream()
+                .map(ItemOrder::getTotalPrice)
+                .reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 
     // top ordered Item of the day
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<OrderedItemsFrequencyResponse> getTopOrderedItemsOfTheDay() {
-
-             return repository.findCompletedOrdersAfter(LocalDateTime.now())
-                .stream()
-                .flatMap(order -> order.getOrderDetails().stream())
-                .collect(Collectors.groupingBy(
-                                detail -> detail.getItem().getName(),
-                                Collectors.counting()
-                        )
-                )
-                .entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .map(entry ->
-                        OrderedItemsFrequencyResponse.builder()
-                        .frequency(entry.getValue().intValue())
-                        .itemName(entry.getKey())
-                        .build()
-                )
-                .toList();
+    public List<OrderedItemsFrequencyResponse> getTopOrderedItemsOfToDay() {
+        LocalDateTime mindNight = LocalDateTime.of(LocalDate.now(),LocalTime.MIDNIGHT);
+         return repository.findCompletedOrdersAfter(mindNight)
+            .stream()
+            .flatMap(order -> order.getOrderDetails().stream())
+            .collect(Collectors.groupingBy(
+                    OrderDetail::getItem,
+                    Collectors.summingInt(OrderDetail::getQuantity)
+                    )
+            )
+            .entrySet().stream()
+            .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+            .map(entry ->
+                    OrderedItemsFrequencyResponse.builder()
+                    .imageUrl(entry.getKey().getImageUrl())
+                    .frequency(entry.getValue())
+                    .price(entry.getKey().getPrice())
+                    .itemName(entry.getKey().getName())
+                    .build()
+            )
+            .toList();
     }
     // top ordered items in the past 30 days.
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public PageResponse<OrderedItemsFrequencyResponse> getTopOrderedItemsOfPst30Days(int page, int size){
+    public List<OrderedItemsFrequencyResponse> getTopOrderedItemsOfPst30Days(){
 
-        Pageable pageable = PageRequest.of(page,size,Sort.by("frequency"));
-        Page<OrderedItemsFrequency> topOrderedItems = orderedItemsFrequencyRepository.findAll(pageable);
+        List<OrderedItemsFrequency> freqData = orderedItemsFrequencyRepository.findAll();
 
-        List<OrderedItemsFrequencyResponse> list = topOrderedItems
+        return  freqData
                 .stream()
-                .map(orderedItem ->
+                .sorted(Comparator.comparing(OrderedItemsFrequency::getFrequency,Comparator.reverseOrder()))
+                .map(freqOfItem ->
                         OrderedItemsFrequencyResponse.builder()
-                                .itemName(orderedItem.getItem().getName())
-                                .frequency(orderedItem.getFrequency())
+                                .itemName(freqOfItem.getItem().getName())
+                                .imageUrl(freqOfItem.getItem().getImageUrl())
+                                .price(freqOfItem.getItem().getPrice())
+                                .frequency(freqOfItem.getFrequency())
                                 .build()
                 )
                 .toList();
-
-        return  PageResponse.<OrderedItemsFrequencyResponse>builder()
-                .content(list)
-                .number(topOrderedItems.getNumber())
-                .totalElements(topOrderedItems.getNumberOfElements())
-                .totalPages(topOrderedItems.getTotalPages())
-                .first(topOrderedItems.isFirst())
-                .last(topOrderedItems.isLast())
-                .empty(topOrderedItems.isEmpty())
-                .build();
-
     }
 
-    // daily average number of transactions for past 7 days
+    // daily average number of orders and transactions for past 7 days
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public DailyAverageOrderResponse getDailyAverageOrders() {
         DailyAverageOrder dailyAverageData = dailyAverageOrderRepository.findById(1)

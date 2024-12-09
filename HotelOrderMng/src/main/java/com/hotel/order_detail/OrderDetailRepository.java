@@ -10,11 +10,11 @@ import java.util.UUID;
 
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, UUID> {
 
-    @Query("""
-            SELECT od FROM OrderDetail od
-            WHERE od.order.orderStatus = 'COMPLETED'
-            AND od.createdDate > :dateTime
-            """)
-    Page<OrderDetail> getCompletedOrderDetailAfter(LocalDateTime dateTime,
-                                                   Pageable pageable);
+//    @Query("""
+//            SELECT od FROM OrderDetail od
+//            WHERE od.order.orderStatus = 'COMPLETED'
+//            AND od.lastModified > :dateTime
+//            """)
+//    Page<OrderDetail> getCompletedOrderDetailAfter(LocalDateTime dateTime,
+//                                                   Pageable pageable);
 }

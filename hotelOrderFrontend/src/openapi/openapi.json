@@ -1159,23 +1159,12 @@
                 }
             }
         },
-        "/orders/completed/total-transaction-after": {
+        "/orders/completed/total-transaction-of-today": {
             "get": {
                 "tags": [
                     "orders-admin"
                 ],
-                "operationId": "getTotalTransaction",
-                "parameters": [
-                    {
-                        "name": "date-time",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "date-time"
-                        }
-                    }
-                ],
+                "operationId": "getTotalTransactionOfToday",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1190,12 +1179,33 @@
                 }
             }
         },
+        "/orders/completed/total-orders-of-today": {
+            "get": {
+                "tags": [
+                    "orders-admin"
+                ],
+                "operationId": "getTotalNumberOfOrdersOfToday",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/orders/completed/top-ordered-items-of-today": {
             "get": {
                 "tags": [
                     "orders-admin"
                 ],
-                "operationId": "getTopOrderedItemsADay",
+                "operationId": "getTopOrderedItemsOfToday",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1219,67 +1229,16 @@
                     "orders-admin"
                 ],
                 "operationId": "getFrequentlyOrderedItemsOfPast30Days",
-                "parameters": [
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32",
-                            "default": 0
-                        }
-                    },
-                    {
-                        "name": "size",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32",
-                            "default": 10
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/PageResponseOrderedItemsFrequencyResponse"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/orders/completed/number-of-orders-after": {
-            "get": {
-                "tags": [
-                    "orders-admin"
-                ],
-                "operationId": "getTotalNumberOfOrders",
-                "parameters": [
-                    {
-                        "name": "date-time",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "date-time"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "integer",
-                                    "format": "int32"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OrderedItemsFrequencyResponse"
+                                    }
                                 }
                             }
                         }
@@ -2711,52 +2670,18 @@
             "OrderedItemsFrequencyResponse": {
                 "type": "object",
                 "properties": {
-                    "frequency": {
-                        "type": "integer",
-                        "format": "int32"
+                    "imageUrl": {
+                        "type": "string"
                     },
                     "itemName": {
                         "type": "string"
-                    }
-                }
-            },
-            "PageResponseOrderedItemsFrequencyResponse": {
-                "type": "object",
-                "properties": {
-                    "content": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/OrderedItemsFrequencyResponse"
-                        }
                     },
-                    "number": {
+                    "price": {
+                        "type": "number"
+                    },
+                    "frequency": {
                         "type": "integer",
                         "format": "int32"
-                    },
-                    "size": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "totalElements": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "numberOfElements": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "totalPages": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "last": {
-                        "type": "boolean"
-                    },
-                    "first": {
-                        "type": "boolean"
-                    },
-                    "empty": {
-                        "type": "boolean"
                     }
                 }
             },
