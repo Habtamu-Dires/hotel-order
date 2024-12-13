@@ -137,6 +137,7 @@ export class ItemsComponent implements OnInit{
           'item-id' : itemId as string
         }).subscribe({
           next:()=>{
+            this.page = 0;
             this.fetchPagesOfItems();
             this.toastrService.success('Item deleted successfully', 'Done!');
           },
@@ -154,12 +155,20 @@ export class ItemsComponent implements OnInit{
   // pagination methods
   onSizeChanged(size:number){
     this.size = size;
-    this.fetchPageOfItemsByCatId();
+    if(this.filter.length !== 0){
+      this.fetchPageOfItemsByCatId();
+    } else {
+      this.fetchPagesOfItems();
+    }
   }
 
   onPageChanged(page:number){
     this.page = page;
-    this.fetchPageOfItemsByCatId();
+    if(this.filter.length !== 0){
+      this.fetchPageOfItemsByCatId();
+    } else {
+      this.fetchPagesOfItems();
+    }
   }
 
 }

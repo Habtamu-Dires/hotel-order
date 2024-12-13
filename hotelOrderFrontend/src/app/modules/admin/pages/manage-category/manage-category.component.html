@@ -17,12 +17,12 @@
                     class="w-full p-2 rounded-lg text-lg outline-none"                     
                 />
                 <div *ngIf="showCategories"
-                    class="absolute w-full flex flex-col justify-center items-center">
-                    <div class="w-2/3 bg-white shadow-md hover:bg-gray-400"
+                    class="donthide absolute w-full flex flex-col justify-center items-center">
+                    <div class="donthide w-2/3 bg-white shadow-md hover:bg-gray-400"
                         *ngFor="let category of parentCategories; let idx=index"
                         [ngClass]="{'rounded-t-md' : idx==0,
                             'rounded-b-md': idx==(parentCategories.length - 1)}">
-                            <p class="w-full cursor-pointer p-2"
+                            <p class="donthide w-full cursor-pointer p-2"
                                 (click)="setParentCategoryId(category)">
                                 {{category.name}}
                             </p>
@@ -34,7 +34,11 @@
             <label class="col-span-12 md:col-span-2 flex">Description</label>
             <textarea [(ngModel)] ="categoryRequest.description"  class="form-input" type="text" placeholder="description">
             </textarea>
-        </div>                
+        </div>
+        <div class="w-full grid grid-cols-12">
+            <label class="form-label">Popularity Index</label>
+            <input [(ngModel)] ="categoryRequest.popularityIndex"  class="form-input" type="text" placeholder="Popularity index"/>
+        </div>                    
         <div class="w-full grid grid-cols-12">
             <label class="form-label">Cover Picture</label>
             <div class="col-span-12 md:col-span-10 flex gap-2 w-full items-center">

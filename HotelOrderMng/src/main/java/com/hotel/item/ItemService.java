@@ -1,6 +1,7 @@
 package com.hotel.item;
 
 import com.hotel.category.Category;
+import com.hotel.category.CategoryRepository;
 import com.hotel.category.CategoryResponse;
 import com.hotel.category.CategoryService;
 import com.hotel.common.IdResponse;
@@ -19,9 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +30,7 @@ public class ItemService {
     private final ItemMapper mapper;
     private final CategoryService categoryService;
     private final FileStorageService fileStorageService;
+    private final CategoryRepository categoryRepository;
 
     //save item
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -39,12 +39,14 @@ public class ItemService {
 
        Item item = Item.builder()
                 .name(request.name())
-                .category(category)
                 .price(request.price())
+                .categories(List.of(category))
                 .description(request.description())
                 .isAvailable(request.isAvailable())
                 .stockQuantity(request.stockQuantity())
                 .imageUrl(request.imageUrl())
+                .popularityIndex(request.popularityIndex() == null ?
+                        0 : request.popularityIndex())
                 .build();
 
        if(request.id() != null && !request.id().isBlank()){
@@ -53,7 +55,13 @@ public class ItemService {
            item.setId(UUID.randomUUID());
        }
 
-        String id = repository.save(item).getId().toString();
+       // add items to category
+       category.getItems().add(item);
+
+       // save items
+       String id = repository.save(item).getId().toString();
+       categoryRepository.save(category); // save category
+
        return new IdResponse(id);
     }
 
@@ -157,6 +165,7 @@ public class ItemService {
         Category category = categoryService.findCategoryById(categoryId);
         return repository.findAvailableItemByCategoryId(category.getId())
                 .stream()
+                .sorted(Comparator.comparingInt(Item::getPopularityIndex).reversed())
                 .map(mapper::toItemResponse)
                 .toList();
     }

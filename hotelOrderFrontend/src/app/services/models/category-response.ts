@@ -8,5 +8,6 @@ export interface CategoryResponse {
   imageUrl?: string;
   name?: string;
   parentCategory?: CategoryResponse;
+  popularityIndex?: number;
   subCategories?: Array<CategoryResponse>;
 }

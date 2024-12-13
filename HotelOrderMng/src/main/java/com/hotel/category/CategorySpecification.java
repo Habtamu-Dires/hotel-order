@@ -14,7 +14,7 @@ public class CategorySpecification {
             if(name != null && !name.isBlank()){
                 Predicate namePredicate = criteriaBuilder.like(
                         criteriaBuilder.lower(root.get("name")),
-                        "%"+name+"%"
+                        "%"+name.toLowerCase()+"%"
                 );
                 predicates.add(namePredicate);
             }

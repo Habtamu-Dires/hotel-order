@@ -4,13 +4,14 @@ import com.hotel.common.BaseEntity;
 import com.hotel.order.ItemOrder;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Setter
 @Getter
 @Entity

@@ -30,7 +30,7 @@ public class TransientEventCleanupService {
 
 
     //  delete old service requests
-    @Scheduled(cron = "0 0 4 * * ?")   // every day at 4 AM
+    @Scheduled(cron = "0 0 5 * * ?")   // every day at 5 AM
     public void deleteOlderServiceRequests() {
         JobParameters jobParameters = new JobParametersBuilder(jobExplorer)
                 .addLong("startAt",System.currentTimeMillis())
@@ -48,7 +48,7 @@ public class TransientEventCleanupService {
     }
 
     // delete canceled orders
-    @Scheduled(cron = "0 0 5 * * ?")   // every day at 5AM
+    @Scheduled(cron = "0 0 6 * * ?")   // every day at 5AM
     public void deleteCanceledOrdersAfter() {
         JobParameters jobParameters = new JobParametersBuilder(jobExplorer)
                 .addLong("startAt", System.currentTimeMillis())

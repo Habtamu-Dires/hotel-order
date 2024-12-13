@@ -81,9 +81,9 @@ public class ItemController {
     }
 
     // get page of items by category id
-    @GetMapping("/category/page/{category-id}")
+    @GetMapping("/category/page")
     public ResponseEntity<PageResponse<ItemResponse>> getPageOfItemsByCategory(
-            @PathVariable("category-id") String categoryId,
+            @RequestParam("category-id") String categoryId,
             @RequestParam(value = "page",defaultValue = "0", required = false) int page,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size
     ){

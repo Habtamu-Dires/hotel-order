@@ -1,5 +1,7 @@
 package com.hotel;
 
+import com.hotel.category.Category;
+import com.hotel.category.CategoryRepository;
 import com.hotel.order_detail.OrderDetailRepository;
 import com.hotel.role.Role;
 import com.hotel.role.RoleRepository;
@@ -27,12 +29,14 @@ public class HotelOrderMngApplication {
 
 	}
 
+	// initialization tasks
 	@Bean
 	CommandLineRunner runner(RoleRepository roleRepository,
 							 UserRepository userRepository,
 							 PasswordEncoder passwordEncoder,
-							 OrderDetailRepository detailRepository){
+							 CategoryRepository categoryRepository){
 		return args -> {
+			//Create roles
 			if(roleRepository.findByName(RoleType.ADMIN).isEmpty()){
 				roleRepository.save(
 						Role.builder()
@@ -79,8 +83,8 @@ public class HotelOrderMngApplication {
 								.lastName("ad")
 								.password(passwordEncoder.encode("password"))
 								.roles(List.of(role))
-								.email("haft.adu@gmail.com")
-								.phoneNumber("2911112121")
+								.email("example.com")
+								.phoneNumber("0907111111")
 								.build()
 				);
 			}

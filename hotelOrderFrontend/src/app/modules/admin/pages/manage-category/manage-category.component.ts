@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { CategoryRequest, CategoryResponse, IdResponse, PageResponseCategoryResponse } from '../../../../services/models';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoriesService, FilesService } from '../../../../services/services';
@@ -90,17 +90,48 @@ export class ManageCategoryComponent implements OnInit {
           id: res.id,
           name: res.name as string,
           parentCategoryId: res.parentCategory?.id,
+          popularityIndex: res.popularityIndex,
           imageUrl: res.imageUrl
         }
         if(res.imageUrl){ 
           this.selectedPicture = res.imageUrl;
         }
         // update searchControl
-        this.parentCategoryName = this.categoryRequest.name;
-        this.searchControl.setValue(this.parentCategoryName);
+        const paretnId = this.categoryRequest.parentCategoryId;
+        if(paretnId){
+          this.fetchCategoryNameById(paretnId);
+        }
+      },
+      error:(err) =>{
+        console.log(err);
       }
     })
   }
+
+  // fetch category name by id 
+  fetchCategoryNameById(categoryId:string){
+    this.categoryService.getCategoryById({
+      'category-id': categoryId
+    }).subscribe({
+      next:(res:CategoryResponse) =>{
+        this.parentCategoryName = res.name as string;
+        this.searchControl.setValue(this.parentCategoryName);
+      },
+      error:(err) =>{
+        console.log(err);
+      }
+    })
+  }
+
+  // Track clicks to hide the dropdown 
+  @HostListener('document:click', ['$event'])
+  onClickOutSideDropdown(event: MouseEvent){
+    const target = event.target as HTMLElement;
+    // only hide if the click is outside the component
+    if(!target.classList.contains('donthide')){
+      this.showCategories = false;
+    }
+  }  
 
 
 

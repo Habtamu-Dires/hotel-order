@@ -14,6 +14,29 @@ services:
     networks:
       - hotel-order
 
+  ho-api:
+    container_name: ho-api
+    image: habtamudires/hotel-order-api:1.0.1
+    ports:
+      - "8088:8088"
+    environment:
+      JWT_SECRET_KEY: 9xCv/yYKM/xwcy5H5oQbKAy7ZEyJE/XW0AVU/HJ0Vqd3mjZlspG3+HrukQMBfgnF
+    networks:
+      - hotel-order
+    depends_on:
+      - postgres
+    volumes:
+      - ./uploads:/app/uploads
+
+  ho-ui:
+    container_name: ho-ui
+    image: habtamudires/hotel-order-ui:1.0.1
+    ports:
+      - "8080:80"
+    networks:
+      - hotel-order
+    depends_on:
+      - ho-api
 
 volumes:
   postgres:

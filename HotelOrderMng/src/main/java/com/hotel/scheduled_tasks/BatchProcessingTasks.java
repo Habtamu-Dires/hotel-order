@@ -46,7 +46,7 @@ public class BatchProcessingTasks {
 
 
     // ordered item frequency for the last 30 days
-    @Scheduled(cron = "0 0 2 * * ?")   // every day 2 AM
+    @Scheduled(cron = "0 0 0 * * ?")   // every day 12 AM midnight
     public void orderedItemFrequencyJob() {
         //clear the old data
         orderedItemsFrequencyRepository.deleteAll();
@@ -87,7 +87,7 @@ public class BatchProcessingTasks {
     }
 
     //day of the week analysis
-    @Scheduled(cron = "0 0 0 * * ?")  // 0 AM
+    @Scheduled(cron = "0 0 2 * * ?")  // 2 AM
     public void DayOfTheWeekAnalysis(){
         //delete the  data before 28 day
         dayOfTheWeekAnalysisService.removeDataBefore28Days();
@@ -124,3 +124,4 @@ public class BatchProcessingTasks {
         }
     }
 }
+

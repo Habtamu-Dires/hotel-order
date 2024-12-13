@@ -10,6 +10,7 @@ public record CategoryResponse(
         String name,
         String description,
         String imageUrl,
+        Integer popularityIndex,
         CategoryResponse parentCategory,
         List<CategoryResponse> subCategories
 ) {}

@@ -9,6 +9,7 @@ export interface ItemRequest {
   imageUrl?: string;
   isAvailable: boolean;
   name: string;
+  popularityIndex?: number;
   price: number;
   stockQuantity?: number;
 }

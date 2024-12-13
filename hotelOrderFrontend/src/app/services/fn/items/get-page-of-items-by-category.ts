@@ -19,7 +19,7 @@ export interface GetPageOfItemsByCategory$Params {
 export function getPageOfItemsByCategory(http: HttpClient, rootUrl: string, params: GetPageOfItemsByCategory$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseItemResponse>> {
   const rb = new RequestBuilder(rootUrl, getPageOfItemsByCategory.PATH, 'get');
   if (params) {
-    rb.path('category-id', params['category-id'], {});
+    rb.query('category-id', params['category-id'], {});
     rb.query('page', params.page, {});
     rb.query('size', params.size, {});
   }
@@ -34,4 +34,4 @@ export function getPageOfItemsByCategory(http: HttpClient, rootUrl: string, para
   );
 }
 
-getPageOfItemsByCategory.PATH = '/items/category/page/{category-id}';
+getPageOfItemsByCategory.PATH = '/items/category/page';

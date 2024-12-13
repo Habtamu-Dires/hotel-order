@@ -98,7 +98,8 @@ export class ManageItemsComponent {
           description: res.description as string,
           isAvailable: res.isAvailable as boolean,
           stockQuantity: res.stockQuantity as number,
-          imageUrl: res.imageUrl 
+          popularityIndex: res.popularityIndex,
+          imageUrl: res.imageUrl
         }
         if(res.imageUrl != undefined && res.imageUrl.length > 0){ 
           this.selectedPicture = res.imageUrl;

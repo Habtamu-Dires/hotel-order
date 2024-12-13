@@ -16,12 +16,12 @@ public class ItemMapper {
                 .name(item.getName())
                 .price(item.getPrice())
                 .imageUrl(item.getImageUrl())
-                .category(
-                        categoryMapper
-                        .toCategoryResponse(item.getCategory()))
+                .category(categoryMapper
+                        .toCategoryResponse(item.getCategories().getFirst()))
                 .description(item.getDescription())
                 .isAvailable(item.isAvailable())
                 .stockQuantity(item.getStockQuantity())
+                .popularityIndex(item.getPopularityIndex())
                 .lastModifiedBy(item.getLastModifiedBy())
                 .lastModifiedDate(item.getLastModifiedDate())
                 .build();

@@ -5,6 +5,7 @@ import lombok.Builder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 public record ItemResponse(
@@ -17,5 +18,6 @@ public record ItemResponse(
         Integer stockQuantity,
         String lastModifiedBy,
         LocalDateTime lastModifiedDate,
-        boolean isAvailable
+        boolean isAvailable,
+        Integer popularityIndex
 ) {}

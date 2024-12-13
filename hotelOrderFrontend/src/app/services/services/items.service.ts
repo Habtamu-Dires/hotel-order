@@ -279,7 +279,7 @@ export class ItemsService extends BaseService {
   }
 
   /** Path part for operation `getPageOfItemsByCategory()` */
-  static readonly GetPageOfItemsByCategoryPath = '/items/category/page/{category-id}';
+  static readonly GetPageOfItemsByCategoryPath = '/items/category/page';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.

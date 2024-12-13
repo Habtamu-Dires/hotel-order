@@ -8,4 +8,5 @@ export interface CategoryRequest {
   imageUrl?: string;
   name: string;
   parentCategoryId?: string;
+  popularityIndex?: number;
 }

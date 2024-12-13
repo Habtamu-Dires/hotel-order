@@ -10,5 +10,6 @@ public record CategoryRequest(
         String name,
         String description,
         String parentCategoryId,
-        String imageUrl
+        String imageUrl,
+        Integer popularityIndex
 ) {}

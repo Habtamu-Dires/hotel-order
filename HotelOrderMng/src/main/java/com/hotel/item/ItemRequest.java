@@ -24,5 +24,6 @@ public record ItemRequest(
          Integer stockQuantity,
          @NotNull(message = "Availability Info is Mandatory")
          boolean isAvailable,
+         Integer popularityIndex,
          String imageUrl
 ) {}

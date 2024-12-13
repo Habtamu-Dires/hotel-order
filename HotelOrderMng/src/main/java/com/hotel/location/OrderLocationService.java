@@ -148,7 +148,7 @@ public class OrderLocationService {
     }
 
     // get location by id
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public LocationResponse getLocationById(String locationId) {
         return mapper.toOrderLocationResponse(this.findOrderLocationById(locationId));
     }

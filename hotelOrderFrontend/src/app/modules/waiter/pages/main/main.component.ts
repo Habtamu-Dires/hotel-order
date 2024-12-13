@@ -55,7 +55,7 @@ export class MainComponent implements OnInit, OnDestroy {
   //  notification listener
   onNotification(){
     // const roles = this.tokenService.getUserRole();
-    let ws = new SockJS('http://localhost:8088/api/v1/ws');
+    let ws = new SockJS('http://192.168.43.116:8088/api/v1/ws'); //http://localhost:8088/api/v1/ws
     this.socketClient = Stomp.over(ws);
     this.socketClient.connect(
       {'Authorization:': `Bearer ${this.tokenService.token}`},

@@ -103,6 +103,7 @@ export class HeaderComponent {
   // clear serached text
   clearSearchText(){
     this.searchForm.setValue('');
+    this.customerService.updateSearchedText('');
   }
 
 

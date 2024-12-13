@@ -17,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,6 +38,8 @@ public class CategoryService {
             .name(request.name())
             .description(request.description())
             .imageUrl(request.imageUrl())
+            .popularityIndex(request.popularityIndex() == null ?
+                    0 : request.popularityIndex())
             .build();
 
       if(request.id() != null && !request.id().isBlank()) {
@@ -99,11 +102,17 @@ public class CategoryService {
                 .orElseThrow(() -> new EntityNotFoundException("Category with id: " +id+ " not found"));
     }
 
-    //get main categories.
+    //get main categories at one item available.
     public List<CategoryResponse> getMainCategories() {
         Page<Category> res = repository.findMainCategory(Pageable.unpaged());
 
      return  res
+             .stream()
+             .filter(category ->
+                     !category.getItems().isEmpty() ||
+                     !category.getSubCategories().isEmpty()
+             )
+             .sorted(Comparator.comparingInt(Category::getPopularityIndex).reversed())
              .map(mapper::toCategoryResponse)
              .toList();
     }
@@ -176,7 +185,7 @@ public class CategoryService {
 
     }
     // get category by id
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CategoryResponse getCategoryId(String categoryId) {
         return mapper.toCategoryResponse(this.findCategoryById(categoryId));
     }

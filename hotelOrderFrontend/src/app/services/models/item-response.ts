@@ -12,6 +12,7 @@ export interface ItemResponse {
   lastModifiedBy?: string;
   lastModifiedDate?: string;
   name?: string;
+  popularityIndex?: number;
   price?: number;
   stockQuantity?: number;
 }
