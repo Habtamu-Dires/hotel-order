@@ -110,10 +110,6 @@ jobs:
 
       - name: set ENV variables and deploy
         run: |
-          ls -la
-          mkdir -p ci-cd
-          cp docker-compose.yml /ci-cd
           export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
-          cd ci-cd
           docker-compose -f docker-compose.yml pull -q
           docker-compose -f docker-compose.yml up -d

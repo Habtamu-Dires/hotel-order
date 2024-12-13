@@ -53,9 +53,5 @@ jobs:
 
       - name: deploy
         run: |
-          ls -la
-          mkdir -p ci-cd
-          cp docker-compose.yml /ci-cd
-          cd ci-cd
           docker-compose -f docker-compose.yml pull -q
           docker-compose -f docker-compose.yml up -d
