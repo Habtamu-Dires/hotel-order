@@ -6,6 +6,7 @@ import {provideToastr} from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { httpTokenInterceptor } from './services/interceptor/http-token.interceptor';
+import { ApiModule } from './services/api.module';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,18 +23,8 @@ export const appConfig: ApplicationConfig = {
       tapToDismiss: true,
       positionClass: 'toast-top-center',
       timeOut: 2000
-    }), provideAnimationsAsync()
-
-    
+    }),
+    provideAnimationsAsync()
   ]
 };
 
-// provideRouter(
-    //   routes,
-    //   withInMemoryScrolling({
-    //     scrollPositionRestoration: 'enabled'
-    //   }),
-    //   withRouterConfig({ onSameUrlNavigation: 'reload'})
-    // ),
-    // { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy },
-    // DatePipe

@@ -19,8 +19,6 @@ services:
     image: habtamudires/hotel-order-api:1.0.1
     ports:
       - "8088:8088"
-    environment:
-      JWT_SECRET_KEY: 9xCv/yYKM/xwcy5H5oQbKAy7ZEyJE/XW0AVU/HJ0Vqd3mjZlspG3+HrukQMBfgnF
     networks:
       - hotel-order
     depends_on:

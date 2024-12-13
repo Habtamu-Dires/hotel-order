@@ -1,0 +1,113 @@
+name: Hotel Order Backend API Pipeline
+
+on:
+  push:
+    branches:
+      - pipeline
+    paths:
+      - HotelOrderMng/**
+      - docker/backend/**
+      - 'docker-compose.yml'
+      - .github/workflows/*-backend.yml
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    name: compile-project
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: setup jdk
+        uses: actions/setup-java@v4
+        with: 
+          java-version: 21
+          distribution: 'corretto'
+      
+      - name: compile project
+        run: |
+          cd HotelOrderMng
+          ./mvnw clean compile
+      
+        
+  build:
+    runs-on: ubuntu-latest
+    name: build backend
+    needs: [compile]
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: setup jdk
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'corretto'
+
+      - name: build project
+        run: |
+          cd HotelOrderMng
+          ./mvnw clean package
+
+  build-image:
+    runs-on: ubuntu-latest
+    name: build docker image
+    needs: [build]
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: setup jdk
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'corretto'
+
+      - name: build project
+        run: |
+          cd HotelOrderMng
+          ./mvnw clean package
+
+      - name: extract project version
+        id: extract_version
+        run: |
+          cd HotelOrderMng
+          echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+
+      - name: login to dockerhub
+        uses: docker/login-action@v3
+        with:
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_TOKEN}}
+
+      - name: build and push to dockerhub
+        uses: docker/build-push-action@v5
+        with:
+          context: HotelOrderMng
+          file: docker/backend/Dockerfile
+          push: true
+          platform: linux/amd64
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/hotel-order-api:${{ steps.extract_version.outputs.VERSION }},${{secrets.DOCKERHUB_USERNAME}}/hotel-order-api:latest
+          build-args: |
+            PROFILE=dev
+            APP_VERSION=${{ steps.extract_version.outputs.VERSION }}
+
+  deploy:
+    name: deploy backend
+    runs-on: ubuntu-latest
+    needs: [build-image]
+    steps:
+      - name: set ENV variables and deploy
+        run: |
+          mkdir -p ci-cd
+          cp docker-compose.yml /ci-cd
+          export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+          cd ci-cd
+          docker-compose -f docker-compose.yml pull -q
+          docker-compose -f docker-compose.yml up -d
