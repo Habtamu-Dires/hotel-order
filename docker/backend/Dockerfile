@@ -9,7 +9,7 @@ RUN mvn clean package -DskipTests
 #Runtime Stage
 FROM amazoncorretto:21
 ARG PROFILE=dev
-ARG APP_VERSION=1.1.3
+ARG APP_VERSION=1.1.4
 
 WORKDIR /app
 COPY --from=build /build/target/HotelOrderMng-*.jar /app/

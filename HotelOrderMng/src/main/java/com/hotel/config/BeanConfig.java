@@ -17,14 +17,13 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
-import java.util.UUID;
 
 @Configuration
 @RequiredArgsConstructor
 public class BeanConfig {
 
     @Value("${application.cors.origins}")
-    private List<String> origins;
+    private List<String> allowedOrigins;
 
     private final UserDetailsService userDetailsService;
 
@@ -50,10 +49,10 @@ public class BeanConfig {
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(origins);
+        config.setAllowedOrigins(allowedOrigins);
         config.setAllowCredentials(true);
-        config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }

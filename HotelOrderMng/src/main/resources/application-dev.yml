@@ -26,7 +26,7 @@ application:
     origins: ${ALLOWED_ORIGINS:http://localhost:4200,http://localhost:8080,http://192.168.43.116:8080}
   security:
     jwt:
-      secret-key: ${JWT_SECRET_KEY:default-secret-key} #9xCv/yYKM/xwcy5H5oQbKAy7ZEyJE/XW0AVU/HJ0Vqd3mjZlspG3+HrukQMBfgnF
+      secret-key: ${JWT_SECRET_KEY:9xCv/yYKM/xwcy5H5oQbKAy7ZEyJE/XW0AVU/HJ0Vqd3mjZlspG3+HrukQMBfgnF} #
       expiration: 28800000 # 8 hours
   file:
     upload:

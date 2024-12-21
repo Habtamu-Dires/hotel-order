@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,7 +51,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
             if("OPTIONS".equalsIgnoreCase(request.getMethod())){
                 String origin = request.getHeader(HttpHeaders.ORIGIN);
-                if(origin != null && allowedOrigins.contains(origin)){
+                if(origin != null && allowedOrigins.contains(origin) ){ //
                     response.setHeader("Access-Control-Allow-Origin", origin);
                     response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
                     response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");

@@ -16,7 +16,7 @@ services:
 
   ho-api:
     container_name: ho-api
-    image: habtamudires/hotel-order-api:latest
+    image: ho-api/ho-api:v1
     ports:
       - "8088:8088"
     environment:
@@ -30,7 +30,7 @@ services:
 
   ho-ui:
     container_name: ho-ui
-    image: habtamudires/hotel-order-ui:latest
+    image: ho-ui/ho-ui:v1
     ports:
       - "8080:80"
     networks:
