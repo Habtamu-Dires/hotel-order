@@ -16,4 +16,10 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY --from=build-stage /app/dist/hotel-order-frontend/browser /usr/share/nginx/html
 
+COPY start.sh ./
+
+RUN chmod +x start.sh
+
+CMD ["sh","start.sh"]
+
 EXPOSE 80
