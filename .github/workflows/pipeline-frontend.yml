@@ -5,7 +5,7 @@ on:
     branches:
       - pipeline
     paths:
-      - hotelOrderFrontend/**
+      - hotel-order-ui/**
       - docker/frontend/**
       - 'docker-compose.yml'
       - .github/workflows/*-frontend.yml
@@ -23,7 +23,7 @@ jobs:
       - name: extract project version
         id: extract_version
         run: |
-          cd hotelOrderFrontend
+          cd hotel-order-ui
           echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
           
       - name: login to dockerhub
@@ -35,12 +35,13 @@ jobs:
       - name: build and push to dockerhub
         uses: docker/build-push-action@v5
         with:
-          context: hotelOrderFrontend
+          context: hotel-order-ui
           file: docker/frontend/Dockerfile
           push: true
           platform: linux/amd64
           tags: ${{secrets.DOCKERHUB_USERNAME}}/hotel-order-ui:${{ steps.extract_version.outputs.VERSION }},${{secrets.DOCKERHUB_USERNAME}}/hotel-order-ui:latest
 
+# #hotelOrderFrontend
 #  deploy:
 #    name: deploy frontend
 #    runs-on: ubuntu-latest

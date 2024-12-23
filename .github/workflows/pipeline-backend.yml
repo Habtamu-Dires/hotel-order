@@ -5,7 +5,7 @@ on:
     branches:
       - pipeline
     paths:
-      - HotelOrderMng/**
+      - hotel-order-api/**
       - docker/backend/**
       - 'docker-compose.yml'
       - .github/workflows/*-backend.yml
@@ -28,7 +28,7 @@ jobs:
       
       - name: compile project
         run: |
-          cd HotelOrderMng
+          cd hotel-order-api
           ./mvnw clean compile
       
         
@@ -50,7 +50,7 @@ jobs:
 
       - name: build project
         run: |
-          cd HotelOrderMng
+          cd hotel-order-api
           ./mvnw clean package
 
   build-image:
@@ -71,13 +71,13 @@ jobs:
 
       - name: build project
         run: |
-          cd HotelOrderMng
+          cd hotel-order-api
           ./mvnw clean package
 
       - name: extract project version
         id: extract_version
         run: |
-          cd HotelOrderMng
+          cd hotel-order-api
           echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
 
       - name: login to dockerhub
@@ -89,7 +89,7 @@ jobs:
       - name: build and push to dockerhub
         uses: docker/build-push-action@v5
         with:
-          context: HotelOrderMng
+          context: hotel-order-api
           file: docker/backend/Dockerfile
           push: true
           platform: linux/amd64
@@ -98,6 +98,7 @@ jobs:
             PROFILE=dev
             APP_VERSION=${{ steps.extract_version.outputs.VERSION }}
 
+#  #HotelOrderMng
 #  deploy:
 #    name: deploy backend
 #    runs-on: ubuntu-latest
