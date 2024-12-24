@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07ba21c3-3505-47f2-b241-dc6339b3eb74" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/file/FileStorageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/file/FileStorageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/item/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/item/ItemService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/app.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/pages/manage-category/manage-category.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/pages/manage-category/manage-category.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-ui/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/nginx.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +34,7 @@
     &quot;Application.HotelOrderApp.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;pipeline&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
 }</component>

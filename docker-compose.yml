@@ -16,7 +16,7 @@ services:
 
   ho-api-1:
     container_name: ho-api-1
-    image: ho-api/ho-api:v3
+    image: ho-api/ho-api:v5
     ports:
       - "8088:8088"
     environment:
@@ -24,16 +24,17 @@ services:
       ALLOWED_ORIGINS: http://192.168.43.116:8080,http://localhost:8080
       SERVER_URL: http://192.168.43.116:8088/api/v1
       SERVER_NAME: ho-api-one
+      FILE_PATH: /app/uploads
     networks:
       - hotel-order
     depends_on:
       - postgres
     volumes:
-      - ./uploads:./app/uploads
+      - ./uploads:/app/uploads
 
   ho-api-2:
     container_name: ho-api-2
-    image: ho-api/ho-api:v3
+    image: ho-api/ho-api:v5
     ports:
       - "8089:8088"
     environment:
@@ -41,16 +42,17 @@ services:
       ALLOWED_ORIGINS: http://192.168.43.116:8080,http://localhost:8080
       SERVER_URL: http://192.168.43.116:8088/api/v1
       SERVER_NAME: ho-api-two
+      FILE_PATH: /app/uploads
     networks:
       - hotel-order
     depends_on:
       - postgres
     volumes:
-      - ./uploads:./app/uploads
+      - ./uploads:/app/uploads
 
   ho-ui:
     container_name: ho-ui
-    image: ho-ui/ho-ui:v2
+    image: ho-ui/ho-ui:v6
     environment:
       API_URL: http://192.168.43.116:8080/api/v1
     ports:

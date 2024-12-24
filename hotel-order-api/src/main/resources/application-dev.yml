@@ -31,7 +31,7 @@ application:
       expiration: 28800000 # 8 hours
   file:
     upload:
-      picture-output-path: ./app/uploads
+      picture-output-path: ${FILE_PATH:./app/uploads}
 
 logging:
   level:
