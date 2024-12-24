@@ -90,6 +90,7 @@ export class ManageCategoryComponent implements OnInit {
           id: res.id,
           name: res.name as string,
           parentCategoryId: res.parentCategory?.id,
+          description: res.description,
           popularityIndex: res.popularityIndex,
           imageUrl: res.imageUrl
         }

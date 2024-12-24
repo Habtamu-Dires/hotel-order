@@ -29,7 +29,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./uploads:/app/uploads
+      - ./uploads:./app/uploads
 
   ho-api-2:
     container_name: ho-api-2
@@ -46,7 +46,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./uploads:/app/uploads
+      - ./uploads:./app/uploads
 
   ho-ui:
     container_name: ho-ui
@@ -58,10 +58,11 @@ services:
     networks:
       - hotel-order
 
+networks:
+  hotel-order:
+    driver: bridge
+
 volumes:
   postgres:
     driver: local
 
-networks:
-  hotel-order:
-    driver: bridge

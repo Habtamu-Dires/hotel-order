@@ -41,7 +41,7 @@ public class FileStorageService {
     {
         String uploadDir = fileUploadPath +separator+ type;
         Path folderPath = Paths.get(uploadDir);
-
+        System.out.println("folder path");
         try{
             if (!Files.isDirectory(folderPath)) {
                 Files.createDirectories(folderPath);

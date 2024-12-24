@@ -12,7 +12,12 @@ declare var window: any;
 
 export function initializeApiConfig(apiConfig: ApiConfigService): () => void {
   return () => {
-    apiConfig.rootUrl = window.API_URL || 'http://localhost:8088/api/v1';
+    if(window.API_URL && window.API_URL !== '__API_URL_PLACEHOLDER__'){
+      apiConfig.rootUrl = window.API_URL || 'http://localhost:8088/api/v1';
+    } else {
+      apiConfig.rootUrl = 'http://localhost:8088/api/v1';
+    }
+
     console.log('API rootUrl set to:', window.API_URL);
   };
 }

@@ -8,6 +8,7 @@ import com.hotel.common.IdResponse;
 import com.hotel.common.PageResponse;
 import com.hotel.file.FileStorageService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +35,7 @@ public class ItemService {
 
     //save item
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Transactional
     public IdResponse saveItem(@Valid ItemRequest request) {
        Category category = categoryService.findCategoryById(request.categoryId());
 
@@ -203,8 +205,14 @@ public class ItemService {
 
     // delete item
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Transactional
     public void deleteItem(String itemId) {
         Item item = this.findItemById(itemId);
+        List<Category> categorieList = new ArrayList<>(item.getCategories());
+        for(Category category : categorieList){
+            category.removeItem(item);
+            categoryRepository.save(category);
+        }
         fileStorageService.deleteImage(item.getImageUrl());
         repository.delete(item);
     }
