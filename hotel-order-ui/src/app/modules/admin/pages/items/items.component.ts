@@ -43,9 +43,13 @@ export class ItemsComponent implements OnInit{
 
   // filter by category
   onCategoryFilterChange(categoryId:string){
-    this.filter = categoryId;
-    this.page = 0;
-    this.fetchPageOfItemsByCatId();
+    if(categoryId.length !== 0){
+      this.filter = categoryId;
+      this.page = 0;
+      this.fetchPageOfItemsByCatId();
+    } else {
+      this.fetchPagesOfItems();
+    }
   }
 
   // on search 
@@ -53,7 +57,7 @@ export class ItemsComponent implements OnInit{
     if(text.length >= 3){
       this.searchItemsByName(text);
     } else{
-      this.fetchPagesOfItems();
+     this.fetchPagesOfItems();
     }
   }
   

@@ -85,7 +85,7 @@ export class MenuComponent implements OnInit{
         if(this.categoryName !== text){
           this.showCategories = true;
         }
-      } else{
+      } else if(text.length === 0){
         this.selectedCategoryId.emit('');
       }
     })

@@ -12,8 +12,9 @@
                     <td class="table-head"></td>
                     <td class="table-head">Type</td>
                     <td class="table-head">Number</td>
-                    <td class="table-head">Description</td>
+                    <td class="table-head">Address</td>
                     <td class="table-head">Status</td>
+                    <td class="table-head">Description</td>
                     <td class="table-head">Action</td>
                 </tr>
             </thead>
@@ -27,8 +28,9 @@
                       </td>
                       <td class="table-data">{{ location.type }}</td>
                       <td class="table-data">{{location.number}}</td>
-                      <td class="table-data">{{ location.description }}</td>
+                      <td class="table-data">{{location.address}}</td>
                       <td class="table-data">{{ location.status }}</td>
+                      <td class="table-data">{{ location.description }}</td>
                       <td class="table-data">
                         <div class="flex gap-2">
                             <svg (click)="onEdit(location.id)" class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><path d="M5.325 43.5h8.485l31.113-31.113l-8.486-8.485L5.325 35.015z"/><path stroke-linecap="round" d="m27.952 12.387l8.485 8.485"/></g></svg>     

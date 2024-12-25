@@ -4,7 +4,7 @@ spring:
   application:
     name: hotel-order-api
   datasource:
-    url: jdbc:postgresql://localhost:5432/hotel_order_db
+    url: jdbc:postgresql://localhost:5431/hotel_order_db
     username: hab
     password: password
     driver-class-name: org.postgresql.Driver
