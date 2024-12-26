@@ -1,0 +1,178 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/25.0.2 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="25.0.2">
+  <diagram name="Page-1" id="5f0bae14-7c28-e335-631c-24af17079c00">
+    <mxGraphModel dx="1434" dy="835" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="XqT-xry8DaVYUBgm4Chh-1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="270" y="273.19" width="150" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;flowAnimation=1;endArrow=none;endFill=0;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-4" target="_RlW_R-rDgdF3BkgxHvV-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-4" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://api.iconify.design/devicon:angular.svg;" parent="1" vertex="1">
+          <mxGeometry x="300" y="373.19" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-5" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://api.iconify.design/logos:nginx.svg;" parent="1" vertex="1">
+          <mxGeometry x="300" y="283.19" width="30.63" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-8" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://api.iconify.design/devicon:postgresql.svg?color=%23888888;" parent="1" vertex="1">
+          <mxGeometry x="975" y="350.69" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-9" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://api.iconify.design/logos:docker-icon.svg?color=%23888888;" parent="1" vertex="1">
+          <mxGeometry x="260" y="252.72999999999996" width="41.88" height="30.46" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-14" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="670" y="188.19" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-22" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://api.iconify.design/logos:docker-icon.svg?color=%23888888;" parent="1" vertex="1">
+          <mxGeometry x="660" y="170" width="42.5" height="30.91" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;flowAnimation=1;exitX=0;exitY=0.398;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.895;entryY=1.014;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-14" target="_RlW_R-rDgdF3BkgxHvV-36" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="198.19" as="sourcePoint" />
+            <mxPoint x="430" y="328.19" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="490" y="212.19" />
+              <mxPoint x="490" y="331.19" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-68" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.003;entryY=0.549;entryDx=0;entryDy=0;exitX=0.533;exitY=1.004;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-25" target="_RlW_R-rDgdF3BkgxHvV-55" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="997" y="528.19" />
+              <mxPoint x="995" y="528.19" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.524;exitY=0.004;exitDx=0;exitDy=0;exitPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-25" target="_RlW_R-rDgdF3BkgxHvV-14" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="997" y="218.19" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-25" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="960" y="327.06" width="70" height="87.27" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-26" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://api.iconify.design/logos:docker-icon.svg?color=%23888888;" parent="1" vertex="1">
+          <mxGeometry x="940" y="303.19" width="48.75" height="35.45" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.399;entryY=1.004;entryDx=0;entryDy=0;exitX=1.003;exitY=0.369;exitDx=0;exitDy=0;entryPerimeter=0;exitPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-55" target="_RlW_R-rDgdF3BkgxHvV-25" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="860" y="523.19" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.664;entryY=-0.007;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1.004;exitY=0.346;exitDx=0;exitDy=0;exitPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-14" target="_RlW_R-rDgdF3BkgxHvV-25" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;flowAnimation=1;endArrow=none;endFill=0;entryX=0;entryY=0.554;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.569;exitY=1.005;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-36" target="_RlW_R-rDgdF3BkgxHvV-14" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="338.19" as="sourcePoint" />
+            <mxPoint x="670" y="213.19" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="500" y="341.19" />
+              <mxPoint x="500" y="221.19" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.011;entryY=0.366;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;exitX=0.62;exitY=0.001;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-36" target="_RlW_R-rDgdF3BkgxHvV-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-36" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://api.iconify.design/zondicons:load-balancer.svg?color=%23888888;direction=north;" parent="1" vertex="1">
+          <mxGeometry x="390" y="328.19" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-40" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="687.61" y="329.56" width="132.39" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-41" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Frontend&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="340" y="373.19" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-47" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;API 1&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="736.25" y="200.91000000000003" width="73.75" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-48" value="Shared Volume for image storage" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="690.0000000000001" y="335.92" width="120" height="37.27" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-66" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.107;entryY=1.011;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-55" target="_RlW_R-rDgdF3BkgxHvV-36" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="358.19" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="490" y="526.19" />
+              <mxPoint x="490" y="355.19" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-55" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="670" y="488.19" width="150" height="67.72" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-56" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://api.iconify.design/logos:docker-icon.svg?color=#888888;" parent="1" vertex="1">
+          <mxGeometry x="660" y="475.45" width="42.5" height="30.91" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-57" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;API 2&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="736.25" y="507.05" width="73.75" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.397;entryY=0.008;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.999;exitY=0.572;exitDx=0;exitDy=0;exitPerimeter=0;flowAnimation=1;endArrow=none;endFill=0;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-5" target="_RlW_R-rDgdF3BkgxHvV-36" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="303.19" />
+              <mxPoint x="350" y="346.19" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.376;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;exitX=0.424;exitY=1.008;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-36" target="_RlW_R-rDgdF3BkgxHvV-55" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="430" y="345.19" as="sourcePoint" />
+            <mxPoint x="659.9999999999999" y="518.0500000000002" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="499" y="345.19" />
+              <mxPoint x="499" y="518.19" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-71" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Browser.svg;" parent="1" vertex="1">
+          <mxGeometry x="677.5" y="315.91999999999996" width="25" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-72" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.365;entryY=1.024;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.439;exitY=0.005;exitDx=0;exitDy=0;exitPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-55" target="_RlW_R-rDgdF3BkgxHvV-40" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.363;entryY=-0.015;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.433;exitY=1.009;exitDx=0;exitDy=0;exitPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-14" target="_RlW_R-rDgdF3BkgxHvV-40" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="735" y="250" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-75" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://img.icons8.com/?size=100&amp;id=A3Ulk2RcONKs&amp;format=png&amp;color=000000;" parent="1" vertex="1">
+          <mxGeometry x="690" y="196.36000000000007" width="39.1" height="39.1" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-76" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://img.icons8.com/?size=100&amp;id=A3Ulk2RcONKs&amp;format=png&amp;color=000000;" parent="1" vertex="1">
+          <mxGeometry x="690" y="501.8100000000001" width="39.1" height="39.1" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.555;entryY=1.02;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-40" target="_RlW_R-rDgdF3BkgxHvV-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_RlW_R-rDgdF3BkgxHvV-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.554;entryY=-0.019;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;" parent="1" source="_RlW_R-rDgdF3BkgxHvV-40" target="_RlW_R-rDgdF3BkgxHvV-55" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PTocFqCBsjjijhIG33Ov-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.005;entryY=0.373;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;" edge="1" parent="1" source="PTocFqCBsjjijhIG33Ov-3" target="_RlW_R-rDgdF3BkgxHvV-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTocFqCBsjjijhIG33Ov-3" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image=https://api.iconify.design/logos:firefox.svg?color=%23888888;" vertex="1" parent="1">
+          <mxGeometry x="90" y="334.69" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PTocFqCBsjjijhIG33Ov-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.948;entryY=0.738;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;flowAnimation=1;" edge="1" parent="1" source="_RlW_R-rDgdF3BkgxHvV-5" target="PTocFqCBsjjijhIG33Ov-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="301" />
+              <mxPoint x="220" y="364" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -4,6 +4,7 @@ import com.hotel.order.ItemOrder;
 import com.hotel.order.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
@@ -58,6 +59,10 @@ public class DayOfTheWeekAnalysisService {
                             .build());
         }
 
+    }
+
+    public String getName(){
+        return "dayOfTheWeekAnalysisJob";
     }
 
 

@@ -2,7 +2,6 @@ package com.hotel.batch.daily_average_order;
 
 import com.hotel.order.ItemOrder;
 import com.hotel.order.OrderRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +53,10 @@ public class DailyAverageOrderService {
                             .build()
             );
         }
+    }
+
+    public String getName(){
+        return "dailyAverageOrderJob";
     }
 //    public void updateDailyAverageOrder(DailyAverageOrder data) {
 //        DailyAverageOrder dailyAverage = repository.findById(1)

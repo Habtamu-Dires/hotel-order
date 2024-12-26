@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +26,7 @@ import java.util.UUID;
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableScheduling
 @EnableConfigurationProperties
+@EnableTransactionManagement
 public class HotelOrderMngApplication {
 
 	public static void main(String[] args) {

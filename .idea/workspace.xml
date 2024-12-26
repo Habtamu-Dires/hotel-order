@@ -6,17 +6,39 @@
   <component name="ChangeListManager">
     <list default="true" id="07ba21c3-3505-47f2-b241-dc6339b3eb74" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HotelOrderMng.drawio" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/components/menu/menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/components/menu/menu.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/pages/items/items.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/pages/items/items.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/pages/locations/locations.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/pages/locations/locations.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/HotelOrderMngApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/HotelOrderMngApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/daily_average_order/DailyAverageOrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/daily_average_order/DailyAverageOrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/daily_average_order/DailyAverageOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/daily_average_order/DailyAverageOrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/data_cleaning/CleanCanceledOrdersBatchConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/data_cleaning/CleanCanceledOrdersBatchConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/data_cleaning/CleanServiceRequestBatchConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/data_cleaning/CleanServiceRequestBatchConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/data_cleaning/ItemOrderProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/data_cleaning/ItemOrderProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/data_cleaning/ServiceRequestProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/data_cleaning/ServiceRequestProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/day_of_the_week/DayOfTheWeekAnalysisProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/day_of_the_week/DayOfTheWeekAnalysisProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/day_of_the_week/DayOfTheWeekAnalysisRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/day_of_the_week/DayOfTheWeekAnalysisRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/day_of_the_week/DayOfTheWeekAnalysisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/day_of_the_week/DayOfTheWeekAnalysisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/ordered_items_frequency/OrderedItemsFrequency.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/ordered_items_frequency/OrderedItemsFrequency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/category/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/category/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/initialization/InitializationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/initialization/InitializationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/item/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/item/ItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/order/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/order/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/BatchProcessingTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/BatchProcessingTasks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/TransientEventCleanupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/TransientEventCleanupService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/UpdateTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/UpdateTasks.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -35,6 +57,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.HotelOrderApp.executor&quot;: &quot;Debug&quot;,
+    &quot;Maven.hotel-order-api [install].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;pipeline&quot;,
@@ -62,5 +85,12 @@
       <updated>1734974022667</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="// lock dailyAverageOrder table&#10;    @Transactional&#10;    public void lockDailyAverageOrderTable(){&#10;        dailyAverageOrderRepository.lockDailyAverageOrderTable();&#10;        if(batchStatusService.isNotProcessedToday(dailyAverageOrderService.getName())){&#10;            //update last run date to today&#10;            batchStatusService.updateLastRunDate(dailyAverageOrderService.getName());&#10;        }&#10;    }&#10;&#10;    // daily average for past 7 days&#10;//    @Scheduled(cron = &quot;0 30 5 * * ?&quot;)   // every-day 5:30 AM&#10;    @Scheduled(cron = &quot;0 */2 * * * *&quot;)&#10;    public void dailyAverageOrder() {&#10;        log.info(&quot;Starting dailyAverageOrder scheduled task&quot;);&#10;        lockDailyAverageOrderTable();&#10;        if(batchStatusService.isNotProcessedToday(dailyAverageOrderService.getName())){&#10;            //clear the old data before 7 days&#10;            dailyAverageOrderService.removeDataBefore7Days();&#10;&#10;            JobParameters jobParameters = new JobParametersBuilder(jobExplorer)&#10;                    .addLong(&quot;startAt&quot;, System.currentTimeMillis())&#10;                    .toJobParameters();&#10;&#10;            try {&#10;                jobLauncher.run(dailyAverageOrderJob, jobParameters);&#10;                log.info(&quot;Successfully perform dailyAverageOrderJob&quot;);&#10;            } catch (JobExecutionAlreadyRunningException&#10;                     | JobRestartException&#10;                     | JobInstanceAlreadyCompleteException&#10;                     | JobParametersInvalidException e) {&#10;                throw new RuntimeException(&quot;dailyAverageOrderJob Failed to start&quot;, e);&#10;            }&#10;        } else {&#10;            log.info(&quot;dailyAverageOrderJob already Performed&quot;);&#10;        }&#10;    }" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

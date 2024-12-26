@@ -14,10 +14,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
@@ -32,8 +35,12 @@ public class CleanServiceRequestBatchConfig {
         RepositoryItemReader<ServiceRequest> reader = new RepositoryItemReader<>();
         reader.setRepository(serviceRequestRepository);
         reader.setMethodName("getOldServiceRequests");
-        reader.setArguments(List.of(LocalDateTime.now().minusHours(8)));
+//        reader.setArguments(List.of(LocalDateTime.now().minusHours(8)));
+        reader.setArguments(List.of(LocalDateTime.now().minusMinutes(1)));
         reader.setPageSize(100);
+        Map<String, Sort.Direction> sort = new HashMap<>();
+        sort.put("completedDate", Sort.Direction.ASC);
+        reader.setSort(sort);
         return  reader;
     }
 

@@ -29,4 +29,6 @@ public interface DailyAverageOrderRepository extends JpaRepository<DailyAverageO
     void updateDailyAverageOrder(@Param("id") Integer id,
                                  @Param("totalOrder") Integer totalOrder,
                                  @Param("totalTransaction") BigDecimal totalTransaction);
+
+
 }

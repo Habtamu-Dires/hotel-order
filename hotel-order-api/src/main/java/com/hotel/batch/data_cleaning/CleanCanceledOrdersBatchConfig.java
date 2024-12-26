@@ -13,7 +13,11 @@ import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
@@ -30,6 +34,9 @@ public class CleanCanceledOrdersBatchConfig {
         reader.setRepository(orderRepository);
         reader.setMethodName("getCanceledOrders");
         reader.setPageSize(100);
+        Map<String, Sort.Direction> sort = new HashMap<>();
+        sort.put("lastModifiedDate", Sort.Direction.ASC);
+        reader.setSort(sort);
         return reader;
     }
 

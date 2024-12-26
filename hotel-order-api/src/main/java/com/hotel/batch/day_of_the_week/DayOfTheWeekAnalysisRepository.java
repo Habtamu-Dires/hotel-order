@@ -26,4 +26,5 @@ public interface DayOfTheWeekAnalysisRepository extends JpaRepository<DayOfTheWe
     @Query("SELECT dwa FROM DayOfTheWeekAnalysis dwa WHERE dwa.dayOfTheWeek = :dayOfTheWeek")
     Optional<DayOfTheWeekAnalysis> getByDayOfTheWeek(String dayOfTheWeek);
 
+
 }
