@@ -6,20 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="07ba21c3-3505-47f2-b241-dc6339b3eb74" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/category/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/category/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/item/ItemMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/item/ItemMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/item/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/item/ItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/item/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/item/ItemService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/UpdateTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/UpdateTasks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/components/page-navigation/page-navigation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/components/page-navigation/page-navigation.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/pages/items/items.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/pages/items/items.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/pages/items/items.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/pages/items/items.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/pages/manage-items/manage-items.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/admin/pages/manage-items/manage-items.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/services/api-configuration.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/services/api-configuration.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/services/models/category-response.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/services/models/category-response.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/services/models/item-request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/services/models/item-request.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/services/models/item-response.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/services/models/item-response.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/openapi/openapi.json" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/openapi/openapi.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

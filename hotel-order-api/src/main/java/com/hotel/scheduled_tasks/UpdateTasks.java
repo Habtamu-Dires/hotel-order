@@ -46,8 +46,7 @@ public class UpdateTasks {
     }
 
     // update popular items
-//    @Scheduled(cron = "0 */1 * * * *")// every minute
-//    @Scheduled(cron = "0 0 7 * * *")   // every day at 7 AM
+    @Scheduled(cron = "0 0 7 * * *")   // every day at 7 AM
     @Transactional
     public void updatePopularItems(){
         String taskName = "updatePopularItem";

@@ -35,7 +35,6 @@ public class ItemMapper {
             if(categories.size() > 1){
                 List<Category> categoryList = categories
                         .stream()
-                        .peek(cat -> System.out.println(cat.getName()))
                         .filter(cat -> !(cat.getName().equalsIgnoreCase("Popular")))
                         .toList();
                 if(!categoryList.isEmpty()){
