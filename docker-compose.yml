@@ -17,7 +17,7 @@ services:
 
   ho-api-1:
     container_name: ho-api-1
-    image: ho-api/ho-api:v1
+    image: habtamudires/hotel-order-api:latest
     ports:
       - "8088:8088"
     environment:
@@ -36,7 +36,7 @@ services:
 
   ho-api-2:
     container_name: ho-api-2
-    image: ho-api/ho-api:v1
+    image: habtamudires/hotel-order-api:latest
     ports:
       - "8089:8088"
     environment:
@@ -55,7 +55,7 @@ services:
 
   ho-ui:
     container_name: ho-ui
-    image: ho-ui/ho-ui:v1
+    image: habtamudires/hotel-order-ui:latest
     environment:
       API_URL: http://192.168.43.116:8080/api/v1
     ports:
