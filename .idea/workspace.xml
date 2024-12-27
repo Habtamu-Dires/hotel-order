@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="07ba21c3-3505-47f2-b241-dc6339b3eb74" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/UpdateTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/UpdateTasks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-ui/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/customer/components/order/order.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/customer/components/order/order.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

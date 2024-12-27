@@ -1,5 +1,5 @@
 <div class="mx-2 h-full w-full">
-    <div class="w-full md:w-1/2 max-h-full flex flex-col overflow-y-auto items-center">
+    <div class="w-full max-h-full flex flex-col overflow-y-auto items-center">
         <div class="flex justify-evenly cursor-pointer  md:w-1/2">
             <p (click)='changeOrderType("DINE_IN")'
                 class="p-2"
@@ -100,7 +100,7 @@
                 </p>
                 <!--drop up list-->
                 <div *ngIf="isNumberMenuVisible" 
-                    class="absolute bottom-full max-h-72 w-3/5 rounded-md shadow-lg overflow-y-auto">
+                    class="absolute bottom-full max-h-72 w-full rounded-md shadow-lg overflow-y-auto">
                     <div *ngFor="let location of filteredLocations"
                         class="flex w-full justify-center items-center">
                         <div *ngIf="location.type === tempLocInfoHolder.type" 
