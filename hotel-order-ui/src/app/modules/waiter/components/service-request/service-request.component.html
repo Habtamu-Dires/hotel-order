@@ -11,7 +11,7 @@
         </div>
         <div class="flex justify-start gap-4 ms-2 md:ms-5 my-1 py-4 overflow-x-auto text-sm">
             <button class="px-3 py-2 bg-white rounded-xl"
-                [ngClass]="{'bg-grn' : selectedRquestType === 'CALL',
+                [ngClass]="{'bg-grn text-white': selectedRquestType === 'CALL',
                         'bg-white' : selectedRquestType !== 'CALL'}"
                 (click)="changeRequestType('CALL')">
                 CALL 
@@ -21,7 +21,7 @@
                 </span>
             </button>
             <button class="px-3 py-2 bg-white rounded-xl"
-                [ngClass]="{'bg-grn' : selectedRquestType === 'BILL',
+                [ngClass]="{'bg-grn text-white' : selectedRquestType === 'BILL',
                         'bg-white' : selectedRquestType !== 'BILL'}"
                 (click)="changeRequestType('BILL')">
                 BILL
@@ -32,8 +32,8 @@
             </button>
         </div>
     </div>
-    <div class="flex justify-center">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-2 md:mx-5">
+    <div class="flex justify-center w-full">
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-2 md:mx-5">
             @for (request of filteredRequestList; track $index) {
                 <div class="flex flex-col gap-4 h-80 w-80 my-3 items-center shadow-xl rounded-full bg-white">
                     <div class="bg-grn px-4 py-2 mt-5 text-white rounded-lg">

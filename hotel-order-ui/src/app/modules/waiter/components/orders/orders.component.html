@@ -12,7 +12,7 @@
         </div>
         <div class="flex justify-start gap-4 ms-2 md:ms-5 my-1 py-4 overflow-x-auto text-sm">
             <button class=" px-3 py-2 rounded-xl" (click)="changeSelectedStatus('READY')"
-                [ngClass]="{'bg-grn' : selectedStatus === 'READY','bg-white': selectedStatus !== 'READY'}">
+                [ngClass]="{'bg-grn text-white': selectedStatus === 'READY','bg-white': selectedStatus !== 'READY'}">
                 Ready
                 <span *ngIf="selectedStatus !== 'READY' && notifCounterMap.get('READY') !== 0"
                    class="text-red-500 font-semibold">
@@ -20,7 +20,7 @@
                 </span>
             </button>
             <button class=" px-3 py-2 rounded-xl" (click)="changeSelectedStatus('PENDING')"
-                    [ngClass]="{'bg-grn' : selectedStatus === 'PENDING','bg-white': selectedStatus !== 'PENDING'}">
+                    [ngClass]="{'bg-grn text-white': selectedStatus === 'PENDING','bg-white': selectedStatus !== 'PENDING'}">
                 Pending 
                 <span *ngIf="selectedStatus !== 'PENDING' && notifCounterMap.get('PENDING') !== 0"
                    class="text-red-500 font-semibold">
@@ -28,7 +28,7 @@
                 </span>
             </button>
             <button class=" px-3 py-2 rounded-xl" (click)="changeSelectedStatus('VERIFIED')"
-                    [ngClass]="{'bg-grn' : selectedStatus === 'VERIFIED','bg-white': selectedStatus !== 'VERIFIED'}">
+                    [ngClass]="{'bg-grn text-white' : selectedStatus === 'VERIFIED','bg-white': selectedStatus !== 'VERIFIED'}">
                 Verified
                 <span *ngIf="selectedStatus !== 'OnPROCESS' && notifCounterMap.get('OnPROCESS') !== 0"
                    class="text-red-500 font-semibold">
@@ -36,7 +36,7 @@
                 </span>
             </button>
             <button class=" px-3 py-2 rounded-xl" (click)="changeSelectedStatus('OnPROCESS')"
-                    [ngClass]="{'bg-grn' : selectedStatus === 'OnPROCESS','bg-white': selectedStatus !== 'OnPROCESS'}">
+                    [ngClass]="{'bg-grn text-white' : selectedStatus === 'OnPROCESS','bg-white': selectedStatus !== 'OnPROCESS'}">
                 OnProcess
                 <span *ngIf="selectedStatus !== 'OnPROCESS' && notifCounterMap.get('OnPROCESS') !== 0"
                    class="text-red-500 font-semibold">
@@ -44,12 +44,12 @@
                 </span>
             </button>
             <button class=" px-3 py-2 rounded-xl" (click)="changeSelectedStatus('SERVED')"
-                    [ngClass]="{'bg-grn' : selectedStatus === 'SERVED','bg-white': selectedStatus !== 'SERVED'}">
+                    [ngClass]="{'bg-grn text-white' : selectedStatus === 'SERVED','bg-white': selectedStatus !== 'SERVED'}">
                 Served
             </button>
         
             <button class=" px-3 py-2 rounded-xl" (click)="changeSelectedStatus('BillREADY')"
-                    [ngClass]="{'bg-grn' : selectedStatus === 'BillREADY','bg-white': selectedStatus !== 'BillREADY'}">
+                    [ngClass]="{'bg-grn text-white' : selectedStatus === 'BillREADY','bg-white': selectedStatus !== 'BillREADY'}">
                 Bill-Ready
                 <span *ngIf="selectedStatus !== 'BillREADY' && notifCounterMap.get('BillREADY') !== 0"
                 class="text-red-500 font-semibold">

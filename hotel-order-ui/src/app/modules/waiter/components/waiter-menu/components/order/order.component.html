@@ -81,7 +81,7 @@
             </div> 
             <!-- Location number input-->    
             <div class="relative flex flex-col items-center justify-center">
-                <input class="w-3/5 p-2 bg-gray-100 rounded-md outline-none"
+                <input class="w-full p-2 bg-gray-100 rounded-md outline-none"
                     type="number"
                     name="locationNumber"
                     [(ngModel)]="tempLocInfoHolder.number"
@@ -100,7 +100,7 @@
                 </p>
                 <!--drop up list-->
                 <div *ngIf="isNumberMenuVisible" 
-                    class="absolute bottom-full max-h-72 w-3/5 rounded-md shadow-lg overflow-y-auto">
+                    class="absolute bottom-full max-h-72 w-full rounded-md shadow-lg overflow-y-auto">
                     <div *ngFor="let location of filteredLocations"
                         class="flex w-full justify-center items-center">
                         <div *ngIf="location.type === tempLocInfoHolder.type" 

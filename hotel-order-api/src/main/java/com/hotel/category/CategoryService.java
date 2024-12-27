@@ -26,9 +26,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CategoryService {
 
-    @Value("${application.server.name}")
-    private  String SERVER_NAME;
-
 
     private final CategoryRepository repository;
     private final CategoryMapper mapper;

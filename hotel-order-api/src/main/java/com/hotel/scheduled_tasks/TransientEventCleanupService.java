@@ -1,6 +1,5 @@
 package com.hotel.scheduled_tasks;
 
-import com.hotel.batch.batch_status.BatchStatusService;
 import com.hotel.batch.data_cleaning.DataCleaningService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -14,9 +13,9 @@ import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteExcep
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -34,26 +33,17 @@ public class TransientEventCleanupService {
     private  Job cleanCanceledOrdersJob;
 
     @Autowired
-    private BatchStatusService batchStatusService;
-    @Autowired
     private DataCleaningService dataCleaningService;
 
-    @Transactional
-    private boolean executeCleanService(String jobName){
-        // lock batch status table
-        batchStatusService.lockTable();
-        if(batchStatusService.isNotProcessedToday(jobName)){
-            batchStatusService.updateLastRunDate(jobName);
-            return true;
-        }
-        return false;
-    }
+    @Value("${application.server.name}")
+    private  String SERVER_NAME;
+
 
     //  delete old service requests
     @Scheduled(cron = "0 20 7 * * *")   // every day at 4 AM
     public void deleteOlderServiceRequests() {
         String jobName =dataCleaningService.getNameOfCleanServiceRequestJob();
-        if(executeCleanService(jobName)){
+        if(SERVER_NAME.equalsIgnoreCase("ho-api-one")){
             JobParameters jobParameters = new JobParametersBuilder(jobExplorer)
                     .addLong("startAt",System.currentTimeMillis())
                     .toJobParameters();
@@ -76,7 +66,7 @@ public class TransientEventCleanupService {
     @Scheduled(cron = "0 30 7 * * *")
     public void deleteCanceledOrdersAfter() {
         String jobName=dataCleaningService.getNameOfCleanCanceledOrderJob();
-        if(executeCleanService(jobName)){
+        if(SERVER_NAME.equalsIgnoreCase("ho-api-one")){
             JobParameters jobParameters = new JobParametersBuilder(jobExplorer)
                     .addLong("startAt", System.currentTimeMillis())
                     .toJobParameters();

@@ -2,8 +2,6 @@ package com.hotel.location;
 
 import com.hotel.common.IdResponse;
 import com.hotel.common.PageResponse;
-import com.hotel.exception.OperationNotPermittedException;
-import com.hotel.item.ItemResponse;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -101,12 +99,11 @@ public class OrderLocationService {
 
 
     //get pages of location by type
-    @Secured({"ROLE_ADMIN","ROLE_WAITER"})
     public PageResponse<LocationResponse> getPageOfLocationByType(String type, int page, int size) {
         LocationType locationType =null;
         try{
             locationType = LocationType.valueOf(type);
-        } catch (IllegalArgumentException ignored){}
+        } catch (IllegalArgumentException ignored){}  // ignored
         var typeSpec = LocationSpecification.typeIs(locationType);
         Pageable pageable = PageRequest.of(page, size);
         Page<OrderLocation> res = repository.findAll(typeSpec, pageable);
@@ -127,7 +124,6 @@ public class OrderLocationService {
                 .build();
 
     }
-
 
     // get available rooms
     @Secured({"ROLE_ADMIN","ROLE_WAITER"})

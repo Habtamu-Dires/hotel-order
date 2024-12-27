@@ -30,5 +30,4 @@ public interface DailyAverageOrderRepository extends JpaRepository<DailyAverageO
                                  @Param("totalOrder") Integer totalOrder,
                                  @Param("totalTransaction") BigDecimal totalTransaction);
 
-
 }

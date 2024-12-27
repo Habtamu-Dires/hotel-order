@@ -1,6 +1,5 @@
 package com.hotel.scheduled_tasks;
 
-import com.hotel.batch.batch_status.BatchStatusService;
 import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequency;
 import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequencyRepository;
 import com.hotel.category.Category;
@@ -10,9 +9,9 @@ import com.hotel.item.ItemRepository;
 import com.hotel.role.RoleType;
 import com.hotel.user.User;
 import com.hotel.user.UserRepository;
-import com.hotel.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -32,25 +31,16 @@ public class UpdateTasks {
     private final OrderedItemsFrequencyRepository itemsFrequencyRepository;
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
-    private final BatchStatusService batchStatusService;
 
-    @Transactional
-    private boolean executeUpdate(String jobName){
-        // lock batch status table
-        batchStatusService.lockTable();
-        if(batchStatusService.isNotProcessedToday(jobName)){
-            batchStatusService.updateLastRunDate(jobName);
-            return true;
-        }
-        return false;
-    }
+    @Value("${application.server.name}")
+    private  String SERVER_NAME;
 
     // update popular items
     @Scheduled(cron = "0 0 7 * * *")   // every day at 7 AM
     @Transactional
     public void updatePopularItems(){
         String taskName = "updatePopularItem";
-        if(executeUpdate(taskName)){
+        if(SERVER_NAME.equalsIgnoreCase("ho-api-one")){
             Category popularCategory = categoryRepository.findByName("Popular")
                     .orElse(null);
             if(popularCategory == null){

@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +35,7 @@ public class UserService {
     private final RoleService roleService;
     private final UserMapper mapper;
     private final FileStorageService fileStorageService;
+    private final PasswordEncoder passwordEncoder;
 
 
     // get all users
@@ -141,7 +143,7 @@ public class UserService {
 
         // new password ?
         if(!savedUser.getPassword().equals(request.password())){
-           savedUser.setPassword(request.password());  // new password
+           savedUser.setPassword(passwordEncoder.encode(request.password()));  // new password
         }
         // new username ?
         if(!savedUser.getUsername().equals(request.username())){

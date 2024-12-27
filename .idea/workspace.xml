@@ -6,8 +6,29 @@
   <component name="ChangeListManager">
     <list default="true" id="07ba21c3-3505-47f2-b241-dc6339b3eb74" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hotel-order-ui/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/docker/backend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/HotelOrderMngApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/HotelOrderMngApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/batch_status/BatchStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/batch_status/BatchStatusRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/batch_status/BatchStatusService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/daily_average_order/DailyAverageOrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/batch/daily_average_order/DailyAverageOrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/category/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/category/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/initialization/InitializationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/initialization/InitializationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/location/OrderLocationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/location/OrderLocationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/BatchProcessingTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/BatchProcessingTasks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/TransientEventCleanupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/TransientEventCleanupService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/UpdateTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/scheduled_tasks/UpdateTasks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-api/src/main/java/com/hotel/user/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/cashier/components/footer/footer.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/cashier/components/footer/footer.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/customer/components/category/category.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/customer/components/category/category.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/customer/components/item/item.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/customer/components/item/item.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/customer/components/order/order.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/customer/components/order/order.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/kds/components/footer/footer.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/kds/components/footer/footer.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/waiter/components/orders/orders.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/waiter/components/orders/orders.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/waiter/components/service-request/service-request.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/waiter/components/service-request/service-request.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/waiter/components/waiter-menu/components/item/item.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/waiter/components/waiter-menu/components/item/item.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/waiter/components/waiter-menu/components/order/order.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-order-ui/src/app/modules/waiter/components/waiter-menu/components/order/order.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +60,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.HotelOrderApp.executor": "Debug",
+    "Application.HotelOrderMngApplication.executor": "Debug",
     "Maven.hotel-order-api [install].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -47,11 +69,15 @@
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="HotelOrderApp" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="23" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <configuration name="HotelOrderMngApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.hotel.HotelOrderMngApplication" />
       <module name="hotel-order-api" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hotel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

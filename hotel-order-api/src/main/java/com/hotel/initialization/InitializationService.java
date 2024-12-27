@@ -1,12 +1,5 @@
 package com.hotel.initialization;
 
-import com.hotel.batch.batch_status.BatchStatus;
-import com.hotel.batch.batch_status.BatchStatusRepository;
-import com.hotel.batch.daily_average_order.DailyAverageOrderService;
-import com.hotel.batch.data_cleaning.DataCleaningService;
-import com.hotel.batch.day_of_the_week.DayOfTheWeekAnalysisService;
-import com.hotel.batch.monthly_order_data.MonthlyOrderDataService;
-import com.hotel.batch.ordered_items_frequency.OrderedItemFrequencyService;
 import com.hotel.role.Role;
 import com.hotel.role.RoleRepository;
 import com.hotel.role.RoleType;
@@ -17,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,13 +20,6 @@ public class InitializationService {
    private final RoleRepository roleRepository;
    private final UserRepository userRepository;
    private final PasswordEncoder passwordEncoder;
-   private final BatchStatusRepository batchStatusRepository;
-
-   private final DailyAverageOrderService dailyAverageOrderService;
-   private final DayOfTheWeekAnalysisService dayOfTheWeekAnalysisService;
-   private final MonthlyOrderDataService monthlyOrderDataService;
-   private final OrderedItemFrequencyService orderedItemFrequencyService;
-   private final DataCleaningService dataCleaningService;
 
    @Transactional
    public void initializeData(){
@@ -71,33 +56,12 @@ public class InitializationService {
            );
        }
 
-       // register batch jobs
-       registerBatchJob(dailyAverageOrderService.getName());
-       registerBatchJob(dayOfTheWeekAnalysisService.getName());
-       registerBatchJob(monthlyOrderDataService.getName());
-       registerBatchJob(orderedItemFrequencyService.getName());
-       registerBatchJob(dataCleaningService.getNameOfCleanServiceRequestJob());
-       registerBatchJob(dataCleaningService.getNameOfCleanCanceledOrderJob());
-       registerBatchJob("updatePopularItem");
-
    }
 
     // create role if not exists
     private void createRoleIfNotExists(RoleType roleType) {
         if (roleRepository.findByName(roleType).isEmpty()) {
             roleRepository.save(Role.builder().name(roleType).build());
-        }
-    }
-
-    // register batch job to batch status
-    private void registerBatchJob(String batchName){
-        if(batchStatusRepository.findById(batchName).isEmpty()){
-            batchStatusRepository.save(
-                    BatchStatus.builder()
-                            .name(batchName)
-                            .lastRunDate(LocalDate.now().minusDays(1))
-                            .build()
-            );
         }
     }
 

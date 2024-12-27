@@ -1,7 +1,7 @@
 <div class="flex justify-center">
     <div class="grid grid-cols-2 gap-1  md:grid-cols-4 lg:grid-cols-6 mt-2">
         @for (item of itemList; track item.id; let idx= $index) {
-            <div class="bg-gray-100 rounded-md flex justify-center">
+            <div class="bg-gray-100 rounded-md flex justify-center relative">
                 <div class="w-40 min-h-32 mx-2 mb-2 cursor-pointer  flex-col gap-1 items-center"
                     (click)="showItemDetail(item)">
                     <span *ngIf="calcualteOrderQuantity(item.id) 

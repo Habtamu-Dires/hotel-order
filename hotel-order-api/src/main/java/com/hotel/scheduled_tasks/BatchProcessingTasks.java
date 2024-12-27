@@ -1,12 +1,9 @@
 package com.hotel.scheduled_tasks;
 
-import com.hotel.batch.batch_status.BatchStatusService;
-import com.hotel.batch.daily_average_order.DailyAverageOrderRepository;
 import com.hotel.batch.daily_average_order.DailyAverageOrderService;
 import com.hotel.batch.day_of_the_week.DayOfTheWeekAnalysisService;
 import com.hotel.batch.monthly_order_data.MonthlyOrderDataService;
 import com.hotel.batch.ordered_items_frequency.OrderedItemFrequencyService;
-import com.hotel.batch.ordered_items_frequency.OrderedItemsFrequencyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
@@ -19,10 +16,9 @@ import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteExcep
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -32,8 +28,6 @@ public class BatchProcessingTasks {
     private  JobLauncher jobLauncher;
     @Autowired
     private JobExplorer jobExplorer;
-    @Autowired
-    private BatchStatusService batchStatusService;
 
     @Autowired
     private DayOfTheWeekAnalysisService dayOfTheWeekAnalysisService;
@@ -58,23 +52,14 @@ public class BatchProcessingTasks {
     private Job dailyAverageOrderJob;
 
 
-    @Transactional
-    private boolean executeJob(String jobName){
-        //lock batch status
-        batchStatusService.lockTable();
-        if(batchStatusService.isNotProcessedToday(jobName)){
-            batchStatusService.updateLastRunDate(jobName);
-            return true;
-        }
-        return false;
-    }
-
+    @Value("${application.server.name}")
+    private  String SERVER_NAME;
 
     // ordered item frequency for the last 30 days
     @Scheduled(cron = "0 0 5 * * *")   // every day 5 AM
     public void orderedItemFrequencyJob() {
         log.info("Starting orderedItemFrequencyJob");
-        if(executeJob(orderedItemFrequencyService.getName())){
+        if(SERVER_NAME.equalsIgnoreCase("ho-api-one")){
             //clear the old data
             orderedItemFrequencyService.deleteAll();
 
@@ -100,7 +85,7 @@ public class BatchProcessingTasks {
     @Scheduled(cron = "0 30 5 * * ?")   // every-day 5:30 AM
     public void dailyAverageOrder() {
         log.info("Starting dailyAverageOrder scheduled task");
-        if(executeJob(dailyAverageOrderService.getName())){
+        if(SERVER_NAME.equalsIgnoreCase("ho-api-one")){
             //clear the old data before 7 days
             dailyAverageOrderService.removeDataBefore7Days();
 
@@ -125,7 +110,7 @@ public class BatchProcessingTasks {
     //day of the week analysis
     @Scheduled(cron = "0 0 6 * * *")  // 6 AM
     public void dayOfTheWeekAnalysis(){
-        if(executeJob(dayOfTheWeekAnalysisService.getName())){
+        if(SERVER_NAME.equalsIgnoreCase("ho-api-one")){
             //delete the  data before 28 day
             dayOfTheWeekAnalysisService.removeDataBefore28Days();
 
@@ -150,7 +135,7 @@ public class BatchProcessingTasks {
     // aggregate monthly order data's
     @Scheduled(cron = "0 30 6 * * ?")   // every day at 6:30 AM
     public void monthlyOrderDataAggregatorJob() {
-        if(executeJob(monthlyOrderDataService.getName())){
+        if(SERVER_NAME.equalsIgnoreCase("ho-api-one")){
             JobParameters jobParameters = new JobParametersBuilder(jobExplorer)
                     .addLong("startAt", System.currentTimeMillis())
                     .toJobParameters();
