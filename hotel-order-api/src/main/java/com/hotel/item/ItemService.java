@@ -1,8 +1,6 @@
 package com.hotel.item;
 
-import com.hotel.category.Category;
-import com.hotel.category.CategoryRepository;
-import com.hotel.category.CategoryService;
+import com.hotel.category.*;
 import com.hotel.common.IdResponse;
 import com.hotel.common.PageResponse;
 import com.hotel.file.FileStorageService;
@@ -33,6 +31,7 @@ public class ItemService {
     private final CategoryService categoryService;
     private final FileStorageService fileStorageService;
     private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
 
     //save item
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -84,9 +83,8 @@ public class ItemService {
     public PageResponse<ItemResponse> getPageOfItems(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Item> res = repository.findAll(pageable);
-        List<ItemResponse> itemResponseList = res
-                .map(mapper::toItemResponse)
-                .toList();
+
+        List<ItemResponse> itemResponseList = res.map(mapper::toItemResponse).toList();
 
         return PageResponse.<ItemResponse>builder()
                 .content(itemResponseList)

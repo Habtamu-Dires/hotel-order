@@ -38,27 +38,34 @@ public class CategoryService {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional
     public IdResponse saveCategory(@Valid  CategoryRequest request) {
-    Category category = Category.builder()
-            .name(request.name())
-            .description(request.description())
-            .imageUrl(request.imageUrl())
-            .popularityIndex(request.popularityIndex() == null ?
-                    0 : request.popularityIndex())
-            .build();
+        Category category = null;
+        int popularityIndex = request.popularityIndex() == null ? 0 : request.popularityIndex();
 
-      if(request.id() != null && !request.id().isBlank()) {
-          category.setId(UUID.fromString(request.id()));
+        if(request.id() != null && !request.id().isBlank()) {
+          category = findCategoryById(request.id());
+          category.setName(request.name());
+          category.setDescription(request.description());
+          category.setImageUrl(request.imageUrl());
+          category.setPopularityIndex(popularityIndex);
+
       } else{
           repository.findByName(request.name())
                   .ifPresent(c -> {
                       throw new EntityExistsException(String.format("Category with name %s already exists", request.name()));
                   });
-          category.setId(UUID.randomUUID());
+          category = Category.builder()
+                  .id(UUID.randomUUID())
+                  .name(request.name())
+                  .description(request.description())
+                  .imageUrl(request.imageUrl())
+                  .popularityIndex(popularityIndex)
+                  .build();
       }
 
       if(request.parentCategoryId() != null && !request.parentCategoryId().isBlank()){
          Category parentCategory = this.findCategoryById(request.parentCategoryId());
          parentCategory.addSubCategory(category);
+         category.setParentCategory(parentCategory);
       }
 
      String id = repository.save(category).getId().toString();
@@ -68,8 +75,6 @@ public class CategoryService {
 
     // get all category
     public List<CategoryResponse> getAllCategory() {
-        System.out.printf("###################--%s--#################################################",
-                SERVER_NAME);
         return  repository.findAll().stream()
                 .map(mapper::toCategoryResponse)
                 .toList();

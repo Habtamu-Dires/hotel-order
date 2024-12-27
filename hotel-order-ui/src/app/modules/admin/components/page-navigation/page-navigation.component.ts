@@ -36,18 +36,22 @@ export class PageNavigationComponent {
   }
 
   goToNextPage(){
+    if(this.page == Number(this.totalPages) -1) return;
     this.pageChanged.emit(this.page + 1);
   }
 
   goToPreviousPage(){
+    if(this.page == 0) return;
     this.pageChanged.emit(this.page - 1);
   }
 
   goToFirstPage(){
+    if(this.page == 0) return;
     this.pageChanged.emit(0);
   }
 
   goToLastPage(){
+    if(this.page == Number(this.totalPages) -1) return;
     this.pageChanged.emit(Number(this.totalPages) -1)
   }
 

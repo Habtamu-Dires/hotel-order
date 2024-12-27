@@ -45,8 +45,10 @@ public class UpdateTasks {
         return false;
     }
 
-    // update popular items     @Scheduled(cron = "0 */1 * * * *")// every minute
-    @Scheduled(cron = "0 0 7 * * *")   // every day at 7 AM
+    // update popular items
+//    @Scheduled(cron = "0 */1 * * * *")// every minute
+//    @Scheduled(cron = "0 0 7 * * *")   // every day at 7 AM
+    @Transactional
     public void updatePopularItems(){
         String taskName = "updatePopularItem";
         if(executeUpdate(taskName)){
@@ -62,10 +64,13 @@ public class UpdateTasks {
                 popularCategory = categoryRepository.save(
                         Category.builder()
                                 .id(UUID.randomUUID())
+                                .parentCategory(null)
                                 .name("Popular")
+                                .items(List.of())
                                 .createdBy(adminUser.getUsername())
                                 .description("Popular Items Category")
                                 .popularityIndex(Integer.MAX_VALUE)
+                                .imageUrl("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNloMu9E1_ae38NCChLOP1FLrR01XKP27mQA&s")
                                 .build()
                 );
             }
@@ -92,6 +97,7 @@ public class UpdateTasks {
                     .toList();
 
             for(Item item : itemList){
+                item.removeCategory(popularCategory);
                 item.addCategory(popularCategory);
                 popularCategory.addItem(item);
                 itemRepository.save(item);

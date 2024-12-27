@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuComponent } from '../../components/menu/menu.component';
-import { ItemResponse, PageResponseItemResponse } from '../../../../services/models';
+import { CategoryResponse, ItemResponse, PageResponseItemResponse } from '../../../../services/models';
 import { ItemsService } from '../../../../services/services';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -83,6 +83,7 @@ export class ItemsComponent implements OnInit{
     }).subscribe({
       next:(res:PageResponseItemResponse)=>{
         this.itemList = res.content as ItemResponse[];
+        console.log("The item list ", this.itemList)
         //pagination
         this.isEmptyPage = res.empty as boolean;
         this.isFirstPage = res.first;
@@ -154,6 +155,13 @@ export class ItemsComponent implements OnInit{
         console.log("Deletion canceled")
       }
     })
+  }
+  // get category name
+  getCategoryName(categories:CategoryResponse[] | undefined){
+    if(categories){
+      return categories.map(cat => cat.name).join(', ');
+    }
+    return '';
   }
 
   // pagination methods

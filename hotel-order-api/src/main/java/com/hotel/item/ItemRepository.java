@@ -32,4 +32,10 @@ public interface ItemRepository extends JpaRepository<Item, UUID>, JpaSpecificat
             WHERE c.id = :categoryId
             """)
     Page<Item> findPageOfItemByCategoryId(UUID categoryId, Pageable pageable);
+
+
+    @Query(value = """
+            SELECT category_id FROM category_items WHERE item_id =:itemId
+            """, nativeQuery = true)
+    List<UUID> findCategoryIdByItemId(UUID itemId);
 }
